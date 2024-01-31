@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/setting_backButton"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:foreground="?attr/selectableItemBackground"
+
+        android:backgroundTint="@color/white"
+        android:fontFamily="@font/ys_disp"
+        android:gravity="center_vertical"
+        android:text="@string/bigButton_settings"
+        android:textAllCaps="false"
+        android:textColor="@color/YP_black"
+        android:textSize="26sp"
+
+        android:textStyle="bold"
+        app:icon="@drawable/light_mode"
+        app:iconGravity="textStart"
+        app:iconPadding="8dp"
+        app:iconTint="@color/YP_black" />
+    <androidx.appcompat.widget.SwitchCompat
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="@dimen/settActiv_buttons_padding"
+        style="?android:attr/borderlessButtonStyle"
+
+        android:text="@string/settActiv_theme_switch"
+        android:textColor="@color/YP_black"
+        android:textSize="@dimen/settActive_buttons_textSize"
+        android:fontFamily="@font/ys_disp"
+        android:textAllCaps="false"
+        android:textAlignment="textStart"
+
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:padding="@dimen/settActiv_buttons_padding"
+        style="?android:attr/borderlessButtonStyle"
+
+        android:text="@string/settActiv_share"
+        android:textColor="@color/YP_black"
+        android:textSize="@dimen/settActive_buttons_textSize"
+        android:fontFamily="@font/ys_disp"
+        android:textAllCaps="false"
+        android:textAlignment="textStart"
+
+        app:icon="@drawable/share"
+        app:iconGravity="end"
+        app:iconPadding="0dp"
+        app:iconTint="@color/YP_gray"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:padding="@dimen/settActiv_buttons_padding"
+        style="?android:attr/borderlessButtonStyle"
+
+        android:text="@string/settActiv_support_ticket"
+        android:textColor="@color/YP_black"
+        android:textSize="@dimen/settActive_buttons_textSize"
+        android:fontFamily="@font/ys_disp"
+        android:textAllCaps="false"
+        android:textAlignment="textStart"
+
+        app:icon="@drawable/headphones"
+        app:iconGravity="end"
+        app:iconPadding="0dp"
+        app:iconTint="@color/YP_gray"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:backgroundTint="@color/white"
+        android:padding="@dimen/settActiv_buttons_padding"
+        style="?android:attr/borderlessButtonStyle"
+
+        android:text="@string/settActiv_user_conditions"
+        android:textColor="@color/YP_black"
+        android:textSize="@dimen/settActive_buttons_textSize"
+        android:fontFamily="@font/ys_disp"
+        android:textAllCaps="false"
+        android:textAlignment="textStart"
+
+        app:icon="@drawable/arrowhead"
+        app:iconGravity="end"
+        app:iconPadding="0dp"
+        app:iconTint="@color/YP_gray"
+        />
+
+</LinearLayout>
