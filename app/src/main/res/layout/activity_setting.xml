@@ -41,81 +41,143 @@
         app:layout_constraintStart_toEndOf="@id/setting_backButton"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.appcompat.widget.SwitchCompat
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="@dimen/settActiv_buttons_padding"
-        style="?android:attr/borderlessButtonStyle"
+        android:layout_weight="1">
 
-        android:text="@string/settActiv_theme_switch"
-        android:textColor="@color/YP_black"
-        android:textSize="@dimen/settActive_buttons_textSize"
-        android:fontFamily="@font/ys_disp"
-        android:textAllCaps="false"
-        android:textAlignment="textStart"
+        <androidx.appcompat.widget.SwitchCompat
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/settActiv_buttons_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
+            android:fontFamily="@font/ys_disp"
+            android:text="@string/settActiv_theme_switch"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/YP_black"
+            android:textSize="@dimen/settActive_options_textSize"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/settActive_text_leftMargin"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1">
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
         android:padding="@dimen/settActiv_buttons_padding"
         style="?android:attr/borderlessButtonStyle"
-
-        android:text="@string/settActiv_share"
-        android:textColor="@color/YP_black"
-        android:textSize="@dimen/settActive_buttons_textSize"
-        android:fontFamily="@font/ys_disp"
-        android:textAllCaps="false"
-        android:textAlignment="textStart"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/settActiv_share"
 
         app:icon="@drawable/share"
         app:iconGravity="end"
         app:iconPadding="0dp"
         app:iconTint="@color/YP_gray"
         />
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/white"
-        android:padding="@dimen/settActiv_buttons_padding"
-        style="?android:attr/borderlessButtonStyle"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-        android:text="@string/settActiv_support_ticket"
+        android:text="@string/settActiv_share"
         android:textColor="@color/YP_black"
-        android:textSize="@dimen/settActive_buttons_textSize"
+        android:textSize="@dimen/settActive_options_textSize"
         android:fontFamily="@font/ys_disp"
         android:textAllCaps="false"
-        android:textAlignment="textStart"
 
-        app:icon="@drawable/headphones"
-        app:iconGravity="end"
-        app:iconPadding="0dp"
-        app:iconTint="@color/YP_gray"
-        />
-    <Button
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/settActive_text_leftMargin"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:backgroundTint="@color/white"
-        android:padding="@dimen/settActiv_buttons_padding"
-        style="?android:attr/borderlessButtonStyle"
+        android:layout_weight="1">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:padding="@dimen/settActiv_buttons_padding"
+            style="?android:attr/borderlessButtonStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/settActiv_support_ticket"
 
-        android:text="@string/settActiv_user_conditions"
-        android:textColor="@color/YP_black"
-        android:textSize="@dimen/settActive_buttons_textSize"
-        android:fontFamily="@font/ys_disp"
-        android:textAllCaps="false"
-        android:textAlignment="textStart"
+            app:icon="@drawable/headphones"
+            app:iconGravity="end"
+            app:iconPadding="0dp"
+            app:iconTint="@color/YP_gray"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        app:icon="@drawable/arrowhead"
-        app:iconGravity="end"
-        app:iconPadding="0dp"
-        app:iconTint="@color/YP_gray"
-        />
+            android:text="@string/settActiv_support_ticket"
+            android:textColor="@color/YP_black"
+            android:textSize="@dimen/settActive_options_textSize"
+            android:fontFamily="@font/ys_disp"
+            android:textAllCaps="false"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/settActive_text_leftMargin"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:padding="@dimen/settActiv_buttons_padding"
+            style="?android:attr/borderlessButtonStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/settActiv_user_conditions"
+
+            app:icon="@drawable/arrowhead"
+            app:iconGravity="end"
+            app:iconPadding="0dp"
+            app:iconTint="@color/YP_gray"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@string/settActiv_user_conditions"
+            android:textColor="@color/YP_black"
+            android:textSize="@dimen/settActive_options_textSize"
+            android:fontFamily="@font/ys_disp"
+            android:textAllCaps="false"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/settActive_text_leftMargin"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </LinearLayout>
