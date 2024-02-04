@@ -7,29 +7,29 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:layout_marginBottom="24dp">
 
-        <Button
-            android:id="@+id/setting_backButton"
-            style="?android:attr/borderlessButtonStyle"
+        <ImageView
+            android:id="@+id/SettingBackArrowImage"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/settActiv_backButton_descr"
-            android:foreground="?attr/selectableItemBackground"
-
-            app:icon="@drawable/light_mode"
-            app:iconGravity="start"
-            app:iconTint="@color/YP_black"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/SettingsTextBar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/light_mode" />
+
 
         <TextView
             android:id="@+id/SettingsTextBar"
             style="@style/SettingHeadText"
+            android:paddingBottom="12dp"
+            android:paddingTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/setting_backButton"
+            app:layout_constraintStart_toEndOf="@id/SettingBackArrowImage"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

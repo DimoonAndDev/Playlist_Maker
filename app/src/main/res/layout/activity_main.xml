@@ -18,7 +18,8 @@
         android:id="@+id/searchButton"
         style="@style/MainButtonStyle"
         android:text="@string/bigButton_search"
-        app:icon="@drawable/light_modelens" />
+        app:icon="@drawable/light_modelens"
+        />
 
     <Button
         android:id="@+id/mediaButton"
