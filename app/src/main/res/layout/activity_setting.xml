@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,25 +25,13 @@
 
         <TextView
             android:id="@+id/SettingsTextBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:layout_marginStart="12dp"
-            android:paddingTop="10dp"
+            style="@style/SettingHeadText"
             android:paddingBottom="12dp"
-
-            android:fontFamily="@font/ys_disp"
-            android:gravity="center_vertical"
-            android:text="@string/bigButton_settings"
-            android:textAllCaps="false"
-            android:textColor="@color/YP_black"
-            android:textSize="26sp"
-            android:textStyle="bold"
+            android:paddingTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/SettingBackArrowImage"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -59,126 +48,77 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:fontFamily="@font/ys_disp"
+            style="@style/SettingOptionTextViewStyle"
             android:text="@string/settActiv_theme_switch"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/YP_black"
-            android:textSize="@dimen/settActive_options_textSize"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="@dimen/settActive_text_leftMargin"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1">
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:padding="@dimen/settActiv_buttons_padding"
-        style="?android:attr/borderlessButtonStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/settActiv_share"
-
-        app:icon="@drawable/share"
-        app:iconGravity="end"
-        app:iconPadding="0dp"
-        app:iconTint="@color/YP_gray"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="@string/settActiv_share"
-        android:textColor="@color/YP_black"
-        android:textSize="@dimen/settActive_options_textSize"
-        android:fontFamily="@font/ys_disp"
-        android:textAllCaps="false"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/settActive_text_leftMargin"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:padding="@dimen/settActiv_buttons_padding"
-            style="?android:attr/borderlessButtonStyle"
+            style="@style/SettingIconButtonStyle"
+
+            android:contentDescription="@string/settActiv_share"
+            android:outlineAmbientShadowColor="@color/white"
+            app:icon="@drawable/share"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="@style/SettingOptionTextViewStyle"
+            android:text="@string/settActiv_share"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <Button
+            style="@style/SettingIconButtonStyle"
             android:contentDescription="@string/settActiv_support_ticket"
-
             app:icon="@drawable/headphones"
-            app:iconGravity="end"
-            app:iconPadding="0dp"
-            app:iconTint="@color/YP_gray"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
+            style="@style/SettingOptionTextViewStyle"
             android:text="@string/settActiv_support_ticket"
-            android:textColor="@color/YP_black"
-            android:textSize="@dimen/settActive_options_textSize"
-            android:fontFamily="@font/ys_disp"
-            android:textAllCaps="false"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="@dimen/settActive_text_leftMargin"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
+
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:padding="@dimen/settActiv_buttons_padding"
-            style="?android:attr/borderlessButtonStyle"
+            style="@style/SettingIconButtonStyle"
+            android:contentDescription="@string/settActiv_user_conditions"
+            app:icon="@drawable/arrowhead"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/settActiv_user_conditions"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            app:icon="@drawable/arrowhead"
-            app:iconGravity="end"
-            app:iconPadding="0dp"
-            app:iconTint="@color/YP_gray"
-            />
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
+            style="@style/SettingOptionTextViewStyle"
             android:text="@string/settActiv_user_conditions"
-            android:textColor="@color/YP_black"
-            android:textSize="@dimen/settActive_options_textSize"
-            android:fontFamily="@font/ys_disp"
-            android:textAllCaps="false"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="@dimen/settActive_text_leftMargin"/>
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
