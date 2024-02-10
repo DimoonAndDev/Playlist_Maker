@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="bigButton_margin">8dp</dimen>
+    <dimen name="bigButton_cornerRad">16dp</dimen>
+    <dimen name="bigButton_textSize">22sp</dimen>
+    <dimen name="settActiv_buttons_padding">16dp</dimen>
+    <dimen name="settActive_options_textSize">16sp</dimen>
+    <dimen name="settActive_text_leftMargin">16sp</dimen>
+</resources>
