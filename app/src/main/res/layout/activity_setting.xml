@@ -3,33 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+
+    >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:layout_marginBottom="24dp">
+        android:layout_marginBottom="24dp"
+        android:padding="4dp">
 
-        <ImageView
-            android:id="@+id/SettingBackArrowImage"
-            android:foreground="?attr/selectableItemBackground"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/settActiv_backButton_descr"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/light_mode" />
 
 
         <TextView
             android:id="@+id/SettingsTextBar"
             style="@style/SettingHeadText"
-            android:paddingBottom="12dp"
             android:paddingTop="10dp"
+            android:paddingBottom="12dp"
+            android:layout_marginStart="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/SettingBackArrowImage"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -39,10 +32,11 @@
         android:layout_weight="1">
 
         <androidx.appcompat.widget.SwitchCompat
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/settActiv_buttons_padding"
+            android:checked="true"
+
+            style="@style/SettingSwitchStyle"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -63,10 +57,9 @@
 
         <Button
             style="@style/SettingIconButtonStyle"
-
+            app:icon="@drawable/share"
             android:contentDescription="@string/settActiv_share"
             android:outlineAmbientShadowColor="@color/white"
-            app:icon="@drawable/share"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
