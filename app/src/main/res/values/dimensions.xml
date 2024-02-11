@@ -6,4 +6,6 @@
     <dimen name="settActiv_buttons_padding">16dp</dimen>
     <dimen name="settActive_options_textSize">16sp</dimen>
     <dimen name="settActive_text_leftMargin">16sp</dimen>
+    <dimen name="Tap_bar_height">56dp</dimen>
+    <dimen name="Tap_button_text_size">12sp</dimen>
 </resources>

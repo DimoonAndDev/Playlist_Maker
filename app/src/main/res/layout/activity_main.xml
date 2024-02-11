@@ -18,20 +18,20 @@
         android:id="@+id/searchButton"
         style="@style/MainButtonStyle"
         android:text="@string/bigButton_search"
-        app:icon="@drawable/light_modelens"
+        app:icon="@drawable/searchlens"
         />
 
     <Button
         android:id="@+id/mediaButton"
         style="@style/MainButtonStyle"
         android:text="@string/bigButton_media"
-        app:icon="@drawable/vectornote" />
+        app:icon="@drawable/mediaicon" />
 
     <Button
         android:id="@+id/settingsButton"
         style="@style/MainButtonStyle"
         android:text="@string/bigButton_settings"
-        app:icon="@drawable/light_modegear" />
+        app:icon="@drawable/settinggear" />
 
 
 </LinearLayout>

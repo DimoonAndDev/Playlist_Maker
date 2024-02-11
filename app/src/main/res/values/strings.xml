@@ -3,10 +3,10 @@
     <string name="bigButton_search">Поиск</string>
     <string name="bigButton_media">Медиатека</string>
     <string name="bigButton_settings">Настройки</string>
-    <string name="settActiv_theme_switch">Темная тема</string>
-    <string name="settActiv_share">Поделиться приложением</string>
-    <string name="settActiv_support_ticket">Написать в поддержку</string>
-    <string name="settActiv_user_conditions">Пользовательское соглашение</string>
+    <string name="settActive_theme_switch">Темная тема</string>
+    <string name="settActive_share">Поделиться приложением</string>
+    <string name="settActive_support_ticket">Написать в поддержку</string>
+    <string name="settActive_user_conditions">Пользовательское соглашение</string>
     <string name="settActiv_backButton_descr">Вернуться на главный экран</string>
 
     <string name="YP_link_key">YP_link</string>
@@ -15,5 +15,6 @@
     <string name="YP_support_message">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="YP_support_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
     <string name="YP_user_cond_link">https://yandex.ru/legal/practicum_offer/</string>
+    <string name="tapBarBorder">Серая полоска</string>
 
 </resources>
