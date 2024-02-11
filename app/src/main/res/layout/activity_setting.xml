@@ -35,6 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
+            android:contentDescription="@string/settActiv_theme_switch"
 
             style="@style/SettingSwitchStyle"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,10 +57,11 @@
         android:layout_weight="1">
 
         <Button
+            android:id="@+id/ShareButton"
             style="@style/SettingIconButtonStyle"
-            app:icon="@drawable/share"
             android:contentDescription="@string/settActiv_share"
             android:outlineAmbientShadowColor="@color/white"
+            app:icon="@drawable/share"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -78,6 +80,7 @@
         android:layout_weight="1">
 
         <Button
+            android:id="@+id/SupportButton"
             style="@style/SettingIconButtonStyle"
             android:contentDescription="@string/settActiv_support_ticket"
             app:icon="@drawable/headphones"
@@ -99,6 +102,7 @@
         android:layout_weight="1">
 
         <Button
+            android:id="@+id/UserCondButton"
             style="@style/SettingIconButtonStyle"
             android:contentDescription="@string/settActiv_user_conditions"
             app:icon="@drawable/arrowhead"

@@ -9,5 +9,11 @@
     <string name="settActiv_user_conditions">Пользовательское соглашение</string>
     <string name="settActiv_backButton_descr">Вернуться на главный экран</string>
 
+    <string name="YP_link_key">YP_link</string>
+    <string name="YP_link_array">https://practicum.yandex.ru/profile/android-developer/</string>
+    <string name="YP_student_email">dimoonoomid@yandex.ru</string>
+    <string name="YP_support_message">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+    <string name="YP_support_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="YP_user_cond_link">https://yandex.ru/legal/practicum_offer/</string>
 
 </resources>

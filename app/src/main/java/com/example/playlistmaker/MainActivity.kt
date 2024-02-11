@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,11 +19,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity,SearchActivity::class.java)
             startActivity(intent)
         }
-        val mediaButtonClickListener = object : View.OnClickListener{
-            override fun onClick(p0: View?) {
-                val intent = Intent(this@MainActivity,MediaActivity::class.java)
-                startActivity(intent)
-            }
+        val mediaButtonClickListener = View.OnClickListener {
+            val intent = Intent(this@MainActivity,MediaActivity::class.java)
+            startActivity(intent)
         }
         mediaButton.setOnClickListener(mediaButtonClickListener)
 
