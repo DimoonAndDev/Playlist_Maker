@@ -17,6 +17,10 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        if (savedInstanceState!=null){
+            textValue = savedInstanceState.getString(CURRENT_TEXT, EMPTY_TXT)
+        }
+
         val searchBackArrowImage = findViewById<ImageView>(R.id.SearchBackArrowImage)
         val searchEditText = findViewById<EditText>(R.id.SearchEditText)
         val searchClearTextImage = findViewById<ImageView>(R.id.SearchClearTextImage)
@@ -28,6 +32,7 @@ class SearchActivity : AppCompatActivity() {
         }
 
         searchEditText.requestFocus()
+        searchEditText.setText(textValue)
         val inputMethodManager =
             getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
         inputMethodManager?.showSoftInput(searchEditText, 0)
@@ -39,6 +44,10 @@ class SearchActivity : AppCompatActivity() {
                 if (p0.isNullOrEmpty()) {
                     searchClearTextImage.visibility = View.INVISIBLE
                 } else searchClearTextImage.visibility = View.VISIBLE
+                textValue = p0.toString()
+                if (savedInstanceState != null) {
+                    onSaveInstanceState(savedInstanceState)
+                }
             }
 
             override fun afterTextChanged(p0: Editable?) {//nothing
@@ -46,14 +55,30 @@ class SearchActivity : AppCompatActivity() {
         }
         searchEditText.addTextChangedListener(searchTextWatcher)
 
-        searchClearTextImage.setImageDrawable(AppCompatResources.getDrawable(this,R.drawable.clearsearchbutton))
+        searchClearTextImage.setImageDrawable(
+            AppCompatResources.getDrawable(
+                this,
+                R.drawable.clearsearchbutton
+            )
+        )
         searchClearTextImage.setOnClickListener {
             searchEditText.setText("")
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             inputMethodManager?.hideSoftInputFromWindow(searchEditText.windowToken, 0)
         }
 
     }
 
+    private var textValue: String = EMPTY_TXT
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(CURRENT_TEXT, textValue)
+    }
+
+    companion object {
+        const val CURRENT_TEXT = "CURRENT_TEXT"
+        const val EMPTY_TXT = ""
+    }
 
 }
