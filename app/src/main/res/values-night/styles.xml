@@ -54,8 +54,8 @@
     </style>
 
     <style name="SettingSwitchStyle">
-        <item name="thumbTint">@drawable/switchthumpdark</item>
-        <item name="trackTint">@drawable/switchtrackdark</item>
+        <item name="thumbTint">@drawable/switchthump</item>
+        <item name="trackTint">@drawable/switchtrack</item>
         <item name="android:padding">@dimen/settActiv_buttons_padding</item>
     </style>
 
@@ -104,5 +104,29 @@
         <item name="iconGravity">textTop</item>
         <item name="iconTint">@color/white</item>
 
+    </style>
+    <style name="BackArrowStyle">
+        <item name="android:tint">@color/white</item>
+    </style>
+    <style name="SearchEditConstrainStyle">
+        <item name="android:background">@color/white</item>
+    </style>
+    <style name="SearchEditStyle">
+        <item name="android:background">@color/white</item>
+        <item name="android:backgroundTint">@color/white</item>
+        <item name="android:drawablePadding">8dp</item>
+        <item name="android:drawableTint">@color/black</item>
+        <item name="android:fontFamily">@font/ys_disp</item>
+        <item name="android:inputType">textVisiblePassword</item>
+        <item name="android:lines">1</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+    <style name="SearchClearImageStyle">
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:tint">@color/black</item>
     </style>
 </resources>

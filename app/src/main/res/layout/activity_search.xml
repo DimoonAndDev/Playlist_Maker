@@ -1,20 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/SearchTextBar"
-        style="@style/HeadText"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="10dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/SearchHeadFrame"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="@string/bigButton_search"
+        app:layout_constraintBottom_toTopOf="@id/SearchEditCardView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/SearchBackArrowImage"
+            style="@style/BackArrowStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/settActiv_backButton_descr"
+
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/SearchHeadTextBar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/backarrow" />
+
+        <TextView
+            android:id="@+id/SearchHeadTextBar"
+            style="@style/HeadText"
+            android:layout_marginStart="12dp"
+
+            android:text="@string/bigButton_search"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/SearchBackArrowImage"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/SearchEditCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -23,57 +52,47 @@
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SearchTextBar">
+        app:layout_constraintTop_toBottomOf="@+id/SearchHeadFrame">
 
-        <EditText
+        <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/SearchEditConstrainStyle"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
-            android:background="@color/YP_lightGray"
-            android:backgroundTint="@color/white"
-            android:backgroundTintMode="src_atop"
-            android:drawableStart="@drawable/searchlens_14"
-            android:drawablePadding="8dp"
+            android:layout_height="match_parent">
 
-            android:fontFamily="@font/ys_disp"
-            android:hint="@string/bigButton_search"
+            <EditText
 
-            android:padding="8dp"
-            android:textColorHint="@color/YP_gray"
-            android:textFontWeight="400"
-            android:textSize="16sp" />
+                android:id="@+id/SearchEditText"
+                style="@style/SearchEditStyle"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+
+                android:cursorVisible="true"
+                android:drawableStart="@drawable/searchlens_14"
+                android:hint="@string/bigButton_search"
+
+                android:textCursorDrawable="@drawable/searchcursor"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/SearchClearTextImage"
+                style="@style/SearchClearImageStyle"
+                android:layout_width="16dp"
+                android:layout_height="15dp"
+                android:visibility="invisible"
+
+                android:contentDescription="@string/clearSearchText"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@drawable/clearsearchbutton" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.cardview.widget.CardView>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/YP_lightGray"
-        android:contentDescription="@string/tapBarBorder"
-        app:layout_constraintBottom_toTopOf="@+id/tapBarSettings" />
 
-    <LinearLayout
-        android:id="@+id/tapBarSettings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-
-        <Button
-            style="@style/TapButtonStyle"
-            android:text="@string/bigButton_search"
-            app:icon="@drawable/searchlens" />
-
-        <Button
-            style="@style/TapButtonStyle"
-            android:text="@string/bigButton_media"
-            app:icon="@drawable/mediaicon" />
-
-        <Button
-            style="@style/TapButtonStyle"
-            android:text="@string/bigButton_settings"
-            app:icon="@drawable/settinggear" />
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

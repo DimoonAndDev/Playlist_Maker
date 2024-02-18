@@ -16,5 +16,6 @@
     <string name="YP_support_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
     <string name="YP_user_cond_link">https://yandex.ru/legal/practicum_offer/</string>
     <string name="tapBarBorder">Серая полоска</string>
+    <string name="clearSearchText">Очистить строку поиска</string>
 
 </resources>
