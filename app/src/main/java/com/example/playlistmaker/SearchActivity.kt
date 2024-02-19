@@ -1,7 +1,6 @@
 package com.example.playlistmaker
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -17,7 +16,7 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
-        if (savedInstanceState!=null){
+        if (savedInstanceState != null) {
             textValue = savedInstanceState.getString(CURRENT_TEXT, EMPTY_TXT)
         }
 
@@ -27,8 +26,7 @@ class SearchActivity : AppCompatActivity() {
 
 
         searchBackArrowImage.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            this.finish()
         }
 
         searchEditText.requestFocus()
@@ -77,8 +75,8 @@ class SearchActivity : AppCompatActivity() {
     }
 
     companion object {
-        const val CURRENT_TEXT = "CURRENT_TEXT"
-        const val EMPTY_TXT = ""
+        private const val CURRENT_TEXT = "CURRENT_TEXT"
+        private const val EMPTY_TXT = ""
     }
 
 }

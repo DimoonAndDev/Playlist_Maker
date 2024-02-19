@@ -22,15 +22,14 @@ class SettingActivity : AppCompatActivity() {
         val userCondButton = findViewById<Button>(R.id.UserCondButton)
 
         backArrowImage.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            this.finish()
         }
 
 
 
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK){
-            Configuration.UI_MODE_NIGHT_YES-> switchDarkMode.isChecked = true
-            Configuration.UI_MODE_NIGHT_NO-> switchDarkMode.isChecked = false
+        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+            Configuration.UI_MODE_NIGHT_YES -> switchDarkMode.isChecked = true
+            Configuration.UI_MODE_NIGHT_NO -> switchDarkMode.isChecked = false
         }
         switchDarkMode.setOnClickListener {
             if (switchDarkMode.isChecked) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -38,28 +37,34 @@ class SettingActivity : AppCompatActivity() {
         }
 
         shareButton.setOnClickListener {
-            val shareIntent = Intent()
-            val message = getString(R.string.YP_link_array)
-            shareIntent.action = Intent.ACTION_SEND
-            shareIntent.putExtra(Intent.EXTRA_TEXT, message)
-            shareIntent.type = "text/plain"
-            startActivity(shareIntent)
+            Intent().apply {
+                val message = getString(R.string.YP_link_array)
+                action = Intent.ACTION_SEND
+                putExtra(Intent.EXTRA_TEXT, message)
+                type = "text/plain"
+                startActivity(this@apply)
+            }
         }
 
         supportButton.setOnClickListener {
             val message = getString(R.string.YP_support_message)
-            val supportIntent = Intent(Intent.ACTION_SENDTO)
-            supportIntent.data = Uri.parse("mailto:")
-            supportIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(getString(R.string.YP_student_email)))
-            supportIntent.putExtra(Intent.EXTRA_SUBJECT,getString(R.string.YP_support_subject))
-            supportIntent.putExtra(Intent.EXTRA_TEXT, message)
-            startActivity(supportIntent)
+            Intent(Intent.ACTION_SENDTO).apply {
+                data = Uri.parse("mailto:")
+                putExtra(
+                    Intent.EXTRA_EMAIL,
+                    arrayOf(getString(R.string.YP_student_email))
+                )
+                putExtra(Intent.EXTRA_SUBJECT, getString(R.string.YP_support_subject))
+                putExtra(Intent.EXTRA_TEXT, message)
+                startActivity(this@apply)
+            }
         }
         userCondButton.setOnClickListener {
             val url = getString(R.string.YP_user_cond_link)
-            val userCondIntent = Intent(Intent.ACTION_VIEW)
-            userCondIntent.data = Uri.parse(url)
-            startActivity(userCondIntent)
+            Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(url)
+                startActivity(this@apply)
+            }
         }
 
 
