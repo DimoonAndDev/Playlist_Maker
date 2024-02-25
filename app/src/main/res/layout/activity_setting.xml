@@ -1,185 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/SettingsHeadFrame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:layout_marginBottom="24dp">
+        app:layout_constraintBottom_toTopOf="@id/SettingsOptionLinear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/SettingBackArrowImage"
-            android:foreground="?attr/selectableItemBackground"
+            android:id="@+id/SettingsBackArrowImage"
+            style="@style/BackArrowStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/settActiv_backButton_descr"
+
+            android:foreground="?attr/selectableItemBackground"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/SettingsHeadTextBar"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/light_mode" />
-
+            app:srcCompat="@drawable/backarrow" />
 
         <TextView
-            android:id="@+id/SettingsTextBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
+            android:id="@+id/SettingsHeadTextBar"
+            style="@style/HeadText"
             android:layout_marginStart="12dp"
-            android:paddingTop="10dp"
-            android:paddingBottom="12dp"
 
-            android:fontFamily="@font/ys_disp"
-            android:gravity="center_vertical"
             android:text="@string/bigButton_settings"
-            android:textAllCaps="false"
-            android:textColor="@color/YP_black"
-            android:textSize="26sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/SettingBackArrowImage"
+            app:layout_constraintStart_toEndOf="@id/SettingsBackArrowImage"
             app:layout_constraintTop_toTopOf="parent" />
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/SettingsOptionLinear"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <androidx.appcompat.widget.SwitchCompat
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/settActiv_buttons_padding"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:fontFamily="@font/ys_disp"
-            android:text="@string/settActiv_theme_switch"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textColor="@color/YP_black"
-            android:textSize="@dimen/settActive_options_textSize"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="@dimen/settActive_text_leftMargin"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1">
-    <Button
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:padding="@dimen/settActiv_buttons_padding"
-        style="?android:attr/borderlessButtonStyle"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/settActiv_share"
-
-        app:icon="@drawable/share"
-        app:iconGravity="end"
-        app:iconPadding="0dp"
-        app:iconTint="@color/YP_gray"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-
-        android:text="@string/settActiv_share"
-        android:textColor="@color/YP_black"
-        android:textSize="@dimen/settActive_options_textSize"
-        android:fontFamily="@font/ys_disp"
-        android:textAllCaps="false"
-
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/settActive_text_leftMargin"/>
+        app:layout_constraintTop_toBottomOf="@id/SettingsHeadFrame">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/SettingSwitchDarkTheme"
+                style="@style/SettingSwitchStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:contentDescription="@string/settActive_theme_switch"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/SettingOptionTextViewStyle"
+                android:text="@string/settActive_theme_switch"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/ShareButton"
+                style="@style/SettingIconButtonStyle"
+                android:contentDescription="@string/settActive_share"
+                app:icon="@drawable/share"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/SettingOptionTextViewStyle"
+                android:text="@string/settActive_share"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/SupportButton"
+                style="@style/SettingIconButtonStyle"
+                android:contentDescription="@string/settActive_support_ticket"
+                app:icon="@drawable/headphones"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/SettingOptionTextViewStyle"
+                android:text="@string/settActive_support_ticket"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <Button
+                android:id="@+id/UserCondButton"
+                style="@style/SettingIconButtonStyle"
+                android:contentDescription="@string/settActive_user_conditions"
+                app:icon="@drawable/arrowhead"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                style="@style/SettingOptionTextViewStyle"
+                android:text="@string/settActive_user_conditions"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:padding="@dimen/settActiv_buttons_padding"
-            style="?android:attr/borderlessButtonStyle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/settActiv_support_ticket"
 
-            app:icon="@drawable/headphones"
-            app:iconGravity="end"
-            app:iconPadding="0dp"
-            app:iconTint="@color/YP_gray"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/settActiv_support_ticket"
-            android:textColor="@color/YP_black"
-            android:textSize="@dimen/settActive_options_textSize"
-            android:fontFamily="@font/ys_disp"
-            android:textAllCaps="false"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="@dimen/settActive_text_leftMargin"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:padding="@dimen/settActiv_buttons_padding"
-            style="?android:attr/borderlessButtonStyle"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/settActiv_user_conditions"
-
-            app:icon="@drawable/arrowhead"
-            app:iconGravity="end"
-            app:iconPadding="0dp"
-            app:iconTint="@color/YP_gray"
-            />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="@string/settActiv_user_conditions"
-            android:textColor="@color/YP_black"
-            android:textSize="@dimen/settActive_options_textSize"
-            android:fontFamily="@font/ys_disp"
-            android:textAllCaps="false"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="@dimen/settActive_text_leftMargin"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-</LinearLayout>

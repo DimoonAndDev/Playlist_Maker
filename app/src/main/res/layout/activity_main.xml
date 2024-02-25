@@ -3,93 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme_blue"
+    android:background="?attr/colorPrimary"
     android:orientation="vertical"
-    android:padding="8dp"
-    >
+    android:padding="8dp">
 
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:paddingLeft="12dp"
-        android:paddingTop="10dp"
-        android:paddingRight="12dp"
-        android:paddingBottom="12dp"
+        style="@style/MainTextStyle"
         android:text="@string/app_name"
-        android:textColor="@color/white"
-        android:textSize="22sp"
-        android:fontFamily="@font/ys_disp"/>
+        />
 
 
     <Button
         android:id="@+id/searchButton"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/bigButton_margin"
-        android:layout_weight="1"
-        android:backgroundTint="@color/white"
-        android:foreground="?attr/selectableItemBackground"
-
-        android:fontFamily="@font/ys_disp"
+        style="@style/MainButtonStyle"
         android:text="@string/bigButton_search"
-        android:textAllCaps="false"
-        android:textColor="@color/YP_black"
-        android:textSize="@dimen/bigButton_textSize"
-        android:textStyle="bold"
-
-        app:cornerRadius="@dimen/bigButton_cornerRad"
-        app:icon="@drawable/light_modelens"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconTint="@color/YP_black" />
+        app:icon="@drawable/searchlens"
+        />
 
     <Button
         android:id="@+id/mediaButton"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/bigButton_margin"
-        android:layout_weight="1"
-        android:foreground="?attr/selectableItemBackground"
-        android:backgroundTint="@color/white"
-
-        android:fontFamily="@font/ys_disp"
+        style="@style/MainButtonStyle"
         android:text="@string/bigButton_media"
-        android:textAllCaps="false"
-        android:textColor="@color/YP_black"
-        android:textSize="@dimen/bigButton_textSize"
-
-        android:textStyle="bold"
-
-        app:cornerRadius="@dimen/bigButton_cornerRad"
-        app:icon="@drawable/vectornote"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconTint="@color/YP_black" />
+        app:icon="@drawable/mediaicon" />
 
     <Button
         android:id="@+id/settingsButton"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="@dimen/bigButton_margin"
-        android:layout_weight="1"
-        android:backgroundTint="@color/white"
-        android:foreground="?attr/selectableItemBackground"
-
-        android:fontFamily="@font/ys_disp"
+        style="@style/MainButtonStyle"
         android:text="@string/bigButton_settings"
-        android:textAllCaps="false"
-        android:textColor="@color/YP_black"
-        android:textSize="@dimen/bigButton_textSize"
-
-        android:textStyle="bold"
-
-        app:cornerRadius="@dimen/bigButton_cornerRad"
-        app:icon="@drawable/light_modegear"
-        app:iconGravity="textStart"
-        app:iconPadding="8dp"
-        app:iconTint="@color/YP_black" />
+        app:icon="@drawable/settinggear" />
 
 
 </LinearLayout>
