@@ -17,5 +17,7 @@
     <string name="YP_user_cond_link">https://yandex.ru/legal/practicum_offer/</string>
     <string name="tapBarBorder">Серая полоска</string>
     <string name="clearSearchText">Очистить строку поиска</string>
+    <string name="track_details">Детали трека</string>
+    <string name="track_unit_image">Обложка трека</string>
 
 </resources>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/SearchTrackUnitImage"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/track_unit_image" />
+
+    <TextView
+        android:id="@+id/SearchTrackUnitName"
+        style="@style/SearchTrackUnitNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintEnd_toStartOf="@+id/SearchTrackUnitArrowButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/SearchTrackUnitImage"
+        app:layout_constraintTop_toTopOf="parent"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:scrollHorizontally="false"
+        app:layout_constrainedWidth="true"
+         />
+
+    <TextView
+        android:id="@+id/SearchTrackUnitArtistTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/SearchTrackUnitArrowButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/SearchTrackUnitImage"
+        app:layout_constraintTop_toBottomOf="@id/SearchTrackUnitName" />
+
+    <Button
+        android:id="@+id/SearchTrackUnitArrowButton"
+        android:layout_width="44dp"
+        android:layout_height="61dp"
+        android:paddingEnd="12dp"
+        android:paddingStart="8dp"
+        style="@style/SearchTrackUnitArrowButtonStyle"
+        android:contentDescription="@string/track_details"
+        android:elevation="7dp"
+        app:icon="@drawable/arrowhead"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
