@@ -8,4 +8,7 @@
     <dimen name="settActive_text_leftMargin">16sp</dimen>
     <dimen name="Tap_bar_height">56dp</dimen>
     <dimen name="Tap_button_text_size">12sp</dimen>
+    <dimen name="search_square_art_side_size">45dp</dimen>
+    <dimen name="search_art_left_margin">13dp</dimen>
+    <dimen name="search_art_top_bot_margin">8dp</dimen>
 </resources>
