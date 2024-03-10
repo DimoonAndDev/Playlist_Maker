@@ -12,7 +12,7 @@ import android.widget.ImageView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.searchrecycler.SearchViewAdapter
+import com.example.playlistmaker.searchrecycler.SearchTrackAdapter
 
 class SearchActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,7 +73,7 @@ class SearchActivity : AppCompatActivity() {
 
         searchRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        val recyclerTrackAdapter = SearchViewAdapter(tracks)
+        val recyclerTrackAdapter = SearchTrackAdapter(tracks)
         searchRecyclerView.adapter = recyclerTrackAdapter
     }
 
@@ -91,7 +91,7 @@ class SearchActivity : AppCompatActivity() {
     private val tracks = arrayOf(
         Track(
             "Smells Like Teen SpiritSpiritSpiritSpiritSpiritSpiritSpiritSpiritSpirit",
-            "Nirvana",
+            "Nirvana Nirvana Nirvana Nirvana Nirvana Nirvana Nirvana Nirvana Nirvana Nirvana Nirvana Nirvana ",
             "5:01",
             "https://is5-ssl.mzstatic.com/image/thumb/Music115/v4/7b/58/c2/7b58c21a-2b51-2bb2-e59a-9bb9b96ad8c3/00602567924166.rgb.jpg/100x100bb.jpg"
         ),

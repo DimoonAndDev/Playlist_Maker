@@ -2,7 +2,6 @@ package com.example.playlistmaker.searchrecycler
 
 import android.content.Context
 import android.util.TypedValue
-import android.view.RoundedCorner
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -11,24 +10,21 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
 import com.example.playlistmaker.Track
-import java.util.SimpleTimeZone
 
 class SearchViewHolder(parentView: View) : RecyclerView.ViewHolder(parentView) {
 
     private var trackNameTextView: TextView = parentView.findViewById(R.id.SearchTrackUnitName)
-    private var artistAndTimeTextView: TextView = parentView.findViewById(R.id.SearchTrackUnitArtistTime)
+    private var artistTextView: TextView = parentView.findViewById(R.id.SearchTrackUnitArtist)
+    private var timeTextView:TextView = parentView.findViewById(R.id.SearchTrackUnitTime)
     private var trackArtImageView: ImageView = parentView.findViewById(R.id.SearchTrackUnitImage)
 
     fun bind(
         track:Track
     ) {
 
-        trackNameTextView.text = track.trackName.ifEmpty { "Track" }
-
-        val artistNameLocal: String = track.artistName.ifEmpty { "Musician" }
-        val trackTimeLocal: String = track.trackTime.ifEmpty { "0:00" }
-        val artistAndTime = "$artistNameLocal • $trackTimeLocal"
-        artistAndTimeTextView.text = artistAndTime
+        trackNameTextView.text = track.trackName.ifEmpty { itemView.context.getString(R.string.track_name_placeholder) }
+        artistTextView.text = track.artistName.ifEmpty { itemView.context.getString(R.string.track_artist_placeholder) }
+        timeTextView.text = track.trackTime.ifEmpty { itemView.context.getString(R.string.track_time_placeholder) }
 
         Glide.with(itemView)
             .load(track.artworkUrl100)

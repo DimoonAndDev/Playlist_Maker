@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
 import com.example.playlistmaker.Track
 
-class SearchViewAdapter(private val tracks:Array<Track>) :
+class SearchTrackAdapter(private val tracks:Array<Track>) :
     RecyclerView.Adapter<SearchViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_track_unit,parent,false)
