@@ -49,10 +49,12 @@
             style="@style/SearchEditStyle"
             android:layout_width="match_parent"
             android:layout_height="36dp"
-
             android:cursorVisible="true"
             android:drawableStart="@drawable/searchlens_14"
+
             android:hint="@string/bigButton_search"
+            android:imeOptions="actionDone"
+            android:singleLine="true"
 
             android:textCursorDrawable="@drawable/searchcursor"
 
@@ -70,13 +72,12 @@
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:contentDescription="@string/clearSearchText"
-        android:visibility="invisible"
         android:elevation="7dp"
+        android:visibility="invisible"
 
         app:layout_constraintBottom_toBottomOf="@id/SearchEditCardView"
         app:layout_constraintEnd_toEndOf="@id/SearchEditCardView"
-        app:layout_constraintTop_toTopOf="@id/SearchEditCardView"
-          />
+        app:layout_constraintTop_toTopOf="@id/SearchEditCardView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/SearchRecyclerView"
@@ -86,4 +87,47 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/SearchEditCardView" />
+
+    <ImageView
+        android:id="@+id/SearchSmthWrongImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="102dp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SearchEditCardView" />
+
+    <TextView
+        android:id="@+id/SearchSmthWrongText"
+        style="@style/SearchSmthWrongText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:paddingEnd="@dimen/search_leftright_wrongtext_margin"
+        android:layout_marginTop="16dp"
+        android:paddingStart="@dimen/search_leftright_wrongtext_margin"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/SearchSmthWrongImage" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/SearchNowifiRefreshButton"
+
+        style="@style/SearchNowifiRefreshButton"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/searchrefreshbutton_shape"
+
+        android:paddingStart="@dimen/search_refresh_button_startend_padd"
+        android:paddingTop="@dimen/search_refresh_button_topbot_padd"
+        android:paddingEnd="@dimen/search_refresh_button_startend_padd"
+        android:paddingBottom="@dimen/search_refresh_button_topbot_padd"
+        android:text="@string/searchrefreshbutton"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/SearchSmthWrongText" />
 </androidx.constraintlayout.widget.ConstraintLayout>

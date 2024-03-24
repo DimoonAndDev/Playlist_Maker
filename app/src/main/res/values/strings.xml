@@ -23,5 +23,9 @@
     <string name="track_name_placeholder">Track</string>
     <string name="track_artist_placeholder">Artist</string>
     <string name="track_time_placeholder">0:00</string>
+    <string name="iTunesBaseUrl">https://itunes.apple.com</string>
+    <string name="searchrefreshbutton">Обновить</string>
+    <string name="search_nowifi_wrong_message">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
+    <string name="search_noresult_message">Ничего не нашлось</string>
 
 </resources>
