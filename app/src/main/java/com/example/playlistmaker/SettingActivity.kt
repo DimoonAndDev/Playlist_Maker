@@ -1,5 +1,6 @@
 package com.example.playlistmaker
 
+import android.app.Application
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
@@ -21,19 +22,17 @@ class SettingActivity : AppCompatActivity() {
         val supportButton = findViewById<Button>(R.id.SupportButton)
         val userCondButton = findViewById<Button>(R.id.UserCondButton)
 
+        val sharedPrefs = getSharedPreferences(
+            PLAYLIST_SHARED_PREFS, MODE_PRIVATE
+        )
+
         backArrowImage.setOnClickListener {
             this.finish()
         }
-
-
-
-        when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
-            Configuration.UI_MODE_NIGHT_YES -> switchDarkMode.isChecked = true
-            Configuration.UI_MODE_NIGHT_NO -> switchDarkMode.isChecked = false
-        }
-        switchDarkMode.setOnClickListener {
-            if (switchDarkMode.isChecked) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        switchDarkMode.isChecked = (applicationContext as App).darkTheme
+        switchDarkMode.setOnCheckedChangeListener { _, checked ->
+            (applicationContext as App).switchTheme(checked)
+            sharedPrefs.edit().putBoolean(SP_THEME_KEY,checked).apply()
         }
 
         shareButton.setOnClickListener {
@@ -70,3 +69,4 @@ class SettingActivity : AppCompatActivity() {
 
     }
 }
+
