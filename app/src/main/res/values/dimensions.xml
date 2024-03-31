@@ -11,4 +11,7 @@
     <dimen name="search_square_art_side_size">45dp</dimen>
     <dimen name="search_art_left_margin">13dp</dimen>
     <dimen name="search_art_top_bot_margin">8dp</dimen>
+    <dimen name="search_leftright_wrongtext_margin">24dp</dimen>
+    <dimen name="search_refresh_button_startend_padd">14dp</dimen>
+    <dimen name="search_refresh_button_topbot_padd">10dp</dimen>
 </resources>
