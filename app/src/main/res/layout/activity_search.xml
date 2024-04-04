@@ -130,4 +130,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/SearchSmthWrongText" />
+
+
+    <TextView
+        style="@style/SearchHistoryTextView"
+        android:id="@+id/SearchHistoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="@string/search_u_lookedfor_textview"
+
+        app:layout_constraintTop_toBottomOf="@id/SearchEditCardView"
+        android:layout_marginTop="42dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/SearchHistoryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/SearchHistoryTextView"/>
+    <androidx.appcompat.widget.AppCompatButton
+
+        android:id="@+id/SearchHistoryClear"
+
+        style="@style/SearchNowifiRefreshButton"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/searchrefreshbutton_shape"
+
+        android:paddingStart="@dimen/search_refresh_button_startend_padd"
+        android:paddingTop="@dimen/search_refresh_button_topbot_padd"
+        android:paddingEnd="@dimen/search_refresh_button_startend_padd"
+        android:paddingBottom="@dimen/search_refresh_button_topbot_padd"
+        android:text="@string/search_clear_history_button"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/SearchHistoryRecyclerView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

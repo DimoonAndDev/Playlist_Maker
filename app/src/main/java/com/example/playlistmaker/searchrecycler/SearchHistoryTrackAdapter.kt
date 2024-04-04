@@ -5,9 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
 import com.example.playlistmaker.Track
-import com.example.playlistmaker.searchrecycler.SearchTrackHistoryHelper
 
-class SearchTrackAdapter(private val tracks:MutableList<Track>) :
+class SearchHistoryTrackAdapter(private val tracks:MutableList<Track>) :
     RecyclerView.Adapter<SearchViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.search_track_unit,parent,false)
@@ -20,9 +19,6 @@ class SearchTrackAdapter(private val tracks:MutableList<Track>) :
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         holder.bind(tracks[position])
-        holder.itemView.setOnClickListener {
-            val searchHistoryHelper = SearchTrackHistoryHelper()
-            searchHistoryHelper.saveTrack(holder.itemView.context,tracks[position])
-            }
+        holder.itemView.setOnClickListener {  }
     }
 }

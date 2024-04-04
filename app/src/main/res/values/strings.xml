@@ -27,5 +27,7 @@
     <string name="searchrefreshbutton">Обновить</string>
     <string name="search_nowifi_wrong_message">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
     <string name="search_noresult_message">Ничего не нашлось</string>
+    <string name="search_clear_history_button">Очистить историю</string>
+    <string name="search_u_lookedfor_textview">Вы искали</string>
 
 </resources>

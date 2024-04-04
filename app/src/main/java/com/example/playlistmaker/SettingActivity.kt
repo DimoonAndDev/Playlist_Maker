@@ -19,17 +19,12 @@ class SettingActivity : AppCompatActivity() {
         val supportButton = findViewById<Button>(R.id.SupportButton)
         val userCondButton = findViewById<Button>(R.id.UserCondButton)
 
-        val sharedPrefs = getSharedPreferences(
-            PLAYLIST_SHARED_PREFS, MODE_PRIVATE
-        )
-
         backArrowImage.setOnClickListener {
             this.finish()
         }
         switchDarkMode.isChecked = (applicationContext as App).darkTheme
         switchDarkMode.setOnCheckedChangeListener { _, checked ->
             (applicationContext as App).switchTheme(checked)
-            sharedPrefs.edit().putBoolean(SP_THEME_KEY,checked).apply()
         }
 
         shareButton.setOnClickListener {
