@@ -2,13 +2,10 @@ package com.example.playlistmaker.searchrecycler
 
 import android.app.Application
 import android.content.Context
-import android.content.res.Configuration
 import com.example.playlistmaker.PLAYLIST_SHARED_PREFS
-import com.example.playlistmaker.SP_THEME_KEY
 import com.example.playlistmaker.Track
 import com.google.gson.Gson
 
-const val PLAYLIST_TRACKHISTORY_SHARED_PREFS = "PLAYLIST_SHARED_PREFS"
 const val SP_TRACK_HISTORY_LIST = "SP_TRACK_HISTORY_LIST"
 
 class SearchTrackHistoryHelper : Application() {
