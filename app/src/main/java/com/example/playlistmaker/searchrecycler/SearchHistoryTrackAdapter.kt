@@ -19,6 +19,8 @@ class SearchHistoryTrackAdapter(private val tracks:MutableList<Track>) :
 
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         holder.bind(tracks[position])
-        holder.itemView.setOnClickListener {  }
+        holder.itemView.setOnClickListener {
+            tracks.removeAt(position)
+        notifyDataSetChanged()}
     }
 }

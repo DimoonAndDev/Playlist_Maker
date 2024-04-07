@@ -13,6 +13,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
@@ -54,9 +55,9 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchHistoryClearButton: AppCompatButton
 
     private lateinit var recyclerTrackAdapter: SearchTrackAdapter
-    private lateinit var historyRecyclerAdapter:SearchHistoryTrackAdapter
+    private lateinit var historyRecyclerAdapter: SearchHistoryTrackAdapter
 
-//    val sharedPreferences = getSharedPreferences(PLAYLIST_SHARED_PREFS, MODE_PRIVATE)
+    //    val sharedPreferences = getSharedPreferences(PLAYLIST_SHARED_PREFS, MODE_PRIVATE)
     val searchTrackHistoryHelper = SearchTrackHistoryHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,9 +80,9 @@ class SearchActivity : AppCompatActivity() {
         searchHistoryText = findViewById(R.id.SearchHistoryTextView)
         searchHistoryClearButton = findViewById(R.id.SearchHistoryClear)
 
+
         searchEditText.requestFocus()
         searchEditText.setText(textValue)
-        showResult()
         tracks.clear()
 
         searchBackArrowImage.setOnClickListener {
@@ -100,11 +101,12 @@ class SearchActivity : AppCompatActivity() {
         recyclerTrackAdapter = SearchTrackAdapter(tracks)
         searchRecyclerView.adapter = recyclerTrackAdapter
 
-        searchHistoryRecyclerView.layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,true)
-        historyRecyclerAdapter = SearchHistoryTrackAdapter(searchTrackHistoryHelper.getHistory(this))
+        searchHistoryRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
+        historyRecyclerAdapter =
+            SearchHistoryTrackAdapter(searchTrackHistoryHelper.getHistory(this))
         searchHistoryRecyclerView.adapter = historyRecyclerAdapter
-
-        showHistory()
+        if (searchTrackHistoryHelper.getHistory(this).isEmpty()) showResult() else showHistory()
 
         val inputMethodManager =
             //keyboard on start
@@ -137,6 +139,12 @@ class SearchActivity : AppCompatActivity() {
                 //keyboard gone
                 getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             inputMethodManager?.hideSoftInputFromWindow(searchEditText.windowToken, 0)
+        }
+
+        searchHistoryClearButton.setOnClickListener {
+            searchTrackHistoryHelper.clearHistory(this)
+            historyRecyclerAdapter.notifyDataSetChanged()
+            showResult()
         }
 
 
@@ -250,7 +258,8 @@ class SearchActivity : AppCompatActivity() {
         searchHistoryText.visibility = GONE
         searchHistoryClearButton.visibility = GONE
     }
-    private fun showHistory(){
+
+    private fun showHistory() {
         searchRecyclerView.visibility = GONE
         searchWrongText.visibility = GONE
         searchNowifiRefreshButton.visibility = GONE
@@ -259,6 +268,7 @@ class SearchActivity : AppCompatActivity() {
         searchHistoryRecyclerView.visibility = VISIBLE
         searchHistoryText.visibility = VISIBLE
         searchHistoryClearButton.visibility = VISIBLE
+
     }
 
 }

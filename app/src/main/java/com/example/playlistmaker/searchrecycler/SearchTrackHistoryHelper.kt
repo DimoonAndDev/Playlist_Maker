@@ -45,4 +45,12 @@ class SearchTrackHistoryHelper : Application() {
         if (tempArray!= null) trackList.addAll(tempArray)
         return trackList
     }
+    fun clearHistory(context: Context){
+        trackList.clear()
+        val sharedPrefs = context.getSharedPreferences(
+            PLAYLIST_SHARED_PREFS, MODE_PRIVATE
+        )
+        sharedPrefs.edit()?.putString(SP_TRACK_HISTORY_LIST, Gson().toJson(trackList))?.apply()
+
+    }
 }

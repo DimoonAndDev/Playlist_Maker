@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -104,9 +105,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:paddingEnd="@dimen/search_leftright_wrongtext_margin"
         android:layout_marginTop="16dp"
         android:paddingStart="@dimen/search_leftright_wrongtext_margin"
+        android:paddingEnd="@dimen/search_leftright_wrongtext_margin"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -131,24 +132,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/SearchSmthWrongText" />
 
-
     <TextView
-        style="@style/SearchHistoryTextView"
         android:id="@+id/SearchHistoryTextView"
+        style="@style/SearchHistoryTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="center"
+        android:layout_gravity="center"
+        android:layout_marginTop="42dp"
+
         android:text="@string/search_u_lookedfor_textview"
+        android:textAlignment="center"
 
         app:layout_constraintTop_toBottomOf="@id/SearchEditCardView"
-        android:layout_marginTop="42dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/SearchHistoryRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/SearchHistoryTextView"/>
+        android:layout_marginTop="20dp"
+        app:layout_constrainedHeight="true"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/SearchHistoryTextView"
+        app:layout_constraintBottom_toTopOf="@id/guideline"
+        app:layout_constraintVertical_bias="0.0" />
+
+
     <androidx.appcompat.widget.AppCompatButton
 
         android:id="@+id/SearchHistoryClear"
@@ -156,8 +169,12 @@
         style="@style/SearchNowifiRefreshButton"
         android:layout_width="wrap_content"
         android:layout_height="36dp"
+        android:layout_gravity="center"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="1dp"
         android:background="@drawable/searchrefreshbutton_shape"
+        android:elevation="7dp"
+
 
         android:paddingStart="@dimen/search_refresh_button_startend_padd"
         android:paddingTop="@dimen/search_refresh_button_topbot_padd"
@@ -165,7 +182,18 @@
         android:paddingBottom="@dimen/search_refresh_button_topbot_padd"
         android:text="@string/search_clear_history_button"
         android:visibility="visible"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/SearchHistoryRecyclerView" />
+        app:layout_constraintTop_toBottomOf="@id/SearchHistoryRecyclerView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="@dimen/search_clerhistorybutton_guideline_height" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
