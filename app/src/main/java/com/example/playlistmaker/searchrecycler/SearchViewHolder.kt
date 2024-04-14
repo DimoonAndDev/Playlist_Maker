@@ -32,6 +32,7 @@ class SearchViewHolder(parentView: View) : RecyclerView.ViewHolder(parentView) {
         Glide.with(itemView)
             .load(track.artworkUrl100)
             .placeholder(R.drawable.placeholder)
+            .error(R.drawable.placeholder)
             .fitCenter()
             .transform(RoundedCorners(dpToPx(2f, itemView.context)))
             .into(trackArtImageView)

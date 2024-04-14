@@ -14,4 +14,5 @@
     <dimen name="search_leftright_wrongtext_margin">24dp</dimen>
     <dimen name="search_refresh_button_startend_padd">14dp</dimen>
     <dimen name="search_refresh_button_topbot_padd">10dp</dimen>
+    <dimen name="search_clerhistorybutton_guideline_height">74dp</dimen>
 </resources>

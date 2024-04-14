@@ -20,18 +20,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.netconnection.ItunesApi
 import com.example.playlistmaker.netconnection.TracksResponse
+import com.example.playlistmaker.searchrecycler.SearchHistoryTrackAdapter
 import com.example.playlistmaker.searchrecycler.SearchTrackAdapter
+import com.example.playlistmaker.searchrecycler.SearchTrackHistoryHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
-import retrofit2.http.Query
 
 class SearchActivity : AppCompatActivity() {
 
-    private val tracks = mutableListOf(Track("", "", 0, ""))
+    private val tracks = mutableListOf(Track("", "", 0, "", 0))
     private val iTunesBaseUrl = "https://itunes.apple.com"
 
     private val retrofit = Retrofit.Builder()
@@ -45,10 +45,17 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchWrongText: TextView
     private lateinit var searchNowifiRefreshButton: AppCompatButton
     private lateinit var searchRecyclerView: RecyclerView
-    private lateinit var searchEditText:EditText
+    private lateinit var searchEditText: EditText
 
-    private lateinit var recyclerTrackAdapter:SearchTrackAdapter
+    private lateinit var searchHistoryText: TextView
+    private lateinit var searchHistoryRecyclerView: RecyclerView
+    private lateinit var searchHistoryClearButton: AppCompatButton
 
+    private lateinit var recyclerTrackAdapter: SearchTrackAdapter
+    private lateinit var historyRecyclerAdapter: SearchHistoryTrackAdapter
+
+    //    val sharedPreferences = getSharedPreferences(PLAYLIST_SHARED_PREFS, MODE_PRIVATE)
+    val searchTrackHistoryHelper = SearchTrackHistoryHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,9 +73,13 @@ class SearchActivity : AppCompatActivity() {
         searchWrongText = findViewById(R.id.SearchSmthWrongText)
         searchNowifiRefreshButton = findViewById(R.id.SearchNowifiRefreshButton)
 
+        searchHistoryRecyclerView = findViewById(R.id.SearchHistoryRecyclerView)
+        searchHistoryText = findViewById(R.id.SearchHistoryTextView)
+        searchHistoryClearButton = findViewById(R.id.SearchHistoryClear)
+
+
         searchEditText.requestFocus()
         searchEditText.setText(textValue)
-        showResult()
         tracks.clear()
 
         searchBackArrowImage.setOnClickListener {
@@ -87,6 +98,12 @@ class SearchActivity : AppCompatActivity() {
         recyclerTrackAdapter = SearchTrackAdapter(tracks)
         searchRecyclerView.adapter = recyclerTrackAdapter
 
+        searchHistoryRecyclerView.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
+        historyRecyclerAdapter =
+            SearchHistoryTrackAdapter(searchTrackHistoryHelper.getHistory(this))
+        searchHistoryRecyclerView.adapter = historyRecyclerAdapter
+        if (searchTrackHistoryHelper.getHistory(this).isEmpty()) showResult() else showHistory()
 
         val inputMethodManager =
             //keyboard on start
@@ -121,11 +138,17 @@ class SearchActivity : AppCompatActivity() {
             inputMethodManager?.hideSoftInputFromWindow(searchEditText.windowToken, 0)
         }
 
+        searchHistoryClearButton.setOnClickListener {
+            searchTrackHistoryHelper.clearHistory(this)
+            historyRecyclerAdapter.notifyDataSetChanged()
+            showResult()
+        }
+
 
         searchEditText.setOnEditorActionListener { _, i, _ ->
             if (i == EditorInfo.IME_ACTION_DONE) {
                 if (searchEditText.text.isNotEmpty()) {
-                lookForTrack(searchEditText.text.toString())
+                    lookForTrack(searchEditText.text.toString())
                 }
                 true
             }
@@ -189,6 +212,10 @@ class SearchActivity : AppCompatActivity() {
         searchWrongText.visibility = GONE
         searchRecyclerView.visibility = VISIBLE
 
+        searchHistoryRecyclerView.visibility = GONE
+        searchHistoryText.visibility = GONE
+        searchHistoryClearButton.visibility = GONE
+
     }
 
     private fun showNoWifi() {
@@ -204,6 +231,10 @@ class SearchActivity : AppCompatActivity() {
         searchWrongText.visibility = VISIBLE
 
         searchNowifiRefreshButton.visibility = VISIBLE
+
+        searchHistoryRecyclerView.visibility = GONE
+        searchHistoryText.visibility = GONE
+        searchHistoryClearButton.visibility = GONE
     }
 
     private fun showNoResults() {
@@ -219,6 +250,22 @@ class SearchActivity : AppCompatActivity() {
         searchWrongText.visibility = VISIBLE
 
         searchNowifiRefreshButton.visibility = GONE
+
+        searchHistoryRecyclerView.visibility = GONE
+        searchHistoryText.visibility = GONE
+        searchHistoryClearButton.visibility = GONE
+    }
+
+    private fun showHistory() {
+        searchRecyclerView.visibility = GONE
+        searchWrongText.visibility = GONE
+        searchNowifiRefreshButton.visibility = GONE
+        searchWrongImage.visibility = GONE
+
+        searchHistoryRecyclerView.visibility = VISIBLE
+        searchHistoryText.visibility = VISIBLE
+        searchHistoryClearButton.visibility = VISIBLE
+
     }
 
 }
