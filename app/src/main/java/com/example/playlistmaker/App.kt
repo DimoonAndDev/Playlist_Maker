@@ -5,9 +5,10 @@ import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 
 const val PLAYLIST_SHARED_PREFS = "PLAYLIST_SHARED_PREFS"
-const val SP_THEME_KEY = "SP_THEME_KEY"
-open class App : Application() {
+private const val SP_THEME_KEY = "SP_THEME_KEY"
+class App : Application() {
     var darkTheme = false
+        private set
     override fun onCreate() {
         super.onCreate()
         val sharedPrefs = getSharedPreferences(

@@ -6,12 +6,12 @@ import com.example.playlistmaker.PLAYLIST_SHARED_PREFS
 import com.example.playlistmaker.Track
 import com.google.gson.Gson
 
-const val SP_TRACK_HISTORY_LIST = "SP_TRACK_HISTORY_LIST"
+private const val SP_TRACK_HISTORY_LIST = "SP_TRACK_HISTORY_LIST"
 
 class SearchTrackHistoryHelper : Application() {
 
     private val trackList = mutableListOf<Track>()
-
+    private val maxHistoryTrack = 10
     fun saveTrack(context: Context,track: Track) {
         val sharedPrefs = context.getSharedPreferences(
             PLAYLIST_SHARED_PREFS, MODE_PRIVATE
@@ -25,9 +25,9 @@ class SearchTrackHistoryHelper : Application() {
         while (iterator.hasNext()){
             if (iterator.next().trackId == track.trackId) iterator.remove()
         }
-        trackList.add(track)
-        if (trackList.size > 10) trackList.removeAt(0)
-        sharedPrefs.edit()?.putString(SP_TRACK_HISTORY_LIST, Gson().toJson(trackList))?.apply()
+        val savedStringTrackList =Gson().toJson(trackList.add(track))
+        if (trackList.size > maxHistoryTrack) trackList.removeAt(0)
+        sharedPrefs.edit()?.putString(SP_TRACK_HISTORY_LIST, savedStringTrackList)?.apply()
     }
 
     fun getHistory(context:Context): MutableList<Track> {
@@ -47,7 +47,8 @@ class SearchTrackHistoryHelper : Application() {
         val sharedPrefs = context.getSharedPreferences(
             PLAYLIST_SHARED_PREFS, MODE_PRIVATE
         )
-        sharedPrefs.edit()?.putString(SP_TRACK_HISTORY_LIST, Gson().toJson(trackList))?.apply()
+        val emptyStringTrackList = Gson().toJson(trackList)
+        sharedPrefs.edit()?.putString(SP_TRACK_HISTORY_LIST,emptyStringTrackList)?.apply()
 
     }
 }
