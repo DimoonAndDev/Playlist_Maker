@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchActivity : AppCompatActivity() {
 
-    private val tracks = mutableListOf(Track("", "", 0, "", 0))
+    private val tracks = mutableListOf(Track("", "", 0, "", 0,"","","",""))
     private val iTunesBaseUrl = "https://itunes.apple.com"
 
     private val retrofit = Retrofit.Builder()

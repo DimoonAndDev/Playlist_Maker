@@ -30,5 +30,12 @@
     <string name="search_clear_history_button">Очистить историю</string>
     <string name="search_u_lookedfor_textview">Вы искали</string>
     <string name="smth_wrong_image_descr">Smth_wrong_image</string>
+    <string name="trackplay_country_title">Страна</string>
+    <string name="trackplay_info_placeholder">Загружаем...</string>
+    <string name="trackplay_title_genre">Жанр</string>
+    <string name="trackplay_title_year">Год</string>
+    <string name="trackplay_title_album">Альбом</string>
+    <string name="trackplay_title_time">Длительность</string>
+    <string name="trackplay_start_time">0:00</string>
 
 </resources>
