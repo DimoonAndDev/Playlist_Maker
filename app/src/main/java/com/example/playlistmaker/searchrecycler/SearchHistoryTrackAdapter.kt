@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.PlayTrackActivity
 import com.example.playlistmaker.R
 import com.example.playlistmaker.Track
+import com.google.gson.Gson
 
 class SearchHistoryTrackAdapter(private val tracks:MutableList<Track>) :
     RecyclerView.Adapter<SearchViewHolder>() {
@@ -26,7 +27,8 @@ class SearchHistoryTrackAdapter(private val tracks:MutableList<Track>) :
         holder.itemView.setOnClickListener {
             holder.itemView.setOnClickListener {
                 val intent = Intent(holder.itemView.context,PlayTrackActivity::class.java)
-                intent.putExtra("TRACK_ID",tracks[position].trackId)
+                val savedTrack =Gson().toJson(tracks[position])
+                intent.putExtra("TRACK",savedTrack)
                 ContextCompat.startActivity(holder.itemView.context, intent, Bundle())
             }}
     }

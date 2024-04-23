@@ -9,33 +9,34 @@
     <string name="settActive_user_conditions">Пользовательское соглашение</string>
     <string name="settActiv_backButton_descr">Вернуться на главный экран</string>
 
-    <string name="YP_link_key">YP_link</string>
+
     <string name="YP_link_array">https://practicum.yandex.ru/profile/android-developer/</string>
     <string name="YP_student_email">dimoonoomid@yandex.ru</string>
     <string name="YP_support_message">Спасибо разработчикам и разработчицам за крутое приложение!</string>
     <string name="YP_support_subject">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
     <string name="YP_user_cond_link">https://yandex.ru/legal/practicum_offer/</string>
-    <string name="tapBarBorder">Серая полоска</string>
     <string name="clearSearchText">Очистить строку поиска</string>
     <string name="track_details">Детали трека</string>
     <string name="track_unit_image">Обложка трека</string>
     <string name="artist_dot_time">" • "</string>
-    <string name="track_name_placeholder">Track</string>
-    <string name="track_artist_placeholder">Artist</string>
+    <string name="track_name_placeholder">Трек</string>
+    <string name="track_artist_placeholder">Исполнитель</string>
     <string name="track_time_placeholder">0:00</string>
-    <string name="iTunesBaseUrl">https://itunes.apple.com</string>
     <string name="searchrefreshbutton">Обновить</string>
     <string name="search_nowifi_wrong_message">Проблемы со связью\n\nЗагрузка не удалась. Проверьте подключение к интернету</string>
     <string name="search_noresult_message">Ничего не нашлось</string>
     <string name="search_clear_history_button">Очистить историю</string>
     <string name="search_u_lookedfor_textview">Вы искали</string>
     <string name="smth_wrong_image_descr">Smth_wrong_image</string>
-    <string name="trackplay_country_title">Страна</string>
-    <string name="trackplay_info_placeholder">Загружаем...</string>
+    <string name="trackplay_title_country">Страна</string>
     <string name="trackplay_title_genre">Жанр</string>
     <string name="trackplay_title_year">Год</string>
     <string name="trackplay_title_album">Альбом</string>
     <string name="trackplay_title_time">Длительность</string>
     <string name="trackplay_start_time">0:00</string>
+    <string name="playboutton_descr">Кнопка Воспроизвести</string>
+    <string name="likebutton_descr">Кнопка Лайк</string>
+    <string name="addbutton_descr">Кнопка добавить</string>
+    <string name="trackart_descr">Обложка трека</string>
 
 </resources>
