@@ -85,10 +85,6 @@
         <item name="android:tint">@color/black</item>
     </style>
 
-    <style name="SearchEditConstrainStyle">
-        <item name="android:background">@color/YP_lightGray</item>
-    </style>
-
     <style name="SearchEditStyle">
         <item name="android:background">@color/YP_lightGray</item>
         <item name="android:backgroundTint">@color/YP_lightGray</item>
