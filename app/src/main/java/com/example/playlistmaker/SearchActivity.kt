@@ -16,11 +16,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
+import androidx.constraintlayout.widget.Guideline
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.netconnection.ItunesApi
 import com.example.playlistmaker.netconnection.TracksResponse
-import com.example.playlistmaker.searchrecycler.SearchHistoryTrackAdapter
 import com.example.playlistmaker.searchrecycler.SearchTrackAdapter
 import com.example.playlistmaker.searchrecycler.SearchTrackHistoryHelper
 import retrofit2.Call
@@ -48,11 +48,10 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchEditText: EditText
 
     private lateinit var searchHistoryText: TextView
-    private lateinit var searchHistoryRecyclerView: RecyclerView
+    private lateinit var searchHistoryClearButtonGuideline: Guideline
     private lateinit var searchHistoryClearButton: AppCompatButton
 
     private lateinit var recyclerTrackAdapter: SearchTrackAdapter
-    private lateinit var historyRecyclerAdapter: SearchHistoryTrackAdapter
 
     //    val sharedPreferences = getSharedPreferences(PLAYLIST_SHARED_PREFS, MODE_PRIVATE)
     private val searchTrackHistoryHelper = SearchTrackHistoryHelper()
@@ -73,10 +72,9 @@ class SearchActivity : AppCompatActivity() {
         searchWrongText = findViewById(R.id.SearchSmthWrongText)
         searchNowifiRefreshButton = findViewById(R.id.SearchNowifiRefreshButton)
 
-        searchHistoryRecyclerView = findViewById(R.id.SearchHistoryRecyclerView)
         searchHistoryText = findViewById(R.id.SearchHistoryTextView)
         searchHistoryClearButton = findViewById(R.id.SearchHistoryClear)
-
+        searchHistoryClearButtonGuideline = findViewById(R.id.SearchClearButtonGuideline)
 
         searchEditText.requestFocus()
         searchEditText.setText(textValue)
@@ -95,15 +93,11 @@ class SearchActivity : AppCompatActivity() {
 
         searchRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        if (searchTrackHistoryHelper.getHistory(this).isEmpty()) showResult() else showHistory()
+        tracks.addAll(searchTrackHistoryHelper.getHistory(this))
         recyclerTrackAdapter = SearchTrackAdapter(tracks)
         searchRecyclerView.adapter = recyclerTrackAdapter
 
-        searchHistoryRecyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true)
-        historyRecyclerAdapter =
-            SearchHistoryTrackAdapter(searchTrackHistoryHelper.getHistory(this))
-        searchHistoryRecyclerView.adapter = historyRecyclerAdapter
-        if (searchTrackHistoryHelper.getHistory(this).isEmpty()) showResult() else showHistory()
 
         val inputMethodManager =
             //keyboard on start
@@ -140,7 +134,8 @@ class SearchActivity : AppCompatActivity() {
 
         searchHistoryClearButton.setOnClickListener {
             searchTrackHistoryHelper.clearHistory(this)
-            historyRecyclerAdapter.notifyDataSetChanged()
+            tracks.clear()
+            recyclerTrackAdapter.notifyDataSetChanged()
             showResult()
         }
 
@@ -207,12 +202,14 @@ class SearchActivity : AppCompatActivity() {
 
 
     private fun showResult() {
+        searchRecyclerView.visibility = VISIBLE
+
         searchWrongImage.visibility = GONE
         searchNowifiRefreshButton.visibility = GONE
         searchWrongText.visibility = GONE
-        searchRecyclerView.visibility = VISIBLE
 
-        searchHistoryRecyclerView.visibility = GONE
+
+        searchHistoryClearButtonGuideline.visibility = GONE
         searchHistoryText.visibility = GONE
         searchHistoryClearButton.visibility = GONE
 
@@ -232,7 +229,7 @@ class SearchActivity : AppCompatActivity() {
 
         searchNowifiRefreshButton.visibility = VISIBLE
 
-        searchHistoryRecyclerView.visibility = GONE
+        searchHistoryClearButtonGuideline.visibility = GONE
         searchHistoryText.visibility = GONE
         searchHistoryClearButton.visibility = GONE
     }
@@ -251,20 +248,21 @@ class SearchActivity : AppCompatActivity() {
 
         searchNowifiRefreshButton.visibility = GONE
 
-        searchHistoryRecyclerView.visibility = GONE
+        searchHistoryClearButtonGuideline.visibility = GONE
         searchHistoryText.visibility = GONE
         searchHistoryClearButton.visibility = GONE
     }
 
     private fun showHistory() {
-        searchRecyclerView.visibility = GONE
         searchWrongText.visibility = GONE
         searchNowifiRefreshButton.visibility = GONE
         searchWrongImage.visibility = GONE
 
-        searchHistoryRecyclerView.visibility = VISIBLE
+        searchHistoryClearButtonGuideline.visibility = VISIBLE
         searchHistoryText.visibility = VISIBLE
         searchHistoryClearButton.visibility = VISIBLE
+        searchRecyclerView.visibility = VISIBLE
+
 
     }
 

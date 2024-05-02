@@ -30,5 +30,10 @@ class SearchTrackAdapter(private val tracks:MutableList<Track>) :
             intent.putExtra("TRACK",savedTrack)
             startActivity(holder.itemView.context, intent, Bundle())
         }
+        holder.itemView.setOnLongClickListener {
+            val searchHelper = SearchTrackHistoryHelper()
+            searchHelper.saveTrack(holder.itemView.context,tracks[position])
+            return@setOnLongClickListener true
+        }
     }
 }
