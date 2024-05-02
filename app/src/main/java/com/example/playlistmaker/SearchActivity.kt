@@ -31,7 +31,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchActivity : AppCompatActivity() {
 
-    private val tracks = mutableListOf(Track("", "", 0, "", 0))
+    private val tracks = mutableListOf(Track("", "", 0, "", 0,"","","",""))
     private val iTunesBaseUrl = "https://itunes.apple.com"
 
     private val retrofit = Retrofit.Builder()
@@ -55,7 +55,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var historyRecyclerAdapter: SearchHistoryTrackAdapter
 
     //    val sharedPreferences = getSharedPreferences(PLAYLIST_SHARED_PREFS, MODE_PRIVATE)
-    val searchTrackHistoryHelper = SearchTrackHistoryHelper()
+    private val searchTrackHistoryHelper = SearchTrackHistoryHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,7 +65,7 @@ class SearchActivity : AppCompatActivity() {
             textValue = savedInstanceState.getString(CURRENT_TEXT, EMPTY_TXT)
         }
 
-        val searchBackArrowImage = findViewById<ImageView>(R.id.SearchBackArrowImage)
+        val searchBackArrowImage = findViewById<ImageView>(R.id.PlayTrackBackArrowImage)
         searchEditText = findViewById(R.id.SearchEditText)
         val searchClearTextImage = findViewById<ImageView>(R.id.SearchClearTextImage)
         searchRecyclerView = findViewById(R.id.SearchRecyclerView)

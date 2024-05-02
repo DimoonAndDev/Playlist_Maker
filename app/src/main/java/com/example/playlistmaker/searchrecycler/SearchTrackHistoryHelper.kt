@@ -25,7 +25,8 @@ class SearchTrackHistoryHelper : Application() {
         while (iterator.hasNext()){
             if (iterator.next().trackId == track.trackId) iterator.remove()
         }
-        val savedStringTrackList =Gson().toJson(trackList.add(track))
+        trackList.add(track)
+        val savedStringTrackList =Gson().toJson(trackList)
         if (trackList.size > maxHistoryTrack) trackList.removeAt(0)
         sharedPrefs.edit()?.putString(SP_TRACK_HISTORY_LIST, savedStringTrackList)?.apply()
     }

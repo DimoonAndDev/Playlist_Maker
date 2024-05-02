@@ -1,10 +1,15 @@
 package com.example.playlistmaker.searchrecycler
 
+import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker.PlayTrackActivity
 import com.example.playlistmaker.R
 import com.example.playlistmaker.Track
+import com.google.gson.Gson
 
 class SearchHistoryTrackAdapter(private val tracks:MutableList<Track>) :
     RecyclerView.Adapter<SearchViewHolder>() {
@@ -20,7 +25,11 @@ class SearchHistoryTrackAdapter(private val tracks:MutableList<Track>) :
     override fun onBindViewHolder(holder: SearchViewHolder, position: Int) {
         holder.bind(tracks[position])
         holder.itemView.setOnClickListener {
-            tracks.removeAt(position)
-        notifyDataSetChanged()}
+            holder.itemView.setOnClickListener {
+                val intent = Intent(holder.itemView.context,PlayTrackActivity::class.java)
+                val savedTrack =Gson().toJson(tracks[position])
+                intent.putExtra("TRACK",savedTrack)
+                ContextCompat.startActivity(holder.itemView.context, intent, Bundle())
+            }}
     }
 }
