@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -13,6 +15,7 @@ import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
@@ -31,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchActivity : AppCompatActivity() {
 
-    private val tracks = mutableListOf(Track("", "", 0, "", 0,"","","",""))
+    private val tracks = mutableListOf(Track("", "", 0, "", 0, "", "", "", "",""))
     private val iTunesBaseUrl = "https://itunes.apple.com"
 
     private val retrofit = Retrofit.Builder()
@@ -51,9 +54,12 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchHistoryClearButtonGuideline: Guideline
     private lateinit var searchHistoryClearButton: AppCompatButton
 
+    private lateinit var searchProgressBar: ProgressBar
+
     private lateinit var recyclerTrackAdapter: SearchTrackAdapter
 
-    //    val sharedPreferences = getSharedPreferences(PLAYLIST_SHARED_PREFS, MODE_PRIVATE)
+    private val handler = Handler(Looper.getMainLooper())
+
     private val searchTrackHistoryHelper = SearchTrackHistoryHelper()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,12 +82,16 @@ class SearchActivity : AppCompatActivity() {
         searchHistoryClearButton = findViewById(R.id.SearchHistoryClear)
         searchHistoryClearButtonGuideline = findViewById(R.id.SearchClearButtonGuideline)
 
+        searchProgressBar = findViewById(R.id.SearchProgressBar)
+
         searchEditText.requestFocus()
         searchEditText.setText(textValue)
         tracks.clear()
 
         searchBackArrowImage.setOnClickListener {
-            this.finish()
+            if (clickDebounce()) {
+                this.finish()
+            }
         }
 
         searchClearTextImage.setImageDrawable(
@@ -93,10 +103,9 @@ class SearchActivity : AppCompatActivity() {
 
         searchRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        if (searchTrackHistoryHelper.getHistory(this).isEmpty()) showResult() else showHistory()
-        tracks.addAll(searchTrackHistoryHelper.getHistory(this))
         recyclerTrackAdapter = SearchTrackAdapter(tracks)
         searchRecyclerView.adapter = recyclerTrackAdapter
+        if (searchTrackHistoryHelper.getHistory(this).isEmpty()) showResult() else showHistory()
 
 
         val inputMethodManager =
@@ -110,8 +119,15 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
                 if (p0.isNullOrEmpty()) {
                     searchClearTextImage.visibility = View.INVISIBLE
-                } else searchClearTextImage.visibility = VISIBLE
-                textValue = p0.toString()
+                    showHistory()
+                } else {
+                    searchClearTextImage.visibility = VISIBLE
+                    textValue = p0.toString()
+                    if (searchEditText.text.isNotEmpty()) {
+                        val searchRunnable = Runnable { lookForTrack(p0.toString()) }
+                        searchDebounce(p0.toString(), searchRunnable)
+                    }
+                }
                 if (savedInstanceState != null) {
                     onSaveInstanceState(savedInstanceState)
                 }
@@ -124,8 +140,7 @@ class SearchActivity : AppCompatActivity() {
 
         searchClearTextImage.setOnClickListener {
             searchEditText.setText("")
-            tracks.clear()
-            recyclerTrackAdapter.notifyDataSetChanged()
+            showHistory()
             val inputMethodManager =
                 //keyboard gone
                 getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
@@ -139,25 +154,17 @@ class SearchActivity : AppCompatActivity() {
             showResult()
         }
 
-
-        searchEditText.setOnEditorActionListener { _, i, _ ->
-            if (i == EditorInfo.IME_ACTION_DONE) {
-                if (searchEditText.text.isNotEmpty()) {
-                    lookForTrack(searchEditText.text.toString())
-                }
-                true
-            }
-            false
-        }
-
         searchNowifiRefreshButton.setOnClickListener {
-            lookForTrack(failedQuery)
+            if (clickDebounce()) {
+                lookForTrack(failedQuery)
+            }
         }
 
     }
 
     var failedQuery = ""
     private fun lookForTrack(text: String) {
+        if (text.isNotEmpty()) showProgressBar()
         itunesService.findTrack(text).enqueue(object :
             Callback<TracksResponse> {
 
@@ -172,7 +179,7 @@ class SearchActivity : AppCompatActivity() {
                         recyclerTrackAdapter.notifyDataSetChanged()
                         showResult()
                     }
-                    if (tracks.isEmpty()) {
+                    if (tracks.isEmpty() and searchEditText.text.isNotEmpty()) {
                         showNoResults()
 
                     }
@@ -198,8 +205,27 @@ class SearchActivity : AppCompatActivity() {
     companion object {
         private const val CURRENT_TEXT = "CURRENT_TEXT"
         private const val EMPTY_TXT = ""
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
+        const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 
+    private var isClickAllowed = true
+    private fun clickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
+    }
+
+    private fun searchDebounce(text: String, searchRunnable: Runnable) {
+        if (text.isNotEmpty()) {
+
+            handler.removeCallbacks(searchRunnable)
+            handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+        }
+    }
 
     private fun showResult() {
         searchRecyclerView.visibility = VISIBLE
@@ -207,6 +233,7 @@ class SearchActivity : AppCompatActivity() {
         searchWrongImage.visibility = GONE
         searchNowifiRefreshButton.visibility = GONE
         searchWrongText.visibility = GONE
+        searchProgressBar.visibility = GONE
 
 
         searchHistoryClearButtonGuideline.visibility = GONE
@@ -217,6 +244,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun showNoWifi() {
         searchRecyclerView.visibility = GONE
+        searchProgressBar.visibility = GONE
 
         when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             Configuration.UI_MODE_NIGHT_YES -> searchWrongImage.setImageDrawable(getDrawable(R.drawable.track_ph_nowifi_dark))
@@ -236,6 +264,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun showNoResults() {
         searchRecyclerView.visibility = GONE
+        searchProgressBar.visibility = GONE
 
         when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
             Configuration.UI_MODE_NIGHT_YES -> searchWrongImage.setImageDrawable(getDrawable(R.drawable.track_ph_unknown_dark))
@@ -254,16 +283,33 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showHistory() {
+        tracks.clear()
+        tracks.addAll(searchTrackHistoryHelper.getHistory(this))
+        recyclerTrackAdapter.notifyDataSetChanged()
         searchWrongText.visibility = GONE
         searchNowifiRefreshButton.visibility = GONE
         searchWrongImage.visibility = GONE
+        searchProgressBar.visibility = GONE
 
         searchHistoryClearButtonGuideline.visibility = VISIBLE
         searchHistoryText.visibility = VISIBLE
         searchHistoryClearButton.visibility = VISIBLE
         searchRecyclerView.visibility = VISIBLE
+    }
+
+    private fun showProgressBar() {
+        searchProgressBar.visibility = VISIBLE
+
+        searchRecyclerView.visibility = GONE
+
+        searchWrongImage.visibility = GONE
+        searchNowifiRefreshButton.visibility = GONE
+        searchWrongText.visibility = GONE
 
 
+        searchHistoryClearButtonGuideline.visibility = GONE
+        searchHistoryText.visibility = GONE
+        searchHistoryClearButton.visibility = GONE
     }
 
 }
