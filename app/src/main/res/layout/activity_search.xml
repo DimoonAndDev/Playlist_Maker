@@ -89,8 +89,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/SearchHistoryTextView"
-        app:layout_constraintBottom_toTopOf="@id/SearchHistoryClear"
-        app:layout_constraintVertical_bias="0.0" />
+
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_goneMarginBottom="5dp"/>
 
     <ImageView
         android:id="@+id/SearchSmthWrongImage"
@@ -179,12 +180,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/SearchClearButtonGuideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="76dp" />
 
     <ProgressBar
         android:id="@+id/SearchProgressBar"

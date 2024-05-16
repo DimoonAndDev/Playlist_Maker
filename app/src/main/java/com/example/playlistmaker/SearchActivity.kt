@@ -18,7 +18,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
-import androidx.constraintlayout.widget.Guideline
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.netconnection.ItunesApi
@@ -33,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchActivity : AppCompatActivity() {
 
-    private val tracks = mutableListOf(Track("", "", 0, "", 0, "", "", "", "",""))
+    private val tracks = mutableListOf(Track("", "", 0, "", 0, "", "", "", "", ""))
     private val iTunesBaseUrl = "https://itunes.apple.com"
 
     private val retrofit = Retrofit.Builder()
@@ -50,7 +49,6 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchEditText: EditText
 
     private lateinit var searchHistoryText: TextView
-    private lateinit var searchHistoryClearButtonGuideline: Guideline
     private lateinit var searchHistoryClearButton: AppCompatButton
 
     private lateinit var searchProgressBar: ProgressBar
@@ -79,7 +77,6 @@ class SearchActivity : AppCompatActivity() {
 
         searchHistoryText = findViewById(R.id.SearchHistoryTextView)
         searchHistoryClearButton = findViewById(R.id.SearchHistoryClear)
-        searchHistoryClearButtonGuideline = findViewById(R.id.SearchClearButtonGuideline)
 
         searchProgressBar = findViewById(R.id.SearchProgressBar)
 
@@ -104,7 +101,7 @@ class SearchActivity : AppCompatActivity() {
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         recyclerTrackAdapter = SearchTrackAdapter(tracks)
         searchRecyclerView.adapter = recyclerTrackAdapter
-        if (searchTrackHistoryHelper.getHistory(this).isEmpty()) showResult() else showHistory()
+        showHistory()
 
 
         val inputMethodManager =
@@ -123,8 +120,8 @@ class SearchActivity : AppCompatActivity() {
                     searchClearTextImage.visibility = VISIBLE
                     textValue = p0.toString()
                     if (searchEditText.text.isNotEmpty()) {
-                        val searchRunnable = Runnable { lookForTrack(p0.toString()) }
-                        searchDebounce(p0.toString(), searchRunnable)
+                        newTaskRunnable = Runnable { lookForTrack(p0.toString()) }
+                        searchDebounce(p0.toString(), newTaskRunnable)
                     }
                 }
                 if (savedInstanceState != null) {
@@ -183,7 +180,8 @@ class SearchActivity : AppCompatActivity() {
 
                     }
                 } else {
-                    showNoWifi()
+                    if (searchEditText.text.isNotEmpty()){
+                    showNoWifi()}
                     failedQuery = searchEditText.text.toString()
                 }
             }
@@ -217,12 +215,13 @@ class SearchActivity : AppCompatActivity() {
         }
         return current
     }
+    var newTaskRunnable = Runnable { lookForTrack(" ") }
 
-    private fun searchDebounce(text: String, searchRunnable: Runnable) {
+    private fun searchDebounce(text: String, newTaskRunnable: Runnable) {
         if (text.isNotEmpty()) {
 
-            handler.removeCallbacks(searchRunnable)
-            handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+            handler.removeCallbacks(newTaskRunnable)
+            handler.postDelayed(newTaskRunnable, SEARCH_DEBOUNCE_DELAY)
         }
     }
 
@@ -234,12 +233,10 @@ class SearchActivity : AppCompatActivity() {
         searchWrongText.visibility = GONE
         searchProgressBar.visibility = GONE
 
-
-        searchHistoryClearButtonGuideline.visibility = GONE
         searchHistoryText.visibility = GONE
         searchHistoryClearButton.visibility = GONE
 
-    }
+        }
 
     private fun showNoWifi() {
         searchRecyclerView.visibility = GONE
@@ -256,7 +253,6 @@ class SearchActivity : AppCompatActivity() {
 
         searchNowifiRefreshButton.visibility = VISIBLE
 
-        searchHistoryClearButtonGuideline.visibility = GONE
         searchHistoryText.visibility = GONE
         searchHistoryClearButton.visibility = GONE
     }
@@ -276,24 +272,25 @@ class SearchActivity : AppCompatActivity() {
 
         searchNowifiRefreshButton.visibility = GONE
 
-        searchHistoryClearButtonGuideline.visibility = GONE
         searchHistoryText.visibility = GONE
         searchHistoryClearButton.visibility = GONE
     }
 
     private fun showHistory() {
-        tracks.clear()
-        tracks.addAll(searchTrackHistoryHelper.getHistory(this))
-        recyclerTrackAdapter.notifyDataSetChanged()
-        searchWrongText.visibility = GONE
-        searchNowifiRefreshButton.visibility = GONE
-        searchWrongImage.visibility = GONE
-        searchProgressBar.visibility = GONE
+        if (searchTrackHistoryHelper.getHistory(this).isEmpty()) showResult() else {
+            tracks.clear()
+            tracks.addAll(searchTrackHistoryHelper.getHistory(this))
+            recyclerTrackAdapter.notifyDataSetChanged()
+            searchWrongText.visibility = GONE
+            searchNowifiRefreshButton.visibility = GONE
+            searchWrongImage.visibility = GONE
+            searchProgressBar.visibility = GONE
 
-        searchHistoryClearButtonGuideline.visibility = VISIBLE
-        searchHistoryText.visibility = VISIBLE
-        searchHistoryClearButton.visibility = VISIBLE
-        searchRecyclerView.visibility = VISIBLE
+            searchHistoryText.visibility = VISIBLE
+            searchHistoryClearButton.visibility = VISIBLE
+            searchRecyclerView.visibility = VISIBLE
+
+                    }
     }
 
     private fun showProgressBar() {
@@ -305,8 +302,6 @@ class SearchActivity : AppCompatActivity() {
         searchNowifiRefreshButton.visibility = GONE
         searchWrongText.visibility = GONE
 
-
-        searchHistoryClearButtonGuideline.visibility = GONE
         searchHistoryText.visibility = GONE
         searchHistoryClearButton.visibility = GONE
     }
