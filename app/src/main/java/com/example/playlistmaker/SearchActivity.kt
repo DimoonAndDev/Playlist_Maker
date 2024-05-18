@@ -113,16 +113,13 @@ class SearchActivity : AppCompatActivity() {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0.isNullOrEmpty()) {
+                if (p0.toString() == "") {
                     searchClearTextImage.visibility = View.INVISIBLE
                     showHistory()
                 } else {
                     searchClearTextImage.visibility = VISIBLE
                     textValue = p0.toString()
-                    if (searchEditText.text.isNotEmpty()) {
-                        newTaskRunnable = Runnable { lookForTrack(p0.toString()) }
-                        searchDebounce(p0.toString(), newTaskRunnable)
-                    }
+                    searchDebounce()
                 }
                 if (savedInstanceState != null) {
                     onSaveInstanceState(savedInstanceState)
@@ -152,16 +149,17 @@ class SearchActivity : AppCompatActivity() {
 
         searchNowifiRefreshButton.setOnClickListener {
             if (clickDebounce()) {
-                lookForTrack(failedQuery)
+                searchEditText.setText(failedQuery)
+                lookForTrack()
             }
         }
 
     }
 
     var failedQuery = ""
-    private fun lookForTrack(text: String) {
-        if (text.isNotEmpty()) showProgressBar()
-        itunesService.findTrack(text).enqueue(object :
+    private fun lookForTrack() {
+        if (searchEditText.text.isNotEmpty()) showProgressBar()
+        itunesService.findTrack(searchEditText.text.toString()).enqueue(object :
             Callback<TracksResponse> {
 
             override fun onResponse(
@@ -180,9 +178,11 @@ class SearchActivity : AppCompatActivity() {
 
                     }
                 } else {
-                    if (searchEditText.text.isNotEmpty()){
-                    showNoWifi()}
-                    failedQuery = searchEditText.text.toString()
+                    if (searchEditText.text.isNotEmpty()) {
+                        showNoWifi()
+                        failedQuery = searchEditText.text.toString()
+                    }
+
                 }
             }
 
@@ -215,14 +215,12 @@ class SearchActivity : AppCompatActivity() {
         }
         return current
     }
-    var newTaskRunnable = Runnable { lookForTrack(" ") }
 
-    private fun searchDebounce(text: String, newTaskRunnable: Runnable) {
-        if (text.isNotEmpty()) {
+    private val newTaskRunnable = Runnable { lookForTrack() }
 
-            handler.removeCallbacks(newTaskRunnable)
-            handler.postDelayed(newTaskRunnable, SEARCH_DEBOUNCE_DELAY)
-        }
+    private fun searchDebounce() {
+        handler.removeCallbacks(newTaskRunnable)
+        handler.postDelayed(newTaskRunnable, SEARCH_DEBOUNCE_DELAY)
     }
 
     private fun showResult() {
@@ -236,7 +234,7 @@ class SearchActivity : AppCompatActivity() {
         searchHistoryText.visibility = GONE
         searchHistoryClearButton.visibility = GONE
 
-        }
+    }
 
     private fun showNoWifi() {
         searchRecyclerView.visibility = GONE
@@ -277,7 +275,11 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun showHistory() {
-        if (searchTrackHistoryHelper.getHistory(this).isEmpty()) showResult() else {
+        if (searchTrackHistoryHelper.getHistory(this).isEmpty()) {
+            tracks.clear()
+            recyclerTrackAdapter.notifyDataSetChanged()
+            showResult()
+        } else {
             tracks.clear()
             tracks.addAll(searchTrackHistoryHelper.getHistory(this))
             recyclerTrackAdapter.notifyDataSetChanged()
@@ -290,7 +292,7 @@ class SearchActivity : AppCompatActivity() {
             searchHistoryClearButton.visibility = VISIBLE
             searchRecyclerView.visibility = VISIBLE
 
-                    }
+        }
     }
 
     private fun showProgressBar() {
