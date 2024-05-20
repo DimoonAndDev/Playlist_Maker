@@ -9,6 +9,7 @@ data class Track(
     val collectionName: String?, //Альбом, может не быть
     val releaseDate: String?,       //год релиза
     val primaryGenreName: String?,//жанр
-    val country: String?         // страна исполнителя
+    val country: String?,         // страна исполнителя
+    val previewUrl:String?      // ссылка на воспроизведение
 
 )
