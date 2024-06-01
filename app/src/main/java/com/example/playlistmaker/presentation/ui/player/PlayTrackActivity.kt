@@ -1,4 +1,4 @@
-package com.example.playlistmaker.ui.player
+package com.example.playlistmaker.presentation.ui.player
 
 import android.content.Context
 import android.media.MediaPlayer
@@ -13,19 +13,18 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.playlistmaker.Creator
 import com.example.playlistmaker.R
-import com.example.playlistmaker.domain.models.Track
-import com.google.gson.Gson
-import java.text.SimpleDateFormat
-import java.util.Locale
+
+import com.example.playlistmaker.domain.models.PlayerTrack
 
 
 class PlayTrackActivity : AppCompatActivity() {
-    private var mediaPlayer = MediaPlayer()
-    private lateinit var track: Track
+    private lateinit var track: PlayerTrack
     private lateinit var playTrackButton: ImageView
     private lateinit var mainThreadHandler: Handler
-    private lateinit var timerThreadHandler: Handler
+    private val getPlayerTrack = Creator.provideGetPlayerTrackUseCase()
+    private val mediaPlayerInteractor = Creator.provideMediaPlayerInteractor()
     private lateinit var trackCurrTimeTextView: TextView
     var seconds = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,38 +51,31 @@ class PlayTrackActivity : AppCompatActivity() {
         playTrackButton = findViewById(R.id.TrackPlayButtonPlay)
         trackCurrTimeTextView = findViewById(R.id.TrackCurrTimeTextView)
 
-
-
         playBackArrowImage.setOnClickListener { this.finish() }
+
         val trackString = intent.getStringExtra("TRACK")
-        track = Gson().fromJson(trackString, Track::class.java)
-        preparePlayer()
-        val newArtUrl = track.artworkUrl100?.replaceAfterLast("/", "512x512bb.jpg")
+        track = getPlayerTrack.execute(trackString)
         Glide.with(applicationContext)
-            .load(newArtUrl)
+            .load(track.artworkUrl512)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .fitCenter()
             .transform(RoundedCorners(dpToPx(8f, trackArtImageView.context)))
             .into(trackArtImageView)
 
-        countryTextView.text = track.country ?: getString(R.string.trackplay_title_country)
-        genreTextView.text = track.primaryGenreName ?: getString(R.string.trackplay_title_genre)
-        yearTextView.text = track.releaseDate?.take(4) ?: getString(R.string.trackplay_title_year)
+        countryTextView.text = track.country
+        genreTextView.text = track.primaryGenreName
+        yearTextView.text = track.releaseDate?.take(4)
         if (!track.collectionName.isNullOrEmpty()) albumTextView.text = track.collectionName
         else {
             albumTextView.visibility = View.GONE
             albumTitleTextView.visibility = View.GONE
         }
+        trackMaxTimeTextView.text = track.trackTimeMillis
+        artistTextView.text = track.artistName
+        trackNameTimeTextView.text = track.trackName
 
-        trackMaxTimeTextView.text =
-            SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)
-                .ifEmpty { getString(R.string.track_time_placeholder) }
-
-        artistTextView.text =
-            track.artistName.ifEmpty { getString(R.string.track_artist_placeholder) }
-        trackNameTimeTextView.text =
-            track.trackName.ifEmpty { getString(R.string.track_name_placeholder) }
+        val mediaPlayer = mediaPlayerInteractor.preparePlayer()
 
         playTrackButton.setOnClickListener {
             playbackControl()

@@ -4,8 +4,10 @@ import android.app.Application
 import android.content.Context
 import com.example.playlistmaker.PLAYLIST_SHARED_PREFS
 import com.example.playlistmaker.domain.models.Track
-import com.example.playlistmaker.searchrecycler.SP_TRACK_HISTORY_LIST
+
 import com.google.gson.Gson
+
+const val SP_TRACK_HISTORY_LIST = "SP_TRACK_HISTORY_LIST"
 
 class SearchTrackHistoryHelper : Application() {
 
