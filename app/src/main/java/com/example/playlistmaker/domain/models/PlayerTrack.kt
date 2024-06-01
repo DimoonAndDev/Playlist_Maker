@@ -9,5 +9,5 @@ data class PlayerTrack(
     val releaseDate: String? = "",       //год релиза
     val primaryGenreName: String? = "",//жанр
     val country: String? = "",         // страна исполнителя
-    val previewUrl: String? = ""
+    val previewUrl: String = ""
 )

@@ -15,18 +15,26 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.Creator
 import com.example.playlistmaker.R
+import com.example.playlistmaker.presentation.models.PlayerStatus
 
 import com.example.playlistmaker.domain.models.PlayerTrack
+import com.example.playlistmaker.presentation.models.PlayerStatus.STATE_DEFAULT
+import com.example.playlistmaker.presentation.models.PlayerStatus.STATE_PAUSED
+import com.example.playlistmaker.presentation.models.PlayerStatus.STATE_PLAYING
+import com.example.playlistmaker.presentation.models.PlayerStatus.STATE_PREPARED
 
 
 class PlayTrackActivity : AppCompatActivity() {
     private lateinit var track: PlayerTrack
+    private lateinit var mediaPlayer: MediaPlayer
     private lateinit var playTrackButton: ImageView
     private lateinit var mainThreadHandler: Handler
     private val getPlayerTrack = Creator.provideGetPlayerTrackUseCase()
     private val mediaPlayerInteractor = Creator.provideMediaPlayerInteractor()
     private lateinit var trackCurrTimeTextView: TextView
-    var seconds = 0L
+    private lateinit var playerStatus: PlayerStatus
+    private var seconds = 0L
+    val DELAY = 500L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_track)
@@ -75,64 +83,63 @@ class PlayTrackActivity : AppCompatActivity() {
         artistTextView.text = track.artistName
         trackNameTimeTextView.text = track.trackName
 
-        val mediaPlayer = mediaPlayerInteractor.preparePlayer()
-
-        playTrackButton.setOnClickListener {
-            playbackControl()
-            startTrackTimer()
+        while (mediaPlayerInteractor.preparePlayer(track.previewUrl)==PlayerStatus.STATE_PREPARED.status) {
+            mediaPlayerInteractor.preparePlayer(track.previewUrl)
         }
-    }
 
-    private var playerState = STATE_DEFAULT
 
-    companion object {
-        private const val STATE_DEFAULT = 0
-        private const val STATE_PREPARED = 1
-        private const val STATE_PLAYING = 2
-        private const val STATE_PAUSED = 3
-        private const val DELAY = 500L
-    }
 
-    private fun preparePlayer() {
-        if (track.previewUrl != null) {
-            mediaPlayer.setDataSource(track.previewUrl)
-            mediaPlayer.prepareAsync()
-            mediaPlayer.setOnPreparedListener {
-                playTrackButton.isEnabled = true
-                playerState = STATE_PREPARED
+            playTrackButton.setOnClickListener {
+                playbackControl()
+                startTrackTimer()
             }
-            mediaPlayer.setOnCompletionListener {
+        }
+
+
+
+
+        private fun preparePlayer() {
+            if (track.previewUrl != null) {
+                mediaPlayer.setDataSource(track.previewUrl)
+                mediaPlayer.prepareAsync()
+                mediaPlayer.setOnPreparedListener {
+                    playTrackButton.isEnabled = true
+                    playerState = STATE_PREPARED
+                }
+                mediaPlayer.setOnCompletionListener {
+                    playTrackButton.setImageDrawable(
+                        AppCompatResources.getDrawable(
+                            this,
+                            R.drawable.play_button_track
+                        )
+                    )
+                    playerState = STATE_PREPARED
+                    trackCurrTimeTextView.text = String.format("%d:%02d", 0, 0)
+                    seconds = 0L
+                }
+            } else {
+                playTrackButton.isEnabled = false
                 playTrackButton.setImageDrawable(
                     AppCompatResources.getDrawable(
                         this,
-                        R.drawable.play_button_track
+                        R.drawable.clearsearchbutton
                     )
                 )
-                playerState = STATE_PREPARED
-                trackCurrTimeTextView.text = String.format("%d:%02d", 0, 0)
-                seconds = 0L
             }
-        } else {
-            playTrackButton.isEnabled = false
+        }
+
+        private fun startPlayer() {
+            mediaPlayer.start()
             playTrackButton.setImageDrawable(
                 AppCompatResources.getDrawable(
                     this,
-                    R.drawable.clearsearchbutton
+                    R.drawable.pause_button_track
                 )
             )
-        }
-    }
+            var playerStatus: PlayerStatus = PlayerStatus.UNPREPARED
 
-    private fun startPlayer() {
-        mediaPlayer.start()
-        playTrackButton.setImageDrawable(
-            AppCompatResources.getDrawable(
-                this,
-                R.drawable.pause_button_track
-            )
-        )
-        playerState = STATE_PLAYING
-    }
+        }
+
 
     private fun pausePlayer() {
         mediaPlayer.pause()
@@ -183,6 +190,7 @@ class PlayTrackActivity : AppCompatActivity() {
                     seconds = elapsedTime / 1000
                     trackCurrTimeTextView.text =
                         String.format("%d:%02d", seconds / 60, seconds % 60)
+
                     mainThreadHandler.postDelayed(this, DELAY)
                 }
             }
