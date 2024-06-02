@@ -1,4 +1,4 @@
-package com.example.playlistmaker.presentation.ui.settings
+package com.example.playlistmaker
 
 import android.content.Intent
 import android.net.Uri
@@ -7,8 +7,6 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
-import com.example.playlistmaker.App
-import com.example.playlistmaker.R
 
 class SettingActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.example.playlistmaker.domain.models
+package com.example.playlistmaker.presentation.models
 
 data class PlayerTrack(
     val trackName: String = "",      // Название композиции

@@ -1,7 +1,7 @@
 package com.example.playlistmaker.data.repository
 
 import com.example.playlistmaker.R
-import com.example.playlistmaker.domain.models.PlayerTrack
+import com.example.playlistmaker.presentation.models.PlayerTrack
 import com.example.playlistmaker.domain.models.Track
 import com.example.playlistmaker.domain.repository.PlayerGetTrackRepository
 import com.google.gson.Gson

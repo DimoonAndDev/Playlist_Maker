@@ -1,23 +1,24 @@
 package com.example.playlistmaker.domain.usecases
 
-import android.media.MediaPlayer
-import com.example.playlistmaker.domain.repository.mediaplayer.DeactivatePlayerRepository
-import com.example.playlistmaker.domain.repository.mediaplayer.PlayClickRepository
-import com.example.playlistmaker.domain.repository.mediaplayer.PreparePlayerRepository
+import com.example.playlistmaker.domain.repository.mediaplayer.MediaPlayerRepository
 
 class MediaPlayerInteractor(
-    private val clickPlayRepository: PlayClickRepository,
-    private val preparePlayerRepository: PreparePlayerRepository,
-    private val deactivatePlayerRepository: DeactivatePlayerRepository
-) {
+    private val mediaPlayerRepository: MediaPlayerRepository)
+ {
     fun clickPlayTrack(){
-        clickPlayRepository.clickPlayTrack()
+        mediaPlayerRepository.playTrack()
     }
-    fun preparePlayer(dataSource:String):Int{
-        return preparePlayerRepository.preparePlayer(dataSource)
+    fun clickPauseTrack(){
+        mediaPlayerRepository.pauseTrack()
     }
-    fun deactivatePlayer(){
-        deactivatePlayerRepository.deactivatePlayer()
+    fun preparePlayer(dataSource:String){
+        mediaPlayerRepository.preparePlayer(dataSource)
+    }
+    fun releasePlayer(){
+        mediaPlayerRepository.releasePlayer()
 
     }
+     fun getStatus():Int{
+         return mediaPlayerRepository.getStatus()
+     }
 }
