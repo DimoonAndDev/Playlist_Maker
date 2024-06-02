@@ -1,4 +1,4 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.presentation.ui.search
 
 import android.content.Context
 import android.content.res.Configuration
@@ -20,6 +20,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.playlistmaker.R
 import com.example.playlistmaker.data.network.ItunesApi
 import com.example.playlistmaker.data.dto.TracksResponse
 import com.example.playlistmaker.domain.models.Track

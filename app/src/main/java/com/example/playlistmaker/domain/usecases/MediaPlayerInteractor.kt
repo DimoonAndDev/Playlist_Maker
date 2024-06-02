@@ -1,9 +1,10 @@
 package com.example.playlistmaker.domain.usecases
 
-import com.example.playlistmaker.domain.repository.mediaplayer.MediaPlayerRepository
+import com.example.playlistmaker.domain.repository.MediaPlayerRepository
 
 class MediaPlayerInteractor(
-    private val mediaPlayerRepository: MediaPlayerRepository)
+    private val mediaPlayerRepository: MediaPlayerRepository,
+    )
  {
     fun clickPlayTrack(){
         mediaPlayerRepository.playTrack()

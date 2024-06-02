@@ -1,4 +1,4 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.presentation.ui.player
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +12,8 @@ import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.example.playlistmaker.Creator
+import com.example.playlistmaker.R
 import com.example.playlistmaker.presentation.models.PlayerStatus
 import com.example.playlistmaker.presentation.models.PlayerTrack
 import com.example.playlistmaker.presentation.mapper.PlayerStatusMapper
@@ -84,20 +86,19 @@ class PlayTrackActivity : AppCompatActivity() {
         mainThreadHandler.post(getMediaPlayerPrepared())
         playTrackButton.setOnClickListener {
             playbackControl()
-            }
+        }
     }
 
     private fun getMediaPlayerPrepared(): Runnable {
-        return object :Runnable{
+        return object : Runnable {
             override fun run() {
                 playerStatus = PlayerStatusMapper.map(mediaPlayerInteractor.getStatus())
-                if (playerStatus!=STATE_PREPARED){
-                    mainThreadHandler.postDelayed(this,DELAY)
-                }
-                else{
+                if (playerStatus != STATE_PREPARED) {
+                    mainThreadHandler.postDelayed(this, DELAY)
+                } else {
                     playTrackButton.isEnabled = true
                     mainThreadHandler.removeCallbacks(this)
-                    }
+                }
             }
         }
     }
@@ -134,7 +135,14 @@ class PlayTrackActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        if (playerStatus == STATE_PLAYING) mediaPlayerInteractor.clickPauseTrack()
+        if (playerStatus == STATE_PLAYING) {
+            mediaPlayerInteractor.clickPauseTrack()
+            playTrackButton.setImageDrawable(
+                AppCompatResources.getDrawable(
+                    applicationContext.applicationContext,
+                    R.drawable.play_button_track
+                ))
+        }
     }
 
     override fun onDestroy() {

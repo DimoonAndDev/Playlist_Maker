@@ -1,18 +1,15 @@
 package com.example.playlistmaker.data.repository.mediaplayer
 
 import android.media.MediaPlayer
-import android.os.Looper
-import com.example.playlistmaker.domain.repository.mediaplayer.MediaPlayerRepository
-import android.os.Handler
 import com.example.playlistmaker.data.dto.MediaPlayerStatus
-import com.example.playlistmaker.presentation.models.PlayerStatus
+import com.example.playlistmaker.domain.repository.MediaPlayerRepository
 
-class MediaPlayerRepositoryImpl:MediaPlayerRepository {
+
+class MediaPlayerRepositoryImpl: MediaPlayerRepository {
     private val mediaPlayer = MediaPlayer()
-    private val mainHandler = Handler(Looper.getMainLooper())
     private var playerStatus = MediaPlayerStatus.STATE_DEFAULT
-    override fun preparePlayer(trackURL:String) {
-        mediaPlayer.setDataSource(trackURL)
+    override fun preparePlayer(dataSource:String) {
+        mediaPlayer.setDataSource(dataSource)
         mediaPlayer.prepareAsync()
         mediaPlayer.setOnPreparedListener(){
             playerStatus = MediaPlayerStatus.STATE_PREPARED
