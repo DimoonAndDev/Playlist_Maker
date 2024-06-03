@@ -1,4 +1,4 @@
-package com.example.playlistmaker
+package com.example.playlistmaker.presentation.ui.search
 
 import android.content.Context
 import android.content.res.Configuration
@@ -20,10 +20,11 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.netconnection.ItunesApi
-import com.example.playlistmaker.netconnection.TracksResponse
-import com.example.playlistmaker.searchrecycler.SearchTrackAdapter
-import com.example.playlistmaker.searchrecycler.SearchTrackHistoryHelper
+import com.example.playlistmaker.R
+import com.example.playlistmaker.data.network.ItunesApi
+import com.example.playlistmaker.data.dto.TracksResponse
+import com.example.playlistmaker.domain.models.Track
+import com.example.playlistmaker.data.shpr.SearchTrackHistoryHelper
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -32,7 +33,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchActivity : AppCompatActivity() {
 
-    private val tracks = mutableListOf(Track("", "", 0, "", 0, "", "", "", "", ""))
+    private val tracks = mutableListOf(Track())
     private val iTunesBaseUrl = "https://itunes.apple.com"
 
     private val retrofit = Retrofit.Builder()

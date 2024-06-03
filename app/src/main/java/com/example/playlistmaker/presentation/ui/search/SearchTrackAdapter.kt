@@ -1,4 +1,4 @@
-package com.example.playlistmaker.searchrecycler
+package com.example.playlistmaker.presentation.ui.search
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,11 +8,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.PlayTrackActivity
 import com.example.playlistmaker.R
-import com.example.playlistmaker.SearchActivity
-import com.example.playlistmaker.Track
+import com.example.playlistmaker.data.shpr.SearchTrackHistoryHelper
+import com.example.playlistmaker.domain.models.Track
+import com.example.playlistmaker.presentation.ui.player.PlayTrackActivity
 import com.google.gson.Gson
+
 
 val handler = Handler(Looper.getMainLooper())
 

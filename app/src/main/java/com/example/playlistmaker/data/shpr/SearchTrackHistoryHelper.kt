@@ -1,18 +1,19 @@
-package com.example.playlistmaker.searchrecycler
+package com.example.playlistmaker.data.shpr
 
 import android.app.Application
 import android.content.Context
 import com.example.playlistmaker.PLAYLIST_SHARED_PREFS
-import com.example.playlistmaker.Track
+import com.example.playlistmaker.domain.models.Track
+
 import com.google.gson.Gson
 
-private const val SP_TRACK_HISTORY_LIST = "SP_TRACK_HISTORY_LIST"
+const val SP_TRACK_HISTORY_LIST = "SP_TRACK_HISTORY_LIST"
 
 class SearchTrackHistoryHelper : Application() {
 
     private val trackList = mutableListOf<Track>()
     private val maxHistoryTrack = 10
-    fun saveTrack(context: Context,track: Track) {
+    fun saveTrack(context: Context, track: Track) {
         val sharedPrefs = context.getSharedPreferences(
             PLAYLIST_SHARED_PREFS, MODE_PRIVATE
         )
@@ -27,11 +28,11 @@ class SearchTrackHistoryHelper : Application() {
         }
         if (trackList.size == maxHistoryTrack) trackList.removeAt(9)
         trackList.add(0,track)
-        val savedStringTrackList =Gson().toJson(trackList)
+        val savedStringTrackList = Gson().toJson(trackList)
         sharedPrefs.edit()?.putString(SP_TRACK_HISTORY_LIST, savedStringTrackList)?.apply()
     }
 
-    fun getHistory(context:Context): MutableList<Track> {
+    fun getHistory(context: Context): MutableList<Track> {
         trackList.clear()
         val sharedPrefs = context.getSharedPreferences(
             PLAYLIST_SHARED_PREFS, MODE_PRIVATE
