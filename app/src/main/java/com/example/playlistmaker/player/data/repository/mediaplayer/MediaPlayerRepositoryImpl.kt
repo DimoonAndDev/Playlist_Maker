@@ -1,6 +1,7 @@
 package com.example.playlistmaker.player.data.repository.mediaplayer
 
 import android.media.MediaPlayer
+import android.media.MediaPlayer.OnPreparedListener
 import com.example.playlistmaker.player.data.dto.MediaPlayerStatus
 import com.example.playlistmaker.player.domain.repository.MediaPlayerRepository
 
@@ -13,10 +14,15 @@ class MediaPlayerRepositoryImpl: MediaPlayerRepository {
         mediaPlayer.prepareAsync()
         mediaPlayer.setOnPreparedListener(){
             playerStatus = MediaPlayerStatus.STATE_PREPARED
+
         }
         mediaPlayer.setOnCompletionListener {
             playerStatus = MediaPlayerStatus.STATE_PREPARED
         }
+    }
+
+    override fun setOnPrepareListener(listener: MediaPlayer.OnPreparedListener) {
+        mediaPlayer.setOnPreparedListener(listener)
     }
 
     override fun playTrack() {

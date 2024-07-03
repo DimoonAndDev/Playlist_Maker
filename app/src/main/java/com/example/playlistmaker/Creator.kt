@@ -1,7 +1,6 @@
 package com.example.playlistmaker
 
 import android.app.Application
-import android.content.Context
 import com.example.playlistmaker.player.data.repository.PlayerGetTrackRepositoryImpl
 import com.example.playlistmaker.player.data.repository.mediaplayer.MediaPlayerRepositoryImpl
 import com.example.playlistmaker.player.domain.repository.PlayerGetTrackRepository

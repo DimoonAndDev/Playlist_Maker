@@ -1,13 +1,11 @@
 package com.example.playlistmaker.settings.ui
 
-import android.content.Intent
-import android.net.Uri
-import android.opengl.Visibility
+
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
-import androidx.activity.ComponentActivity
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SwitchCompat
 import androidx.lifecycle.ViewModelProvider

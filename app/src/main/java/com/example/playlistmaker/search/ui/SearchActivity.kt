@@ -21,7 +21,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
-import com.example.playlistmaker.player.data.network.ItunesApi
+import com.example.playlistmaker.search.data.network.ItunesApi
 import com.example.playlistmaker.player.data.dto.TracksResponse
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.data.shpr.SearchTrackHistoryHelper

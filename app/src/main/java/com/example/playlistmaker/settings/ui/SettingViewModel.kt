@@ -5,11 +5,9 @@ import android.content.Intent
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.playlistmaker.App
 import com.example.playlistmaker.Creator
 import com.example.playlistmaker.sharing.domain.usecases.OutOptionsInteractor
 import com.example.playlistmaker.settings.domain.usecases.ThemeChangeInteractor
