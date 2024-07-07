@@ -14,7 +14,7 @@ import com.example.playlistmaker.R
 
 class SettingActivity : AppCompatActivity() {
 
-    lateinit var viewModel: SettingViewModel
+    private lateinit var viewModel: SettingViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)

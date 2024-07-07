@@ -7,7 +7,7 @@ import com.example.playlistmaker.PLAYLIST_SHARED_PREFS
 import com.example.playlistmaker.SP_THEME_KEY
 import com.example.playlistmaker.settings.domain.repository.ThemeChangeRepository
 
-class ThemeChangeInteractorImpl() : ThemeChangeRepository {
+class ThemeChangeInteractorImpl : ThemeChangeRepository {
 
     override fun changeTheme(context: Context,checked:Boolean) {
         val sharedPrefs = context.getSharedPreferences(

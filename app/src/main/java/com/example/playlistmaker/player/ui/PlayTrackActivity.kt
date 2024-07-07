@@ -15,10 +15,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.Creator
 import com.example.playlistmaker.R
-import com.example.playlistmaker.player.ui.models.PlayerStatus
 import com.example.playlistmaker.player.ui.models.PlayerTrack
 import com.example.playlistmaker.player.ui.mapper.PlayerStatusMapper
-import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_DEFAULT
 import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PAUSED
 import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PLAYING
 import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PREPARED
@@ -29,27 +27,24 @@ class PlayTrackActivity : AppCompatActivity() {
     private lateinit var playTrackButton: ImageView
     private lateinit var mainThreadHandler: Handler
     private val getPlayerTrack = Creator.provideGetPlayerTrackUseCase()
-    private val mediaPlayerInteractor = Creator.provideMediaPlayerInteractor()
     private lateinit var trackCurrTimeTextView: TextView
-    private lateinit var playerStatus: PlayerStatus
 
-    private lateinit var countryTextView:TextView
-    private lateinit var genreTextView:TextView
-    private lateinit var yearTextView:TextView
-    private lateinit var albumTextView:TextView
-    private lateinit var trackMaxTimeTextView:TextView
+    private lateinit var countryTextView: TextView
+    private lateinit var genreTextView: TextView
+    private lateinit var yearTextView: TextView
+    private lateinit var albumTextView: TextView
+    private lateinit var trackMaxTimeTextView: TextView
 
-    private lateinit var artistTextView:TextView
-    private lateinit var trackNameTimeTextView:TextView
+    private lateinit var artistTextView: TextView
+    private lateinit var trackNameTimeTextView: TextView
 
-    private lateinit var trackArtImageView:ImageView
+    private lateinit var trackArtImageView: ImageView
 
-    private lateinit var albumTitleTextView:TextView
+    private lateinit var albumTitleTextView: TextView
 
     private lateinit var viewModel: PlayTrackActivityViewModel
 
-    private var seconds = 0L
-    private val DELAY = 500L
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_play_track)
@@ -82,38 +77,30 @@ class PlayTrackActivity : AppCompatActivity() {
         renderTrack(track)
         unprepared()
 
-        viewModel = ViewModelProvider(this,PlayTrackActivityViewModel.getViewModelFactory(track))[PlayTrackActivityViewModel::class.java]
+        viewModel = ViewModelProvider(
+            this,
+            PlayTrackActivityViewModel.getViewModelFactory(track)
+        )[PlayTrackActivityViewModel::class.java]
         viewModel.preparePlayer(track.previewUrl)
 
-        viewModel.getMediaPlayerLiveData().observe(this){
-            when (PlayerStatusMapper.map(it)){
-                STATE_PLAYING->play()
-                STATE_PAUSED->pause()
-                STATE_PREPARED->prepared()
-                else ->unprepared()
+        viewModel.getMediaPlayerLiveData().observe(this) {
+            when (PlayerStatusMapper.map(it)) {
+                STATE_PLAYING -> play()
+                STATE_PAUSED -> pause()
+                STATE_PREPARED -> prepared()
+                else -> unprepared()
             }
         }
-        mainThreadHandler.post(getMediaPlayerPrepared())
+        viewModel.getTimerLiveData().observe(this) {
+            trackCurrTimeTextView.text =
+                String.format("%d:%02d", it / 60, it % 60)
+        }
         playTrackButton.setOnClickListener {
             viewModel.clickMediaPlayerControl()
         }
     }
 
-    private fun getMediaPlayerPrepared(): Runnable {
-        return object : Runnable {
-            override fun run() {
-                playerStatus = PlayerStatusMapper.map(mediaPlayerInteractor.getStatus())
-                if (playerStatus != STATE_PREPARED) {
-                    mainThreadHandler.postDelayed(this, DELAY)
-                } else {
-                    playTrackButton.isEnabled = true
-                    mainThreadHandler.removeCallbacks(this)
-                }
-            }
-        }
-    }
-
-    private fun play(){
+    private fun play() {
 
         playTrackButton.setImageDrawable(
             AppCompatResources.getDrawable(
@@ -121,9 +108,9 @@ class PlayTrackActivity : AppCompatActivity() {
                 R.drawable.pause_button_track
             )
         )
-        startTrackTimer()
     }
-    private fun pause(){
+
+    private fun pause() {
         playTrackButton.setImageDrawable(
             AppCompatResources.getDrawable(
                 this,
@@ -131,45 +118,19 @@ class PlayTrackActivity : AppCompatActivity() {
             )
         )
     }
-    private fun prepared(){
+
+    private fun prepared() {
         pause()
         trackCurrTimeTextView.text =
             String.format("%d:%02d", 0, 0)
         playTrackButton.isEnabled = true
     }
-    private fun unprepared(){
+
+    private fun unprepared() {
         trackCurrTimeTextView.text =
             String.format("%d:%02d", 0, 0)
         playTrackButton.isEnabled = false
     }
-//    private fun playbackControl() {
-//        when (playerStatus) {
-//            STATE_PLAYING -> {
-//                playTrackButton.setImageDrawable(
-//                    AppCompatResources.getDrawable(
-//                        this,
-//                        R.drawable.play_button_track
-//                    )
-//                )
-//                playerStatus = STATE_PAUSED
-//                mediaPlayerInteractor.clickPauseTrack()
-//            }
-//
-//            STATE_PREPARED, STATE_PAUSED -> {
-//                playTrackButton.setImageDrawable(
-//                    AppCompatResources.getDrawable(
-//                        this,
-//                        R.drawable.pause_button_track
-//                    )
-//                )
-//                startTrackTimer()
-//                playerStatus = STATE_PLAYING
-//                mediaPlayerInteractor.clickPlayTrack()
-//            }
-//
-//            STATE_DEFAULT -> mediaPlayerInteractor.preparePlayer(track.previewUrl)
-//        }
-//    }
 
     override fun onPause() {
         super.onPause()
@@ -183,34 +144,7 @@ class PlayTrackActivity : AppCompatActivity() {
         viewModel.releasePlayer()
     }
 
-    private fun startTrackTimer() {
-        var startTime = System.currentTimeMillis()
-        if (seconds != 0L) startTime -= (seconds * 1000)
-        mainThreadHandler.post(
-            createUpdateTimerTask(startTime)
-        )
-    }
-
-    private fun createUpdateTimerTask(startTime: Long): Runnable {
-        return object : Runnable {
-            override fun run() {
-                val elapsedTime = System.currentTimeMillis() - startTime
-                playerStatus = PlayerStatusMapper.map(mediaPlayerInteractor.getStatus())
-                if (PlayerStatusMapper.map(viewModel.getPlayerStatus()) == STATE_PLAYING) {
-                    seconds = elapsedTime / 1000
-                    trackCurrTimeTextView.text =
-                        String.format("%d:%02d", seconds / 60, seconds % 60)
-
-                    mainThreadHandler.postDelayed(this, DELAY)
-                }
-                if (PlayerStatusMapper.map(viewModel.getPlayerStatus()) == STATE_PREPARED) {
-                    prepared()
-                }
-            }
-        }
-    }
-
-    fun renderTrack(track: PlayerTrack) {
+    private fun renderTrack(track: PlayerTrack) {
         Glide.with(applicationContext)
             .load(track.artworkUrl512)
             .placeholder(R.drawable.placeholder)
@@ -231,6 +165,7 @@ class PlayTrackActivity : AppCompatActivity() {
         artistTextView.text = track.artistName
         trackNameTimeTextView.text = track.trackName
     }
+
     private fun dpToPx(dp: Float, context: Context): Int {
         return TypedValue.applyDimension(
             TypedValue.COMPLEX_UNIT_DIP,

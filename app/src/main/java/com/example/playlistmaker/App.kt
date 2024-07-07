@@ -1,16 +1,18 @@
 package com.example.playlistmaker
 
 import android.app.Application
+import android.content.Context
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatDelegate
 
 const val PLAYLIST_SHARED_PREFS = "PLAYLIST_SHARED_PREFS"
 const val SP_THEME_KEY = "SP_THEME_KEY"
 
-class App() : Application() {
+class App : Application() {
     private var darkTheme = false
     override fun onCreate() {
         super.onCreate()
+        Creator.initApplication(this)
 
 
         val sharedPrefs = applicationContext.getSharedPreferences(

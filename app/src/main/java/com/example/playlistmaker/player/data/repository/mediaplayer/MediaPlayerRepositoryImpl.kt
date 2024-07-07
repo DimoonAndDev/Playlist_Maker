@@ -1,7 +1,6 @@
 package com.example.playlistmaker.player.data.repository.mediaplayer
 
 import android.media.MediaPlayer
-import android.media.MediaPlayer.OnPreparedListener
 import com.example.playlistmaker.player.data.dto.MediaPlayerStatus
 import com.example.playlistmaker.player.domain.repository.MediaPlayerRepository
 
@@ -12,7 +11,7 @@ class MediaPlayerRepositoryImpl: MediaPlayerRepository {
     override fun preparePlayer(dataSource:String) {
         mediaPlayer.setDataSource(dataSource)
         mediaPlayer.prepareAsync()
-        mediaPlayer.setOnPreparedListener(){
+        mediaPlayer.setOnPreparedListener{
             playerStatus = MediaPlayerStatus.STATE_PREPARED
 
         }
