@@ -13,7 +13,6 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.example.playlistmaker.Creator
 import com.example.playlistmaker.R
 import com.example.playlistmaker.player.ui.models.PlayerTrack
 import com.example.playlistmaker.player.ui.mapper.PlayerStatusMapper
@@ -26,7 +25,6 @@ class PlayTrackActivity : AppCompatActivity() {
     private lateinit var track: PlayerTrack
     private lateinit var playTrackButton: ImageView
     private lateinit var mainThreadHandler: Handler
-    private val getPlayerTrack = Creator.provideGetPlayerTrackUseCase()
     private lateinit var trackCurrTimeTextView: TextView
 
     private lateinit var countryTextView: TextView
@@ -70,18 +68,15 @@ class PlayTrackActivity : AppCompatActivity() {
         trackCurrTimeTextView = findViewById(R.id.TrackCurrTimeTextView)
 
         playBackArrowImage.setOnClickListener { this.finish() }
-
+        viewModel = ViewModelProvider(
+            this,
+            PlayTrackActivityViewModel.getViewModelFactory()
+        )[PlayTrackActivityViewModel::class.java]
         val trackString = intent.getStringExtra("TRACK")
-        track = getPlayerTrack.execute(trackString)
+        track = viewModel.getPlayerTrack(trackString)
 
         renderTrack(track)
         unprepared()
-
-        viewModel = ViewModelProvider(
-            this,
-            PlayTrackActivityViewModel.getViewModelFactory(track)
-        )[PlayTrackActivityViewModel::class.java]
-        viewModel.preparePlayer(track.previewUrl)
 
         viewModel.getMediaPlayerLiveData().observe(this) {
             when (PlayerStatusMapper.map(it)) {

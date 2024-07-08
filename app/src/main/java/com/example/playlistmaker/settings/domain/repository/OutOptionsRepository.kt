@@ -1,9 +1,9 @@
 package com.example.playlistmaker.settings.domain.repository
 
-import android.content.Intent
+import com.example.playlistmaker.settings.domain.models.IntentModel
 
 interface OutOptionsRepository {
-    fun openTerms():Intent
-    fun shareApp():Intent
-    fun writeSupport():Intent
+    fun openTerms():IntentModel
+    fun shareApp():IntentModel
+    fun writeSupport():IntentModel
 }

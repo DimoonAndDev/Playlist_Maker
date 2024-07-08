@@ -18,10 +18,7 @@ class App : Application() {
         val sharedPrefs = applicationContext.getSharedPreferences(
             PLAYLIST_SHARED_PREFS, MODE_PRIVATE
         )
-        darkTheme = sharedPrefs.getBoolean(
-            SP_THEME_KEY,
-            resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
-        )
+        darkTheme = sharedPrefs.getBoolean(SP_THEME_KEY,resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
         switchTheme(darkTheme)
     }
 

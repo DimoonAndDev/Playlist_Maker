@@ -5,23 +5,21 @@ import com.example.playlistmaker.player.data.dto.MediaPlayerStatus
 import com.example.playlistmaker.player.domain.repository.MediaPlayerRepository
 
 
-class MediaPlayerRepositoryImpl: MediaPlayerRepository {
+class MediaPlayerRepositoryImpl : MediaPlayerRepository {
     private val mediaPlayer = MediaPlayer()
     private var playerStatus = MediaPlayerStatus.STATE_DEFAULT
-    override fun preparePlayer(dataSource:String) {
-        mediaPlayer.setDataSource(dataSource)
-        mediaPlayer.prepareAsync()
-        mediaPlayer.setOnPreparedListener{
-            playerStatus = MediaPlayerStatus.STATE_PREPARED
+    override fun preparePlayer(dataSource: String) {
+        if (playerStatus == MediaPlayerStatus.STATE_DEFAULT) {
+            mediaPlayer.setDataSource(dataSource)
+            mediaPlayer.prepareAsync()
+            mediaPlayer.setOnPreparedListener {
+                playerStatus = MediaPlayerStatus.STATE_PREPARED
 
+            }
+            mediaPlayer.setOnCompletionListener {
+                playerStatus = MediaPlayerStatus.STATE_PREPARED
+            }
         }
-        mediaPlayer.setOnCompletionListener {
-            playerStatus = MediaPlayerStatus.STATE_PREPARED
-        }
-    }
-
-    override fun setOnPrepareListener(listener: MediaPlayer.OnPreparedListener) {
-        mediaPlayer.setOnPreparedListener(listener)
     }
 
     override fun playTrack() {
@@ -31,7 +29,7 @@ class MediaPlayerRepositoryImpl: MediaPlayerRepository {
 
     override fun pauseTrack() {
         mediaPlayer.pause()
-        playerStatus= MediaPlayerStatus.STATE_PAUSED
+        playerStatus = MediaPlayerStatus.STATE_PAUSED
     }
 
     override fun releasePlayer() {

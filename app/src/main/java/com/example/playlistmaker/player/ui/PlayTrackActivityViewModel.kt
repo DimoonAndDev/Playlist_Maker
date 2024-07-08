@@ -10,6 +10,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.playlistmaker.Creator
 import com.example.playlistmaker.player.data.dto.MediaPlayerStatus
+import com.example.playlistmaker.player.domain.usecases.GetPlayerTrackUseCase
 import com.example.playlistmaker.player.domain.usecases.MediaPlayerInteractor
 import com.example.playlistmaker.player.ui.mapper.PlayerStatusMapper
 import com.example.playlistmaker.player.ui.models.PlayerStatus
@@ -17,8 +18,8 @@ import com.example.playlistmaker.player.ui.models.PlayerTrack
 
 class PlayTrackActivityViewModel(
     private val mediaPlayerInteractor: MediaPlayerInteractor,
-    track: PlayerTrack
-) : ViewModel() {
+    private val getPlayerTrackUseCase: GetPlayerTrackUseCase,
+    ) : ViewModel() {
     private var seconds = 0L
     private val DELAY = 500L
     private val mainThreadHandler = Handler(Looper.getMainLooper())
@@ -32,6 +33,11 @@ class PlayTrackActivityViewModel(
     private fun updateMediaPlayerState(state: Int) {
         if (mediaPlayerLiveData.value != state)
             mediaPlayerLiveData.postValue(state)
+    }
+    fun getPlayerTrack(trackGson:String?):PlayerTrack{
+        val track = getPlayerTrackUseCase.execute(trackGson)
+        preparePlayer(track.previewUrl)
+        return track
     }
 
     fun clickMediaPlayerControl() {
@@ -59,21 +65,19 @@ class PlayTrackActivityViewModel(
     }
 
     private fun playTrack() {
-        mediaPlayerInteractor.clickPlayTrack()
+        mediaPlayerInteractor.playTrack()
         updateMediaPlayerState(MediaPlayerStatus.STATE_PLAYING.status)
         startTrackTimer()
     }
 
     fun pauseTrack() {
-        mediaPlayerInteractor.clickPauseTrack()
+        mediaPlayerInteractor.pauseTrack()
         updateMediaPlayerState(MediaPlayerStatus.STATE_PAUSED.status)
     }
 
-    fun preparePlayer(dataSourse: String) {
+    private fun preparePlayer(dataSourse: String) {
         mediaPlayerInteractor.preparePlayer(dataSourse)
-        mediaPlayerInteractor.setOnPrepareListener {
-            updateMediaPlayerState(MediaPlayerStatus.STATE_PREPARED.status)
-        }
+        updateMediaPlayerState(MediaPlayerStatus.STATE_PREPARED.status)
 
     }
     private fun startTrackTimer() {
@@ -100,9 +104,9 @@ class PlayTrackActivityViewModel(
         }
     }
     companion object {
-        fun getViewModelFactory(track: PlayerTrack): ViewModelProvider.Factory = viewModelFactory {
+        fun getViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
             initializer {
-                PlayTrackActivityViewModel(Creator.provideMediaPlayerInteractor(), track)
+                PlayTrackActivityViewModel(Creator.provideMediaPlayerInteractor(),Creator.provideGetPlayerTrackUseCase())
             }
 
         }

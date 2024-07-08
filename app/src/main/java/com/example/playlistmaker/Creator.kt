@@ -15,7 +15,7 @@ import com.example.playlistmaker.search.domain.repository.FindTrackRepository
 import com.example.playlistmaker.search.domain.repository.TrackHistoryRepository
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
 import com.example.playlistmaker.search.domain.usecases.GetSetTrackHistoryInteractor
-import com.example.playlistmaker.settings.data.repository.ThemeChangeInteractorImpl
+import com.example.playlistmaker.settings.data.repository.ThemeChangeRepositoryImpl
 import com.example.playlistmaker.settings.domain.repository.OutOptionsRepository
 import com.example.playlistmaker.settings.domain.repository.ThemeChangeRepository
 import com.example.playlistmaker.settings.domain.usecases.ThemeChangeInteractor
@@ -47,7 +47,7 @@ object Creator {
         return ThemeChangeInteractor(provideThemeChangeRepository())
     }
     private fun provideThemeChangeRepository(): ThemeChangeRepository {
-        return ThemeChangeInteractorImpl()
+        return ThemeChangeRepositoryImpl()
     }
 
     fun provideOutOptionsInteractor(application: Application):OutOptionsInteractor{

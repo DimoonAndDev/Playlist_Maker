@@ -1,16 +1,15 @@
 package com.example.playlistmaker.player.domain.usecases
 
-import android.media.MediaPlayer
 import com.example.playlistmaker.player.domain.repository.MediaPlayerRepository
 
 class MediaPlayerInteractor(
     private val mediaPlayerRepository: MediaPlayerRepository,
 ) {
-    fun clickPlayTrack() {
+    fun playTrack() {
         mediaPlayerRepository.playTrack()
     }
 
-    fun clickPauseTrack() {
+    fun pauseTrack() {
         mediaPlayerRepository.pauseTrack()
     }
 
@@ -27,7 +26,4 @@ class MediaPlayerInteractor(
         return mediaPlayerRepository.getStatus()
     }
 
-    fun setOnPrepareListener(listener:MediaPlayer.OnPreparedListener){
-        mediaPlayerRepository.setOnPrepareListener(listener)
-    }
 }

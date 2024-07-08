@@ -1,6 +1,6 @@
 package com.example.playlistmaker.player.domain.repository
 
-import android.media.MediaPlayer
+
 
 
 interface MediaPlayerRepository  {
@@ -9,6 +9,6 @@ interface MediaPlayerRepository  {
     fun playTrack()
     fun pauseTrack()
     fun preparePlayer(dataSource:String)
-    fun setOnPrepareListener(listener:MediaPlayer.OnPreparedListener)
+
 
 }
