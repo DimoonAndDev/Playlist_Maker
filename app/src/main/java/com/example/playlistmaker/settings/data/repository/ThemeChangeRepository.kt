@@ -1,4 +1,4 @@
-package com.example.playlistmaker.settings.domain.repository
+package com.example.playlistmaker.settings.data.repository
 
 
 

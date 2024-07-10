@@ -9,12 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.playlistmaker.Creator
-import com.example.playlistmaker.sharing.domain.usecases.OutOptionsInteractor
 import com.example.playlistmaker.settings.domain.usecases.ThemeChangeInteractor
+import com.example.playlistmaker.sharing.domain.usecases.SharingInteractor
+
+
 
 class SettingViewModel(
     private val themeChangeInteractor: ThemeChangeInteractor,
-    private val outOptionsInteractor: OutOptionsInteractor,
+    private val outOptionsInteractor: SharingInteractor,
     ): ViewModel() {
     private val themeLiveData = MutableLiveData(themeChangeInteractor.getTheme())
 
@@ -44,7 +46,7 @@ companion object{
     fun getViewModelFactory(application: Application):ViewModelProvider.Factory = viewModelFactory {
         initializer {
             SettingViewModel(Creator.provideThemeChangeInteractor(),
-                Creator.provideOutOptionsInteractor(application))
+                Creator.provideSharingInteractor(application))
         }
     }
 }

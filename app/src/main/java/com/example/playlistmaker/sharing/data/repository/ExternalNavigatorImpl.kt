@@ -5,9 +5,8 @@ import android.content.Intent
 import android.net.Uri
 import com.example.playlistmaker.R
 import com.example.playlistmaker.settings.domain.models.IntentModel
-import com.example.playlistmaker.settings.domain.repository.OutOptionsRepository
 
-class OutOptionsRepositoryImpl(private val application: Application) : OutOptionsRepository {
+class ExternalNavigatorImpl(private val application: Application) : ExternalNavigator {
     override fun openTerms(): IntentModel {
         val url = application.getString(R.string.YP_user_cond_link)
         return IntentModel(Intent(Intent.ACTION_VIEW).apply {

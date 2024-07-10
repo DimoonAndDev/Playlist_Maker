@@ -16,11 +16,13 @@ import com.example.playlistmaker.search.domain.repository.TrackHistoryRepository
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
 import com.example.playlistmaker.search.domain.usecases.GetSetTrackHistoryInteractor
 import com.example.playlistmaker.settings.data.repository.ThemeChangeRepositoryImpl
-import com.example.playlistmaker.settings.domain.repository.OutOptionsRepository
-import com.example.playlistmaker.settings.domain.repository.ThemeChangeRepository
+import com.example.playlistmaker.sharing.data.repository.ExternalNavigator
+import com.example.playlistmaker.settings.data.repository.ThemeChangeRepository
 import com.example.playlistmaker.settings.domain.usecases.ThemeChangeInteractor
-import com.example.playlistmaker.sharing.data.repository.OutOptionsRepositoryImpl
-import com.example.playlistmaker.sharing.domain.usecases.OutOptionsInteractor
+import com.example.playlistmaker.settings.domain.usecases.ThemeChangeInteractorImpl
+import com.example.playlistmaker.sharing.data.repository.ExternalNavigatorImpl
+import com.example.playlistmaker.sharing.domain.usecases.SharingInteractor
+import com.example.playlistmaker.sharing.domain.usecases.SharingInteractorImpl
 private lateinit var applicationCr: Application
 object Creator {
    //PLAYER_ACTIVITY
@@ -43,18 +45,18 @@ object Creator {
     }
 
 //SETTINGS_ACTIVITY
-    fun provideThemeChangeInteractor():ThemeChangeInteractor{
-        return ThemeChangeInteractor(provideThemeChangeRepository())
+    fun provideThemeChangeInteractor(): ThemeChangeInteractor {
+        return ThemeChangeInteractorImpl(provideThemeChangeRepository())
     }
     private fun provideThemeChangeRepository(): ThemeChangeRepository {
         return ThemeChangeRepositoryImpl()
     }
 
-    fun provideOutOptionsInteractor(application: Application):OutOptionsInteractor{
-        return OutOptionsInteractor(provideOutOptionsRepository(application))
+    fun provideSharingInteractor(application: Application): SharingInteractor {
+        return SharingInteractorImpl(provideOutOptionsRepository(application))
     }
-    private fun provideOutOptionsRepository(application: Application):OutOptionsRepository{
-        return OutOptionsRepositoryImpl(application)
+    private fun provideOutOptionsRepository(application: Application): ExternalNavigator {
+        return ExternalNavigatorImpl(application)
     }
 //SEARCH_ACTIVITY
     fun provideGetSetTrackHistoryInteractor():GetSetTrackHistoryInteractor{
