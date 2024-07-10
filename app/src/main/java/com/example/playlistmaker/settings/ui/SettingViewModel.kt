@@ -1,7 +1,6 @@
 package com.example.playlistmaker.settings.ui
 
 import android.app.Application
-import android.content.Intent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -16,7 +15,7 @@ import com.example.playlistmaker.sharing.domain.usecases.SharingInteractor
 
 class SettingViewModel(
     private val themeChangeInteractor: ThemeChangeInteractor,
-    private val outOptionsInteractor: SharingInteractor,
+    private val sharingInteractor: SharingInteractor,
     ): ViewModel() {
     private val themeLiveData = MutableLiveData(themeChangeInteractor.getTheme())
 
@@ -32,15 +31,15 @@ class SettingViewModel(
 
     fun getThemeLD():Boolean = themeChangeInteractor.getTheme()
 
-    fun openTerms():Intent{
-       return IntentFormatter.format(outOptionsInteractor.openTerms())
+    fun openTerms(){
+       sharingInteractor.openTerms()
     }
 
-    fun shareApp():Intent{
-        return IntentFormatter.format(outOptionsInteractor.shareApp())
+    fun shareApp(){
+        sharingInteractor.shareApp()
     }
-    fun writeSupport():Intent{
-        return IntentFormatter.format(outOptionsInteractor.writeSupport())
+    fun writeSupport(){
+        sharingInteractor.writeSupport()
     }
 companion object{
     fun getViewModelFactory(application: Application):ViewModelProvider.Factory = viewModelFactory {

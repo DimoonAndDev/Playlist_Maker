@@ -50,14 +50,14 @@ class SettingActivity : AppCompatActivity() {
         }
 
         shareButton.setOnClickListener {
-            startActivity(viewModel.shareApp())
+            viewModel.shareApp()
         }
 
         supportButton.setOnClickListener {
-            startActivity(viewModel.writeSupport())
+            viewModel.writeSupport()
         }
         userCondButton.setOnClickListener {
-            startActivity(viewModel.openTerms())
+            viewModel.openTerms()
         }
 
 
