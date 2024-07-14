@@ -27,7 +27,7 @@ class SettingActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(
             this,
-            SettingViewModel.getViewModelFactory(this.application)
+            SettingViewModel.getViewModelFactory()
         )[SettingViewModel::class.java]
 
         backArrowImage.visibility = View.VISIBLE

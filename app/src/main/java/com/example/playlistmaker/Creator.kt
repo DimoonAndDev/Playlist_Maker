@@ -20,9 +20,9 @@ import com.example.playlistmaker.sharing.data.repository.ExternalNavigator
 import com.example.playlistmaker.settings.data.repository.ThemeChangeRepository
 import com.example.playlistmaker.settings.domain.usecases.ThemeChangeInteractor
 import com.example.playlistmaker.settings.domain.usecases.ThemeChangeInteractorImpl
-import com.example.playlistmaker.sharing.data.repository.ExternalNavigatorImpl
+import com.example.playlistmaker.sharing.data.repository.impl.ExternalNavigatorImpl
 import com.example.playlistmaker.sharing.domain.usecases.SharingInteractor
-import com.example.playlistmaker.sharing.domain.usecases.SharingInteractorImpl
+import com.example.playlistmaker.sharing.data.repository.impl.SharingInteractorImpl
 private lateinit var applicationCr: Application
 object Creator {
    //PLAYER_ACTIVITY
@@ -52,11 +52,11 @@ object Creator {
         return ThemeChangeRepositoryImpl()
     }
 
-    fun provideSharingInteractor(application: Application): SharingInteractor {
-        return SharingInteractorImpl(provideOutOptionsRepository(application))
+    fun provideSharingInteractor(): SharingInteractor {
+        return SharingInteractorImpl(provideOutOptionsRepository())
     }
-    private fun provideOutOptionsRepository(application: Application): ExternalNavigator {
-        return ExternalNavigatorImpl(application)
+    private fun provideOutOptionsRepository(): ExternalNavigator {
+        return ExternalNavigatorImpl()
     }
 //SEARCH_ACTIVITY
     fun provideGetSetTrackHistoryInteractor():GetSetTrackHistoryInteractor{
