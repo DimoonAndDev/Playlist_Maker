@@ -19,6 +19,7 @@ import com.example.playlistmaker.player.ui.mapper.PlayerStatusMapper
 import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PAUSED
 import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PLAYING
 import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PREPARED
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class PlayTrackActivity : AppCompatActivity() {
@@ -40,7 +41,7 @@ class PlayTrackActivity : AppCompatActivity() {
 
     private lateinit var albumTitleTextView: TextView
 
-    private lateinit var viewModel: PlayTrackActivityViewModel
+    private val viewModel by viewModel<PlayTrackActivityViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,10 +69,6 @@ class PlayTrackActivity : AppCompatActivity() {
         trackCurrTimeTextView = findViewById(R.id.TrackCurrTimeTextView)
 
         playBackArrowImage.setOnClickListener { this.finish() }
-        viewModel = ViewModelProvider(
-            this,
-            PlayTrackActivityViewModel.getViewModelFactory()
-        )[PlayTrackActivityViewModel::class.java]
         val trackString = intent.getStringExtra("TRACK")
         track = viewModel.getPlayerTrack(trackString)
 

@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.ui.models.SearchScreenState
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SearchActivity : AppCompatActivity() {
@@ -48,7 +49,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var recyclerTrackAdapter: SearchTrackAdapter
     private lateinit var recyclerBotGuideline: Guideline
 
-    private lateinit var viewModel: SearchActivityViewModel
+    private val viewModel by viewModel<SearchActivityViewModel>()
 
     private val handler = Handler(Looper.getMainLooper())
 
@@ -69,11 +70,6 @@ class SearchActivity : AppCompatActivity() {
 
         searchProgressBar = findViewById(R.id.SearchProgressBar)
         recyclerBotGuideline = findViewById(R.id.RecyclerBotGuideline)
-
-        viewModel = ViewModelProvider(
-            this,
-            SearchActivityViewModel.getViewModelFactory(this.application)
-        )[SearchActivityViewModel::class.java]
 
         if (savedInstanceState != null) {
             textValue = savedInstanceState.getString(CURRENT_TEXT, EMPTY_TXT)

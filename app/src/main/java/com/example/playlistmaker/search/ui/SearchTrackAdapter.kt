@@ -8,11 +8,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
-import com.example.playlistmaker.Creator
 import com.example.playlistmaker.R
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.player.ui.PlayTrackActivity
+import com.example.playlistmaker.search.domain.usecases.GetSetTrackHistoryInteractor
 import com.google.gson.Gson
+import org.koin.java.KoinJavaComponent.getKoin
 
 
 val handler = Handler(Looper.getMainLooper())
@@ -35,10 +36,8 @@ class SearchTrackAdapter(private val tracks: MutableList<Track>) :
         holder.bind(tracks[position])
         holder.itemView.setOnClickListener {
             if (clickDebounce()) {
-                val saveTrackHistoryUseCase = Creator.provideGetSetTrackHistoryInteractor()
+                val saveTrackHistoryUseCase = getKoin().get<GetSetTrackHistoryInteractor>()
                 saveTrackHistoryUseCase.saveTrack(tracks[position])
-//                val searchHelper = SearchTrackHistoryHelper()
-//                searchHelper.saveTrack(holder.itemView.context, tracks[position])
                 val intent = Intent(holder.itemView.context, PlayTrackActivity::class.java)
                 val savedTrack = Gson().toJson(tracks[position])
                 intent.putExtra("TRACK", savedTrack)
