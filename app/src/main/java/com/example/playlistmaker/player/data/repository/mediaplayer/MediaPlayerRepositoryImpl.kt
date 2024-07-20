@@ -5,9 +5,8 @@ import com.example.playlistmaker.player.data.dto.MediaPlayerStatus
 import com.example.playlistmaker.player.domain.repository.MediaPlayerRepository
 
 
-class MediaPlayerRepositoryImpl : MediaPlayerRepository {
-    private val mediaPlayer = MediaPlayer()
-    private var playerStatus = MediaPlayerStatus.STATE_DEFAULT
+class MediaPlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) : MediaPlayerRepository {
+        private var playerStatus = MediaPlayerStatus.STATE_DEFAULT
     override fun preparePlayer(dataSource: String) {
         if (playerStatus == MediaPlayerStatus.STATE_DEFAULT) {
             mediaPlayer.setDataSource(dataSource)

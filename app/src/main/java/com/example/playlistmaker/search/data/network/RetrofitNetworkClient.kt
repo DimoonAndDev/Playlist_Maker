@@ -3,23 +3,15 @@ package com.example.playlistmaker.search.data.network
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import com.example.playlistmaker.Creator
 import com.example.playlistmaker.search.data.dto.Response
 import com.example.playlistmaker.search.data.dto.SearchRequest
 import com.example.playlistmaker.search.domain.impl.NetworkClient
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import org.koin.java.KoinJavaComponent.getKoin
 
-class RetrofitNetworkClient:NetworkClient {
-    private val iTunesBaseUrl = "https://itunes.apple.com"
 
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(iTunesBaseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    private val itunesService = retrofit.create(ItunesApi::class.java)
+class RetrofitNetworkClient(private val itunesService:ItunesApi):NetworkClient {
 
-    override fun doRequest(dto:Any): Response{
+        override fun doRequest(dto:Any): Response{
         if (!isConnected()){
             return Response().apply { resultCode=-1 }
         }
@@ -35,7 +27,7 @@ class RetrofitNetworkClient:NetworkClient {
     }
     private fun isConnected(): Boolean {
 
-        val connectivityManager = Creator.getApplication().getSystemService(
+        val connectivityManager = getKoin().get<Context>().getSystemService(
             Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val capabilities = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
         if (capabilities != null) {

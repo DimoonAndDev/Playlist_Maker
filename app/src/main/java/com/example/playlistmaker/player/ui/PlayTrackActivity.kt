@@ -10,7 +10,6 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
@@ -19,6 +18,8 @@ import com.example.playlistmaker.player.ui.mapper.PlayerStatusMapper
 import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PAUSED
 import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PLAYING
 import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PREPARED
+import com.example.playlistmaker.search.ui.TRACK_INTENT_EXTRA
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class PlayTrackActivity : AppCompatActivity() {
@@ -40,7 +41,7 @@ class PlayTrackActivity : AppCompatActivity() {
 
     private lateinit var albumTitleTextView: TextView
 
-    private lateinit var viewModel: PlayTrackActivityViewModel
+    private val viewModel by viewModel<PlayTrackActivityViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,11 +69,7 @@ class PlayTrackActivity : AppCompatActivity() {
         trackCurrTimeTextView = findViewById(R.id.TrackCurrTimeTextView)
 
         playBackArrowImage.setOnClickListener { this.finish() }
-        viewModel = ViewModelProvider(
-            this,
-            PlayTrackActivityViewModel.getViewModelFactory()
-        )[PlayTrackActivityViewModel::class.java]
-        val trackString = intent.getStringExtra("TRACK")
+        val trackString = intent.getStringExtra(TRACK_INTENT_EXTRA)
         track = viewModel.getPlayerTrack(trackString)
 
         renderTrack(track)

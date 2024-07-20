@@ -8,8 +8,7 @@ import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.domain.repository.FindTrackRepository
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
 
-class FindTrackRepositoryImpl : FindTrackRepository {
-    private val retrofitNetworkClient = RetrofitNetworkClient()
+class FindTrackRepositoryImpl(private val retrofitNetworkClient:RetrofitNetworkClient) : FindTrackRepository {
 
     override fun findTrack(
         request: String,

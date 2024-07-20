@@ -1,22 +1,20 @@
 package com.example.playlistmaker.search.data.shpr
 
-import android.app.Application
-import android.content.Context
-import com.example.playlistmaker.PLAYLIST_SHARED_PREFS
-import com.example.playlistmaker.search.domain.models.Track
 
+import android.content.SharedPreferences
+import com.example.playlistmaker.search.domain.models.Track
 import com.google.gson.Gson
+
 
 const val SP_TRACK_HISTORY_LIST = "SP_TRACK_HISTORY_LIST"
 
-class SearchTrackHistoryHelper : Application() {
+class SearchTrackHistoryHelper(private val sharedPrefs: SharedPreferences)  {
 
     private val trackList = mutableListOf<Track>()
     private val maxHistoryTrack = 10
-    fun saveTrack(context: Context, track: Track) {
-        val sharedPrefs = context.getSharedPreferences(
-            PLAYLIST_SHARED_PREFS, MODE_PRIVATE
-        )
+
+    fun saveTrack(track: Track) {
+        trackList.clear()
         val tempArray = Gson().fromJson(
             sharedPrefs.getString(SP_TRACK_HISTORY_LIST, "")?:"",
             Array<Track>::class.java
@@ -32,11 +30,8 @@ class SearchTrackHistoryHelper : Application() {
         sharedPrefs.edit()?.putString(SP_TRACK_HISTORY_LIST, savedStringTrackList)?.apply()
     }
 
-    fun getHistory(context: Context): MutableList<Track> {
+    fun getHistory(): MutableList<Track> {
         trackList.clear()
-        val sharedPrefs = context.getSharedPreferences(
-            PLAYLIST_SHARED_PREFS, MODE_PRIVATE
-        )
         val tempArray = Gson().fromJson(
             sharedPrefs.getString(SP_TRACK_HISTORY_LIST, "")?:"",
             Array<Track>::class.java
@@ -44,11 +39,8 @@ class SearchTrackHistoryHelper : Application() {
         if (tempArray!= null) trackList.addAll(tempArray)
         return trackList
     }
-    fun clearHistory(context: Context){
+    fun clearHistory(){
         trackList.clear()
-        val sharedPrefs = context.getSharedPreferences(
-            PLAYLIST_SHARED_PREFS, MODE_PRIVATE
-        )
         val emptyStringTrackList = Gson().toJson(trackList)
         sharedPrefs.edit()?.putString(SP_TRACK_HISTORY_LIST,emptyStringTrackList)?.apply()
 

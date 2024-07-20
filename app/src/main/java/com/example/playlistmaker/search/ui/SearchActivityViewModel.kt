@@ -1,13 +1,8 @@
 package com.example.playlistmaker.search.ui
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.playlistmaker.Creator
+import androidx.lifecycle.ViewModel
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
 import com.example.playlistmaker.search.domain.usecases.GetSetTrackHistoryInteractor
@@ -15,9 +10,8 @@ import com.example.playlistmaker.search.ui.models.SearchScreenState
 
 class SearchActivityViewModel(
     private val findTrackInteractor: FindTrackInteractor,
-    private val getSetTrackHistoryInteractor: GetSetTrackHistoryInteractor,
-    private val application: Application
-) : AndroidViewModel(application) {
+    private val getSetTrackHistoryInteractor: GetSetTrackHistoryInteractor
+) : ViewModel() {
 
     private var searchActivityStateLiveData = MutableLiveData<SearchScreenState>(
         SearchScreenState.History(
@@ -34,6 +28,9 @@ class SearchActivityViewModel(
             )
         )
         return getSetTrackHistoryInteractor.getHistory()
+    }
+    fun saveTrackInHistory(track: Track){
+        getSetTrackHistoryInteractor.saveTrack(track)
     }
 
     fun clearHistory() {
@@ -71,18 +68,7 @@ class SearchActivityViewModel(
         }
     }
 
-    companion object {
-        fun getViewModelFactory(application: Application): ViewModelProvider.Factory =
-            viewModelFactory {
-                initializer {
-                    SearchActivityViewModel(
-                        Creator.provideFindTrackInteractor(),
-                        Creator.provideGetSetTrackHistoryInteractor(),
-                        application
-                    )
-                }
-            }
-    }
+
 
 
 }
