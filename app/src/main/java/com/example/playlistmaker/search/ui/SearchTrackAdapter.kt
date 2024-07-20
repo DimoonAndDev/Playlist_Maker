@@ -1,24 +1,20 @@
 package com.example.playlistmaker.search.ui
 
-import android.content.Intent
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
 import com.example.playlistmaker.search.domain.models.Track
-import com.example.playlistmaker.player.ui.PlayTrackActivity
-import com.google.gson.Gson
 
 
-val handler = Handler(Looper.getMainLooper())
 
-class SearchTrackAdapter(private val tracks: MutableList<Track>,private val viewModel: SearchActivityViewModel) :
+const val TRACK_INTENT_EXTRA = "TRACK"
+
+class SearchTrackAdapter(private val tracks: MutableList<Track>) :
     RecyclerView.Adapter<SearchViewHolder>() {
 
+        private var onClickListener: OnClickListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.search_track_unit, parent, false)
@@ -33,27 +29,20 @@ class SearchTrackAdapter(private val tracks: MutableList<Track>,private val view
 
         holder.bind(tracks[position])
         holder.itemView.setOnClickListener {
-            if (clickDebounce()) {
-                viewModel.saveTrackInHistory(tracks[position])
-                val intent = Intent(holder.itemView.context, PlayTrackActivity::class.java)
-                val savedTrack = Gson().toJson(tracks[position])
-                intent.putExtra("TRACK", savedTrack)
-                startActivity(holder.itemView.context, intent, Bundle())
-            }
+            onClickListener?.onClick(position, tracks[position])
         }
 
     }
-}
-
-private var isClickAllowed = true
-
-private fun clickDebounce(): Boolean {
-    val current = isClickAllowed
-    if (isClickAllowed) {
-        isClickAllowed = false
-        handler.postDelayed({ isClickAllowed = true }, SearchActivity.CLICK_DEBOUNCE_DELAY)
+    fun setOnClickListener (listener: OnClickListener){
+        onClickListener = listener
     }
-    return current
+    interface OnClickListener {
+        fun onClick(position: Int, track: Track)
+    }
+
 }
+
+
+
 
 

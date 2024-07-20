@@ -18,6 +18,7 @@ import com.example.playlistmaker.player.ui.mapper.PlayerStatusMapper
 import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PAUSED
 import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PLAYING
 import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PREPARED
+import com.example.playlistmaker.search.ui.TRACK_INTENT_EXTRA
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -68,7 +69,7 @@ class PlayTrackActivity : AppCompatActivity() {
         trackCurrTimeTextView = findViewById(R.id.TrackCurrTimeTextView)
 
         playBackArrowImage.setOnClickListener { this.finish() }
-        val trackString = intent.getStringExtra("TRACK")
+        val trackString = intent.getStringExtra(TRACK_INTENT_EXTRA)
         track = viewModel.getPlayerTrack(trackString)
 
         renderTrack(track)

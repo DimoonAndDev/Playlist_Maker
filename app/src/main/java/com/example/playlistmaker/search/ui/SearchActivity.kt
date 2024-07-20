@@ -1,6 +1,7 @@
 package com.example.playlistmaker.search.ui
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,8 +9,10 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.View.GONE
 import android.view.View.INVISIBLE
+import android.view.View.OnClickListener
 import android.view.View.VISIBLE
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
@@ -20,12 +23,15 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Guideline
+import androidx.core.content.ContextCompat
 import androidx.core.view.updateLayoutParams
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
+import com.example.playlistmaker.player.ui.PlayTrackActivity
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.ui.models.SearchScreenState
+import com.google.gson.Gson
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -91,8 +97,21 @@ class SearchActivity : AppCompatActivity() {
 
         searchRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recyclerTrackAdapter = SearchTrackAdapter(tracks,viewModel)
+        recyclerTrackAdapter = SearchTrackAdapter(tracks)
         searchRecyclerView.adapter = recyclerTrackAdapter
+        recyclerTrackAdapter.setOnClickListener(object: SearchTrackAdapter.OnClickListener{
+            override fun onClick(position: Int, track: Track) {
+                if (clickDebounce()) {
+                    viewModel.saveTrackInHistory(track)
+                    val intent = Intent(this@SearchActivity, PlayTrackActivity::class.java)
+                    val savedTrack = Gson().toJson(track)
+                    intent.putExtra(TRACK_INTENT_EXTRA, savedTrack)
+                    startActivity(intent)
+                }
+            }
+
+        })
+
         viewModel.getSearchActivityStateLiveData().observe(this) {
             when (it) {
                 is SearchScreenState.FoundContent -> showResult(it.foundTracks)
@@ -149,9 +168,9 @@ class SearchActivity : AppCompatActivity() {
 
 
     private fun lookForTrack() {
-        if (searchEditText.text.isNotEmpty())
-        viewModel.findTrack(searchEditText.text.toString())
+        if (searchEditText.text.isNotEmpty()) viewModel.findTrack(searchEditText.text.toString())
     }
+
     private val newTaskRunnable = Runnable { lookForTrack() }
 
     private fun searchDebounce() {
@@ -203,7 +222,7 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
-    private fun showNoWifi(lastRequest:String?) {
+    private fun showNoWifi(lastRequest: String?) {
         searchRecyclerView.visibility = GONE
         searchProgressBar.visibility = GONE
 
@@ -223,7 +242,7 @@ class SearchActivity : AppCompatActivity() {
         searchNowifiRefreshButton.setOnClickListener {
             if (clickDebounce()) {
                 searchEditText.setText(lastRequest)
-                viewModel.findTrack(lastRequest?:"test")
+                viewModel.findTrack(lastRequest ?: "test")
             }
         }
     }
