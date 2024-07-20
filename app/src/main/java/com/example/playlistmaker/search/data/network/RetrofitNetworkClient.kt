@@ -9,11 +9,9 @@ import com.example.playlistmaker.search.domain.impl.NetworkClient
 import org.koin.java.KoinJavaComponent.getKoin
 
 
-class RetrofitNetworkClient:NetworkClient {
+class RetrofitNetworkClient(private val itunesService:ItunesApi):NetworkClient {
 
-    private val itunesService = getKoin().get<ItunesApi>()
-
-    override fun doRequest(dto:Any): Response{
+        override fun doRequest(dto:Any): Response{
         if (!isConnected()){
             return Response().apply { resultCode=-1 }
         }

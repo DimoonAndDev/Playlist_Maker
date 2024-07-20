@@ -18,7 +18,7 @@ val interactorModule = module {
 
     //PLAYER
     single<GetPlayerTrackUseCase> { GetPlayerTrackUseCase(get())  }
-    single<MediaPlayerInteractor> { MediaPlayerInteractor(get())  }
+    factory<MediaPlayerInteractor> { MediaPlayerInteractor(get())  }
 
     //SETTINGS
     single<ThemeChangeInteractor> { ThemeChangeInteractorImpl(get())  }

@@ -7,10 +7,8 @@ import com.example.playlistmaker.search.data.network.RetrofitNetworkClient
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.domain.repository.FindTrackRepository
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
-import org.koin.java.KoinJavaComponent.getKoin
 
-class FindTrackRepositoryImpl : FindTrackRepository {
-    private val retrofitNetworkClient = getKoin().get<RetrofitNetworkClient>()
+class FindTrackRepositoryImpl(private val retrofitNetworkClient:RetrofitNetworkClient) : FindTrackRepository {
 
     override fun findTrack(
         request: String,

@@ -1,6 +1,5 @@
 package com.example.playlistmaker.search.ui
 
-import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -29,6 +28,9 @@ class SearchActivityViewModel(
             )
         )
         return getSetTrackHistoryInteractor.getHistory()
+    }
+    fun saveTrackInHistory(track: Track){
+        getSetTrackHistoryInteractor.saveTrack(track)
     }
 
     fun clearHistory() {

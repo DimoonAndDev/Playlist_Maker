@@ -4,19 +4,17 @@ package com.example.playlistmaker.search.data.shpr
 import android.content.SharedPreferences
 import com.example.playlistmaker.search.domain.models.Track
 import com.google.gson.Gson
-import org.koin.java.KoinJavaComponent.getKoin
 
 
 const val SP_TRACK_HISTORY_LIST = "SP_TRACK_HISTORY_LIST"
 
-class SearchTrackHistoryHelper  {
+class SearchTrackHistoryHelper(private val sharedPrefs: SharedPreferences)  {
 
     private val trackList = mutableListOf<Track>()
     private val maxHistoryTrack = 10
-    private val sharedPrefs = getKoin().get<SharedPreferences>()
 
     fun saveTrack(track: Track) {
-
+        trackList.clear()
         val tempArray = Gson().fromJson(
             sharedPrefs.getString(SP_TRACK_HISTORY_LIST, "")?:"",
             Array<Track>::class.java

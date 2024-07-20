@@ -2,6 +2,7 @@ package com.example.playlistmaker.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.media.MediaPlayer
 import com.example.playlistmaker.PLAYLIST_SHARED_PREFS
 import com.example.playlistmaker.search.data.network.ItunesApi
 import com.example.playlistmaker.search.data.network.RetrofitNetworkClient
@@ -24,6 +25,7 @@ val dataModule = module {
     single<SharedPreferences> {
         androidContext().getSharedPreferences(PLAYLIST_SHARED_PREFS, Context.MODE_PRIVATE)
     }
-    single { RetrofitNetworkClient() }
-    single { SearchTrackHistoryHelper() }
+    single { RetrofitNetworkClient(get()) }
+    single { SearchTrackHistoryHelper(get()) }
+    factory { MediaPlayer() }
 }

@@ -6,11 +6,11 @@ import android.content.Intent
 import android.net.Uri
 import com.example.playlistmaker.R
 import com.example.playlistmaker.sharing.data.repository.ExternalNavigator
-import org.koin.java.KoinJavaComponent.getKoin
 
 
-class ExternalNavigatorImpl : ExternalNavigator {
-    private val contextApp = getKoin().get<Context>()
+
+class ExternalNavigatorImpl(private val contextApp:Context) : ExternalNavigator {
+
     override fun openTerms() {
 
         val intent = Intent(Intent.ACTION_VIEW).apply {

@@ -8,7 +8,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.view.View.GONE
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
@@ -22,7 +21,6 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.Guideline
 import androidx.core.view.updateLayoutParams
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
@@ -93,7 +91,7 @@ class SearchActivity : AppCompatActivity() {
 
         searchRecyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        recyclerTrackAdapter = SearchTrackAdapter(tracks)
+        recyclerTrackAdapter = SearchTrackAdapter(tracks,viewModel)
         searchRecyclerView.adapter = recyclerTrackAdapter
         viewModel.getSearchActivityStateLiveData().observe(this) {
             when (it) {

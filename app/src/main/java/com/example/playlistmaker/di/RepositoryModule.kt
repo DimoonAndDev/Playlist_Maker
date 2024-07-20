@@ -17,18 +17,18 @@ import org.koin.dsl.module
 val repositoryModule = module {
     //SEARCH
     single<FindTrackRepository> {
-        FindTrackRepositoryImpl()
+        FindTrackRepositoryImpl(get())
     }
     single<TrackHistoryRepository> {
-        TrackHistoryRepositoryImpl()
+        TrackHistoryRepositoryImpl(get())
     }
 
 //PLAYER
     single<PlayerGetTrackRepository> { PlayerGetTrackRepositoryImpl() }
-    single<MediaPlayerRepository> {MediaPlayerRepositoryImpl()  }
+    factory<MediaPlayerRepository> {MediaPlayerRepositoryImpl(get())  }
 
     //SETTINGS
-    single<ThemeChangeRepository> { ThemeChangeRepositoryImpl() }
-    single<ExternalNavigator> {ExternalNavigatorImpl()  }
+    single<ThemeChangeRepository> { ThemeChangeRepositoryImpl(get()) }
+    single<ExternalNavigator> {ExternalNavigatorImpl(get())  }
 }
 
