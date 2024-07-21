@@ -46,8 +46,8 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">26sp</item>
-        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">22sp</item>
+
     </style>
 
     <style name="SettingSwitchStyle">
@@ -228,5 +228,41 @@
         <item name="android:textSize">22sp</item>
         <item name="android:fontWeight">400</item>
 
+    </style>
+    <style name="MediaTabLayout">
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:background">@color/YP_black</item>
+        <item name="tabRippleColor">@color/white</item>
+        <item name="tabTextColor">@color/white</item>
+        <item name="tabIndicatorColor">@color/white</item>
+        <item name="tabIndicator">@drawable/tab_line</item>
+
+    </style>
+    <style name="MediaEmptyResultImage">
+        <item name="srcCompat">@drawable/track_ph_unknown_dark</item>
+
+    </style>
+    <style name="MediaEmptyResultText">
+        <item name="android:fontFamily">@font/ys_disp</item>
+        <item name="android:fontWeight">400</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">19sp</item>
+    </style>
+    <style name="MediaNewPlaylistButton">
+
+        <item name="cornerRadius">54dp</item>
+
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/YP_black</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontWeight">500</item>
+        <item name="backgroundTint">@color/white</item>
     </style>
 </resources>

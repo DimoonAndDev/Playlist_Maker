@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/MediaNewPlaylistButton"
+
+        style="@style/SearchNowifiRefreshButton"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/searchrefreshbutton_shape"
+
+        android:paddingStart="@dimen/search_refresh_button_startend_padd"
+        android:paddingTop="@dimen/search_refresh_button_topbot_padd"
+        android:paddingEnd="@dimen/search_refresh_button_startend_padd"
+        android:paddingBottom="@dimen/search_refresh_button_topbot_padd"
+        android:text="@string/media_newplaylist"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/MediaEmptyPlaylistsImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="46dp"
+        android:visibility="visible"
+        style="@style/MediaEmptyResultImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/MediaNewPlaylistButton"
+        android:contentDescription="@string/smth_wrong_image_descr"/>
+    <TextView
+        android:id="@+id/MediaEmptyPlaylistsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/MediaEmptyResultText"
+        android:text="@string/media_emtyplaylist"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/MediaEmptyPlaylistsImage"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
