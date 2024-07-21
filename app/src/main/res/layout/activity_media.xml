@@ -28,7 +28,7 @@
         android:layout_marginTop="14dp"
         android:layout_marginBottom="16dp"
 
-        android:text="@string/MediaHead"
+        android:text="@string/mediahead"
         app:layout_constraintStart_toEndOf="@id/MediaBackArrowImage"
         app:layout_constraintTop_toTopOf="parent"/>
 

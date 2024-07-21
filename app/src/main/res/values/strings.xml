@@ -38,9 +38,11 @@
     <string name="likebutton_descr">Кнопка Лайк</string>
     <string name="addbutton_descr">Кнопка добавить</string>
     <string name="trackart_descr">Обложка трека</string>
-    <string name="MediaHead">Медиатека</string>
+    <string name="mediahead">Медиатека</string>
     <string name="media_empty_favorites">Ваша медиатека пуста</string>
-    <string name="Media_newplaylist">Новый плейлист</string>
-    <string name="Media_emtyplaylist">Вы не создали\n ни одного плейлиста</string>
+    <string name="media_newplaylist">Новый плейлист</string>
+    <string name="media_emtyplaylist">Вы не создали\n ни одного плейлиста</string>
+    <string name="media_tab_favorites">Избранные треки</string>
+    <string name="media_tab_playlists">Плейлисты</string>
 
 </resources>
