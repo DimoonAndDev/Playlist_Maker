@@ -36,23 +36,13 @@ class SearchFragment : Fragment() {
     private val handler = Handler(Looper.getMainLooper())
     private lateinit var recyclerTrackAdapter: SearchTrackAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        if (savedInstanceState != null) {
-            textValue = savedInstanceState.getString(
-                CURRENT_TEXT, EMPTY_TXT
-            )
-        }
-        binding = FragmentSearchBinding.inflate(layoutInflater)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false)
-
+        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,6 +50,11 @@ class SearchFragment : Fragment() {
         binding.SearchEditText.requestFocus()
         binding.SearchEditText.setText(textValue)
         tracks.clear()
+        if (savedInstanceState != null) {
+            textValue = savedInstanceState.getString(
+                CURRENT_TEXT, EMPTY_TXT
+            )
+        }
 
         binding.SearchClearTextImage.setImageDrawable(
             AppCompatResources.getDrawable(
@@ -181,7 +176,7 @@ class SearchFragment : Fragment() {
         binding.SearchSmthWrongText.visibility = View.GONE
         binding.SearchProgressBar.visibility = View.GONE
 
-        binding.SearchEditText.visibility = View.GONE
+        binding.SearchHistoryTextView.visibility = View.GONE
         binding.SearchHistoryClear.visibility = View.GONE
         binding.RecyclerBotGuideline.visibility = View.GONE
         binding.SearchRecyclerView.updateLayoutParams<ConstraintLayout.LayoutParams> {
@@ -208,7 +203,7 @@ class SearchFragment : Fragment() {
 
         binding.SearchHistoryTextView.visibility = View.GONE
         binding.SearchHistoryClear.visibility = View.GONE
-        binding.SearchHistoryClear.setOnClickListener {
+        binding.SearchNowifiRefreshButton.setOnClickListener {
             if (clickDebounce()) {
                 binding.SearchEditText.setText(lastRequest)
                 viewModel.findTrack(lastRequest ?: "test")

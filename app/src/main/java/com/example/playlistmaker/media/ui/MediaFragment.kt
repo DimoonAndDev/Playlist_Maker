@@ -12,17 +12,13 @@ import com.google.android.material.tabs.TabLayoutMediator
 class MediaFragment : Fragment() {
     private lateinit var binding: FragmentMediaBinding
     private lateinit var tabMediator: TabLayoutMediator
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = FragmentMediaBinding.inflate(layoutInflater)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentMediaBinding.inflate(inflater,container,false)
+        binding = FragmentMediaBinding.inflate(inflater,container,false)
         return binding.root
 
     }
