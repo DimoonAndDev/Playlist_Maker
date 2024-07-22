@@ -167,8 +167,7 @@ class SearchFragment : Fragment() {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
         const val CLICK_DEBOUNCE_DELAY = 1000L
 
-        @JvmStatic
-        fun newInstance() = SearchFragment()
+
     }
 
     private fun showResult(foundTracks: List<Track>) {

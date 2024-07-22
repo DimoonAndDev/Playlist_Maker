@@ -266,9 +266,10 @@
     </style>
     <style name="BottomNavigationBarStyle">
 
-        <item name="itemIconTint">@color/YP_black</item>
-        <item name="itemTextColor">@color/YP_black</item>
+        <item name="itemIconTint">@color/bnv_selector_color</item>
+        <item name="itemTextColor">@color/bnv_selector_color</item>
         <item name="backgroundTint">@color/white</item>
+
 
 
     </style>

@@ -28,6 +28,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bot_navig_menu"
+        app:itemRippleColor="@color/theme_blue"
+
         style = "@style/BottomNavigationBarStyle"
         />
 

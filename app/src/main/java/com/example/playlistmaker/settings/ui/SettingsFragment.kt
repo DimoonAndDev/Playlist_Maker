@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.playlistmaker.App
-import com.example.playlistmaker.R
-import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.databinding.FragmentSettingsBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -52,10 +50,5 @@ class SettingsFragment : Fragment() {
             viewModel.openTerms()
         }
     }
-    companion object {
 
-        @JvmStatic
-        fun newInstance() =
-            SettingsFragment()
-    }
 }
