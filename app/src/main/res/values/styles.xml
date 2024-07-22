@@ -264,4 +264,12 @@
         <item name="android:fontWeight">500</item>
         <item name="backgroundTint">@color/black</item>
     </style>
+    <style name="BottomNavigationBarStyle">
+
+        <item name="itemIconTint">@color/YP_black</item>
+        <item name="itemTextColor">@color/YP_black</item>
+        <item name="backgroundTint">@color/white</item>
+
+
+    </style>
 </resources>
