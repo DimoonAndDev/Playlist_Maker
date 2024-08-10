@@ -26,8 +26,4 @@ class MediaPlayerInteractor(
         return mediaPlayerRepository.getStatus()
     }
 
-    fun getCurrentPosition(): Int{
-        return mediaPlayerRepository.getCurrentPosition()
-    }
-
 }

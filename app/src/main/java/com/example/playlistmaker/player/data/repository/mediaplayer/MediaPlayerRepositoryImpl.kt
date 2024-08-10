@@ -21,32 +21,23 @@ class MediaPlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) : MediaPla
         }
     }
 
-    override fun getCurrentPosition(): Int {
-        return mediaPlayer.currentPosition/1000
-    }
-
     override fun playTrack() {
-        playerStatus = MediaPlayerStatus.STATE_PLAYING
         mediaPlayer.start()
-
+        playerStatus = MediaPlayerStatus.STATE_PLAYING
     }
 
     override fun pauseTrack() {
-        playerStatus = MediaPlayerStatus.STATE_PAUSED
         mediaPlayer.pause()
-
+        playerStatus = MediaPlayerStatus.STATE_PAUSED
     }
 
     override fun releasePlayer() {
-        playerStatus = MediaPlayerStatus.STATE_DEFAULT
         mediaPlayer.release()
-
+        playerStatus = MediaPlayerStatus.STATE_DEFAULT
     }
 
     override fun getStatus(): Int {
         return playerStatus.status
-
     }
-
 
 }
