@@ -1,26 +1,29 @@
 package com.example.playlistmaker.search.domain.impl
 
 import com.example.playlistmaker.Resource
+import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.domain.repository.FindTrackRepository
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import java.util.concurrent.Executors
 
 class FindTrackIntaractorImpl(val repository: FindTrackRepository) : FindTrackInteractor {
 
-    private val executor = Executors.newCachedThreadPool()
-    override fun findTrack(request: String, consumer: FindTrackInteractor.SearchConsumer) {
-        executor.execute {
-
-            when (val resource = repository.findTrack(request, consumer)) {
+    override fun findTrack(request: String): Flow<Pair<List<Track>?, String?>> {
+        return repository.findTrack(request).map {
+            when (it) {
                 is Resource.Success -> {
-                    consumer.consume(resource.data, null)
+                    Pair(it.data,null)
                 }
 
                 is Resource.Error -> {
-                    consumer.consume(null, resource.message)
+                    Pair(null,it.message)
                 }
-
             }
         }
+
     }
+
+
 }
