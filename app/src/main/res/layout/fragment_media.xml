@@ -5,53 +5,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".media.ui.MediaActivity">
+    tools:context=".media.ui.MediaFragment">
 
-    <ImageView
-        android:id="@+id/MediaBackArrowImage"
-        style="@style/BackArrowStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="4dp"
-        android:contentDescription="@string/settActiv_backButton_descr"
-        android:foreground="?attr/selectableItemBackground"
-
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/backarrow" />
 
     <TextView
         android:id="@+id/SettingsHeadTextBar"
         style="@style/HeadText"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="14dp"
         android:layout_marginBottom="16dp"
 
         android:text="@string/mediahead"
-        app:layout_constraintStart_toEndOf="@id/MediaBackArrowImage"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/MediaTabLayout"
+        style="@style/MediaTabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/MediaTabLayout"
+        android:layout_marginTop="16dp"
+        android:maxWidth="148dp"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/MediaBackArrowImage"
-        android:maxWidth="148dp"
-        app:tabTextAppearance="@style/MediaTabLayout"/>
-        />
+        app:layout_constraintTop_toBottomOf="@id/SettingsHeadTextBar"
+        app:tabTextAppearance="@style/MediaTabLayout" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/MediaViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="visible"
         app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MediaTabLayout"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/MediaTabLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+

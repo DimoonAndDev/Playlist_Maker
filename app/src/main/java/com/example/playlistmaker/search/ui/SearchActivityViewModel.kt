@@ -3,10 +3,13 @@ package com.example.playlistmaker.search.ui
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
 import com.example.playlistmaker.search.domain.usecases.GetSetTrackHistoryInteractor
 import com.example.playlistmaker.search.ui.models.SearchScreenState
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class SearchActivityViewModel(
     private val findTrackInteractor: FindTrackInteractor,
@@ -29,7 +32,8 @@ class SearchActivityViewModel(
         )
         return getSetTrackHistoryInteractor.getHistory()
     }
-    fun saveTrackInHistory(track: Track){
+
+    fun saveTrackInHistory(track: Track) {
         getSetTrackHistoryInteractor.saveTrack(track)
     }
 
@@ -45,30 +49,28 @@ class SearchActivityViewModel(
     fun findTrack(request: String) {
         if (request.isNotEmpty()) {
             searchActivityStateLiveData.postValue(SearchScreenState.Loading)
-            findTrackInteractor.findTrack(request, object : FindTrackInteractor.SearchConsumer {
-                override fun consume(foundTracks: List<Track>?, errorMessage: String?) {
-                    if (foundTracks == null) {
+            viewModelScope.launch {
+                findTrackInteractor.findTrack(request).collect {
+                    if (it.first == null) {
                         searchActivityStateLiveData.postValue(
                             SearchScreenState.NoConnection(
-                                errorMessage
+                                it.second
                             )
                         )
-                    } else if (foundTracks.isEmpty()) {
+                    } else if (it.first!!.isEmpty()) {
                         searchActivityStateLiveData.postValue(SearchScreenState.NoResult)
                     } else {
                         searchActivityStateLiveData.postValue(
                             SearchScreenState.FoundContent(
-                                foundTracks
+                                it.first!!
                             )
                         )
                     }
-
                 }
-            })
+            }
+
         }
     }
-
-
 
 
 }

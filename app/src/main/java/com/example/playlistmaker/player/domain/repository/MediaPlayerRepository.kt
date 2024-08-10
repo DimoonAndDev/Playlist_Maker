@@ -10,5 +10,7 @@ interface MediaPlayerRepository  {
     fun pauseTrack()
     fun preparePlayer(dataSource:String)
 
+    fun getCurrentPosition():Int
+
 
 }

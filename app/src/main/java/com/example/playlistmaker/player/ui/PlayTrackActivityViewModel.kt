@@ -1,24 +1,25 @@
 package com.example.playlistmaker.player.ui
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.player.data.dto.MediaPlayerStatus
 import com.example.playlistmaker.player.domain.usecases.GetPlayerTrackUseCase
 import com.example.playlistmaker.player.domain.usecases.MediaPlayerInteractor
 import com.example.playlistmaker.player.ui.mapper.PlayerStatusMapper
 import com.example.playlistmaker.player.ui.models.PlayerStatus
 import com.example.playlistmaker.player.ui.models.PlayerTrack
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class PlayTrackActivityViewModel(
     private val mediaPlayerInteractor: MediaPlayerInteractor,
     private val getPlayerTrackUseCase: GetPlayerTrackUseCase,
-    ) : ViewModel() {
-    private var seconds = 0L
-    private val DELAY = 500L
-    private val mainThreadHandler = Handler(Looper.getMainLooper())
+) : ViewModel() {
+    private val DELAY = 200L
+    private var timerJob: Job? = null
 
     private var mediaPlayerLiveData = MutableLiveData(MediaPlayerStatus.STATE_DEFAULT.status)
     private val playerTimerLiveData = MutableLiveData(0L)
@@ -30,7 +31,8 @@ class PlayTrackActivityViewModel(
         if (mediaPlayerLiveData.value != state)
             mediaPlayerLiveData.postValue(state)
     }
-    fun getPlayerTrack(trackGson:String?):PlayerTrack{
+
+    fun getPlayerTrack(trackGson: String?): PlayerTrack {
         val track = getPlayerTrackUseCase.execute(trackGson)
         preparePlayer(track.previewUrl)
         return track
@@ -56,19 +58,22 @@ class PlayTrackActivityViewModel(
     }
 
     fun getPlayerStatus(): Int {
-        updateMediaPlayerState(mediaPlayerInteractor.getStatus())
-        return mediaPlayerLiveData.value ?: 0
+        return mediaPlayerInteractor.getStatus()
     }
 
     private fun playTrack() {
-        mediaPlayerInteractor.playTrack()
         updateMediaPlayerState(MediaPlayerStatus.STATE_PLAYING.status)
+        mediaPlayerInteractor.playTrack()
         startTrackTimer()
     }
 
     fun pauseTrack() {
-        mediaPlayerInteractor.pauseTrack()
         updateMediaPlayerState(MediaPlayerStatus.STATE_PAUSED.status)
+        mediaPlayerInteractor.pauseTrack()
+
+    }
+    fun getCurrentPosition():Int{
+        return mediaPlayerInteractor.getCurrentPosition()
     }
 
     private fun preparePlayer(dataSourse: String) {
@@ -76,28 +81,30 @@ class PlayTrackActivityViewModel(
         updateMediaPlayerState(MediaPlayerStatus.STATE_PREPARED.status)
 
     }
+
     private fun startTrackTimer() {
-        var startTime = System.currentTimeMillis()
-        if (seconds != 0L) startTime -= (seconds * 1000)
-        mainThreadHandler.post(
-            createUpdateTimerTask(startTime)
-        )
-    }
-    private fun createUpdateTimerTask(startTime: Long): Runnable {
-        return object : Runnable {
-            override fun run() {
-                val elapsedTime = System.currentTimeMillis() - startTime
-                if (PlayerStatusMapper.map(getPlayerStatus()) == PlayerStatus.STATE_PLAYING) {
-                    seconds = elapsedTime / 1000
-                    playerTimerLiveData.postValue(seconds)
-                    mainThreadHandler.postDelayed(this, DELAY)
-                }
-                if (PlayerStatusMapper.map(getPlayerStatus()) == PlayerStatus.STATE_PREPARED) {
-                    seconds = 0L
-                    playerTimerLiveData.postValue(seconds)
-                }
+        timerJob = viewModelScope.launch {
+            while (PlayerStatusMapper.map(getPlayerStatus()) == PlayerStatus.STATE_PLAYING) {
+                playerTimerLiveData.postValue(getCurrentPosition().toLong())
+                delay(DELAY)
             }
+            if (PlayerStatusMapper.map(getPlayerStatus()) == PlayerStatus.STATE_PREPARED) {
+                updateMediaPlayerState(MediaPlayerStatus.STATE_PREPARED.status)
+                playerTimerLiveData.postValue(0L)
+
+            }
+
         }
     }
-
 }
+
+
+
+
+
+
+
+
+
+
+
