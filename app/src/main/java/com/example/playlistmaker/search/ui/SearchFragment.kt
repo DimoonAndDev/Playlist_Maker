@@ -4,8 +4,6 @@ import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
@@ -17,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.playlistmaker.R
@@ -26,6 +25,8 @@ import com.example.playlistmaker.player.ui.PlayTrackActivity
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.ui.models.SearchScreenState
 import com.google.gson.Gson
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
@@ -33,13 +34,12 @@ class SearchFragment : Fragment() {
     private val tracks = mutableListOf(Track())
     private val viewModel by viewModel<SearchActivityViewModel>()
     var textValue: String = EMPTY_TXT
-    private val handler = Handler(Looper.getMainLooper())
     private lateinit var recyclerTrackAdapter: SearchTrackAdapter
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
@@ -103,8 +103,9 @@ class SearchFragment : Fragment() {
                     showHistory(viewModel.getHistory())
                 } else {
                     binding.SearchClearTextImage.visibility = View.VISIBLE
+                    if (p0.toString() != textValue){
                     textValue = p0.toString()
-                    searchDebounce()
+                    viewModel.searchDebounce(textValue)}
                 }
                 if (savedInstanceState != null) {
                     onSaveInstanceState(savedInstanceState)
@@ -130,16 +131,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun lookForTrack() {
-        if (binding.SearchEditText.text.isNotEmpty()) viewModel.findTrack(binding.SearchEditText.text.toString())
-    }
 
-    private val newTaskRunnable = Runnable { lookForTrack() }
-
-    private fun searchDebounce() {
-        handler.removeCallbacks(newTaskRunnable)
-        handler.postDelayed(newTaskRunnable, SEARCH_DEBOUNCE_DELAY)
-    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -151,7 +143,10 @@ class SearchFragment : Fragment() {
         val current = isClickAllowed
         if (isClickAllowed) {
             isClickAllowed = false
-            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+            viewLifecycleOwner.lifecycleScope.launch {
+                delay(CLICK_DEBOUNCE_DELAY)
+                isClickAllowed = true
+            }
         }
         return current
     }
@@ -159,7 +154,7 @@ class SearchFragment : Fragment() {
     companion object {
         private const val CURRENT_TEXT = "CURRENT_TEXT"
         private const val EMPTY_TXT = ""
-        private const val SEARCH_DEBOUNCE_DELAY = 2000L
+
         const val CLICK_DEBOUNCE_DELAY = 1000L
 
 
@@ -206,7 +201,7 @@ class SearchFragment : Fragment() {
         binding.SearchNowifiRefreshButton.setOnClickListener {
             if (clickDebounce()) {
                 binding.SearchEditText.setText(lastRequest)
-                viewModel.findTrack(lastRequest ?: "test")
+                viewModel.searchDebounce(lastRequest ?: "test")
             }
         }
     }

@@ -7,18 +7,19 @@ import com.example.playlistmaker.search.data.network.RetrofitNetworkClient
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.domain.repository.FindTrackRepository
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class FindTrackRepositoryImpl(private val retrofitNetworkClient:RetrofitNetworkClient) : FindTrackRepository {
 
     override fun findTrack(
-        request: String,
-        consumer: FindTrackInteractor.SearchConsumer
-    ): Resource<List<Track>> {
+        request: String
+    ): Flow<Resource<List<Track>>> = flow {
 
         val response = retrofitNetworkClient.doRequest(SearchRequest(request))
-        return when (response.resultCode) {
-            -1 -> Resource.Error(request)
-            200 -> Resource.Success((response as SearchResponse).results.map {
+        when (response.resultCode) {
+            -1 -> emit(Resource.Error(request))
+            200 -> emit(Resource.Success((response as SearchResponse).results.map {
                 Track(
                     it.trackName,
                     it.artistName,
@@ -31,9 +32,9 @@ class FindTrackRepositoryImpl(private val retrofitNetworkClient:RetrofitNetworkC
                     it.country,
                     it.previewUrl
                 )
-            })
+            }))
 
-            else -> Resource.Error("")
+            else -> emit(Resource.Error(""))
         }
 
     }
