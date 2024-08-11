@@ -8,13 +8,15 @@ import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
 import com.example.playlistmaker.search.domain.usecases.GetSetTrackHistoryInteractor
 import com.example.playlistmaker.search.ui.models.SearchScreenState
-import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SearchActivityViewModel(
     private val findTrackInteractor: FindTrackInteractor,
     private val getSetTrackHistoryInteractor: GetSetTrackHistoryInteractor
 ) : ViewModel() {
+
 
     private var searchActivityStateLiveData = MutableLiveData<SearchScreenState>(
         SearchScreenState.History(
@@ -46,11 +48,10 @@ class SearchActivityViewModel(
         )
     }
 
-    fun findTrack(request: String) {
+    private suspend fun findTrack(request: String) {
         if (request.isNotEmpty()) {
             searchActivityStateLiveData.postValue(SearchScreenState.Loading)
-            viewModelScope.launch {
-                findTrackInteractor.findTrack(request).collect {
+            findTrackInteractor.findTrack(request).collect {
                     if (it.first == null) {
                         searchActivityStateLiveData.postValue(
                             SearchScreenState.NoConnection(
@@ -67,10 +68,21 @@ class SearchActivityViewModel(
                         )
                     }
                 }
-            }
+
 
         }
     }
 
+    private var searchJob: Job?=null
 
+    fun searchDebounce(textValue:String) {
+        searchJob?.cancel()
+        searchJob = viewModelScope.launch {
+            delay(SEARCH_DEBOUNCE_DELAY)
+            findTrack(textValue)
+        }
+    }
+    companion object{
+        private const val SEARCH_DEBOUNCE_DELAY = 2000L
+    }
 }

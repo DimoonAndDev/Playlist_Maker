@@ -18,7 +18,7 @@ class PlayTrackActivityViewModel(
     private val mediaPlayerInteractor: MediaPlayerInteractor,
     private val getPlayerTrackUseCase: GetPlayerTrackUseCase,
 ) : ViewModel() {
-    private val DELAY = 200L
+    private val DELAY = 300L
     private var timerJob: Job? = null
 
     private var mediaPlayerLiveData = MutableLiveData(MediaPlayerStatus.STATE_DEFAULT.status)
@@ -72,8 +72,8 @@ class PlayTrackActivityViewModel(
         mediaPlayerInteractor.pauseTrack()
 
     }
-    fun getCurrentPosition():Int{
-        return mediaPlayerInteractor.getCurrentPosition()
+    private fun getCurrentPosition():Int{
+        return mediaPlayerInteractor.getCurrentPosition()/1000
     }
 
     private fun preparePlayer(dataSourse: String) {
@@ -83,6 +83,7 @@ class PlayTrackActivityViewModel(
     }
 
     private fun startTrackTimer() {
+        timerJob?.cancel()
         timerJob = viewModelScope.launch {
             while (PlayerStatusMapper.map(getPlayerStatus()) == PlayerStatus.STATE_PLAYING) {
                 playerTimerLiveData.postValue(getCurrentPosition().toLong())

@@ -25,7 +25,6 @@ import com.example.playlistmaker.player.ui.PlayTrackActivity
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.ui.models.SearchScreenState
 import com.google.gson.Gson
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -106,7 +105,7 @@ class SearchFragment : Fragment() {
                     binding.SearchClearTextImage.visibility = View.VISIBLE
                     if (p0.toString() != textValue){
                     textValue = p0.toString()
-                    searchDebounce()}
+                    viewModel.searchDebounce(textValue)}
                 }
                 if (savedInstanceState != null) {
                     onSaveInstanceState(savedInstanceState)
@@ -132,19 +131,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun lookForTrack() {
-        if (binding.SearchEditText.text.isNotEmpty()) viewModel.findTrack(binding.SearchEditText.text.toString())
-    }
 
-    private var searchJob: Job?=null
-
-    private fun searchDebounce() {
-        searchJob?.cancel()
-        searchJob = viewLifecycleOwner.lifecycleScope.launch {
-            delay(SEARCH_DEBOUNCE_DELAY)
-            lookForTrack()
-        }
-    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -167,7 +154,7 @@ class SearchFragment : Fragment() {
     companion object {
         private const val CURRENT_TEXT = "CURRENT_TEXT"
         private const val EMPTY_TXT = ""
-        private const val SEARCH_DEBOUNCE_DELAY = 2000L
+
         const val CLICK_DEBOUNCE_DELAY = 1000L
 
 
@@ -214,7 +201,7 @@ class SearchFragment : Fragment() {
         binding.SearchNowifiRefreshButton.setOnClickListener {
             if (clickDebounce()) {
                 binding.SearchEditText.setText(lastRequest)
-                viewModel.findTrack(lastRequest ?: "test")
+                viewModel.searchDebounce(lastRequest ?: "test")
             }
         }
     }

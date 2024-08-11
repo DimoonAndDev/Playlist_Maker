@@ -22,7 +22,7 @@ class MediaPlayerRepositoryImpl(private val mediaPlayer: MediaPlayer) : MediaPla
     }
 
     override fun getCurrentPosition(): Int {
-        return mediaPlayer.currentPosition/1000
+        return mediaPlayer.currentPosition
     }
 
     override fun playTrack() {
