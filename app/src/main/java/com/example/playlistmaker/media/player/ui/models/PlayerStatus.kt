@@ -1,4 +1,4 @@
-package com.example.playlistmaker.player.ui.models
+package com.example.playlistmaker.media.player.ui.models
 
 enum class PlayerStatus(val status: Int) {
     STATE_DEFAULT(0),

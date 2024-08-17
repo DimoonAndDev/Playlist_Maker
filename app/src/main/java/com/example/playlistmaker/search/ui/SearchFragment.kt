@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.playlistmaker.R
 
 import com.example.playlistmaker.databinding.FragmentSearchBinding
-import com.example.playlistmaker.player.ui.PlayTrackActivity
+import com.example.playlistmaker.media.player.ui.PlayTrackActivity
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.ui.models.SearchScreenState
 import com.google.gson.Gson

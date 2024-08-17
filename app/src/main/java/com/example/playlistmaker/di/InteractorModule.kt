@@ -1,7 +1,7 @@
 package com.example.playlistmaker.di
 
-import com.example.playlistmaker.player.domain.usecases.GetPlayerTrackUseCase
-import com.example.playlistmaker.player.domain.usecases.MediaPlayerInteractor
+import com.example.playlistmaker.media.player.domain.usecases.GetPlayerTrackUseCase
+import com.example.playlistmaker.media.player.domain.usecases.MediaPlayerInteractor
 import com.example.playlistmaker.search.domain.impl.FindTrackIntaractorImpl
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
 import com.example.playlistmaker.search.domain.usecases.GetSetTrackHistoryInteractor

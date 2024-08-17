@@ -1,4 +1,4 @@
-package com.example.playlistmaker.player.data.dto
+package com.example.playlistmaker.media.player.data.dto
 
 enum class MediaPlayerStatus(val status:Int) {
 

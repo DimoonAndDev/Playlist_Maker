@@ -1,4 +1,4 @@
-package com.example.playlistmaker.player.domain.repository
+package com.example.playlistmaker.media.player.domain.repository
 
 
 

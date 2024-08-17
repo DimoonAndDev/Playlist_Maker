@@ -1,6 +1,6 @@
-package com.example.playlistmaker.player.domain.usecases
+package com.example.playlistmaker.media.player.domain.usecases
 
-import com.example.playlistmaker.player.domain.repository.MediaPlayerRepository
+import com.example.playlistmaker.media.player.domain.repository.MediaPlayerRepository
 
 class MediaPlayerInteractor(
     private val mediaPlayerRepository: MediaPlayerRepository,

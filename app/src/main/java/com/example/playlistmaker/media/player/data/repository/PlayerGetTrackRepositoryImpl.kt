@@ -1,9 +1,9 @@
-package com.example.playlistmaker.player.data.repository
+package com.example.playlistmaker.media.player.data.repository
 
 import com.example.playlistmaker.R
-import com.example.playlistmaker.player.ui.models.PlayerTrack
+import com.example.playlistmaker.media.player.ui.models.PlayerTrack
 import com.example.playlistmaker.search.domain.models.Track
-import com.example.playlistmaker.player.domain.repository.PlayerGetTrackRepository
+import com.example.playlistmaker.media.player.domain.repository.PlayerGetTrackRepository
 import com.google.gson.Gson
 import java.text.SimpleDateFormat
 import java.util.Locale

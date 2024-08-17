@@ -1,6 +1,6 @@
-package com.example.playlistmaker.player.ui.mapper
+package com.example.playlistmaker.media.player.ui.mapper
 
-import com.example.playlistmaker.player.ui.models.PlayerStatus
+import com.example.playlistmaker.media.player.ui.models.PlayerStatus
 
 
 object PlayerStatusMapper {

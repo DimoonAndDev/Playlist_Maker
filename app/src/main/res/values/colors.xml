@@ -12,5 +12,7 @@
     <color name="YP_black">#1A1B22</color>
     <color name="YP_gray">#AEAFB4</color>
     <color name="YP_lightGray">#E6E8EB</color>
+    <color name="YP_lightGray_button">#C5C6C7</color>
+    <color name="YP_Gray_button">#535459</color>
 
 </resources>

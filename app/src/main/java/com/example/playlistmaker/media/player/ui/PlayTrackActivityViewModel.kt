@@ -1,15 +1,15 @@
-package com.example.playlistmaker.player.ui
+package com.example.playlistmaker.media.player.ui
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.playlistmaker.player.data.dto.MediaPlayerStatus
-import com.example.playlistmaker.player.domain.usecases.GetPlayerTrackUseCase
-import com.example.playlistmaker.player.domain.usecases.MediaPlayerInteractor
-import com.example.playlistmaker.player.ui.mapper.PlayerStatusMapper
-import com.example.playlistmaker.player.ui.models.PlayerStatus
-import com.example.playlistmaker.player.ui.models.PlayerTrack
+import com.example.playlistmaker.media.player.data.dto.MediaPlayerStatus
+import com.example.playlistmaker.media.player.domain.usecases.GetPlayerTrackUseCase
+import com.example.playlistmaker.media.player.domain.usecases.MediaPlayerInteractor
+import com.example.playlistmaker.media.player.ui.mapper.PlayerStatusMapper
+import com.example.playlistmaker.media.player.ui.models.PlayerStatus
+import com.example.playlistmaker.media.player.ui.models.PlayerTrack
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

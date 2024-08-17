@@ -195,8 +195,8 @@
     </style>
 
     <style name="TrackPlayButtonLike">
-
-        <item name="srcCompat">@drawable/like_button</item>
+        <item name="android:background">@drawable/player_button_shape_dark</item>
+        <item name="android:outlineSpotShadowColor">@color/YP_black</item>
 
     </style>
 

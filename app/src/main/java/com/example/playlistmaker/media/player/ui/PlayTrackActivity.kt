@@ -1,4 +1,4 @@
-package com.example.playlistmaker.player.ui
+package com.example.playlistmaker.media.player.ui
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -7,17 +7,19 @@ import android.os.Handler
 import android.os.Looper
 import android.util.TypedValue
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.AppCompatButton
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
-import com.example.playlistmaker.player.ui.models.PlayerTrack
-import com.example.playlistmaker.player.ui.mapper.PlayerStatusMapper
-import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PAUSED
-import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PLAYING
-import com.example.playlistmaker.player.ui.models.PlayerStatus.STATE_PREPARED
+import com.example.playlistmaker.media.player.ui.models.PlayerTrack
+import com.example.playlistmaker.media.player.ui.mapper.PlayerStatusMapper
+import com.example.playlistmaker.media.player.ui.models.PlayerStatus.STATE_PAUSED
+import com.example.playlistmaker.media.player.ui.models.PlayerStatus.STATE_PLAYING
+import com.example.playlistmaker.media.player.ui.models.PlayerStatus.STATE_PREPARED
 import com.example.playlistmaker.search.ui.TRACK_INTENT_EXTRA
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -68,6 +70,9 @@ class PlayTrackActivity : AppCompatActivity() {
         playTrackButton = findViewById(R.id.TrackPlayButtonPlay)
         trackCurrTimeTextView = findViewById(R.id.TrackCurrTimeTextView)
 
+        val trackPlayButtonLike = findViewById<AppCompatButton>(R.id.TrackPlayButtonLike)
+
+
         playBackArrowImage.setOnClickListener { this.finish() }
         val trackString = intent.getStringExtra(TRACK_INTENT_EXTRA)
         track = viewModel.getPlayerTrack(trackString)
@@ -89,6 +94,10 @@ class PlayTrackActivity : AppCompatActivity() {
         }
         playTrackButton.setOnClickListener {
             viewModel.clickMediaPlayerControl()
+        }
+
+        trackPlayButtonLike.setOnClickListener {
+            trackPlayButtonLike.setCompoundDrawablesWithIntrinsicBounds(R.drawable.filled_heart_icon,0,0,0)
         }
     }
 
@@ -165,4 +174,5 @@ class PlayTrackActivity : AppCompatActivity() {
             context.resources.displayMetrics
         ).toInt()
     }
+
 }
