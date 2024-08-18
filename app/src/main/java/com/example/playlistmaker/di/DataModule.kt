@@ -3,7 +3,9 @@ package com.example.playlistmaker.di
 import android.content.Context
 import android.content.SharedPreferences
 import android.media.MediaPlayer
+import androidx.room.Room
 import com.example.playlistmaker.PLAYLIST_SHARED_PREFS
+import com.example.playlistmaker.media.data.db.AppDatabase
 import com.example.playlistmaker.search.data.network.ItunesApi
 import com.example.playlistmaker.search.data.network.RetrofitNetworkClient
 import com.example.playlistmaker.search.data.shpr.SearchTrackHistoryHelper
@@ -14,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 val dataModule = module {
-    single<ItunesApi>{
+    single<ItunesApi> {
 
         Retrofit.Builder()
             .baseUrl("https://itunes.apple.com")
@@ -28,4 +30,7 @@ val dataModule = module {
     single { RetrofitNetworkClient(get()) }
     single { SearchTrackHistoryHelper(get()) }
     factory { MediaPlayer() }
+    single {
+        Room.databaseBuilder(androidContext(), AppDatabase::class.java, "database.db").build()
+    }
 }
