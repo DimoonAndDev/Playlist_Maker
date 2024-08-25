@@ -7,14 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
 import com.example.playlistmaker.search.domain.models.Track
 
-
-
-const val TRACK_INTENT_EXTRA = "TRACK"
-
 class FavoritesTrackAdapter(private val tracks: MutableList<Track>) :
     RecyclerView.Adapter<FavoritesViewHolder>() {
 
-        private var onClickListener: OnClickListener? = null
+    private var onClickListener: OnClickListener? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoritesViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.search_track_unit, parent, false)
@@ -33,9 +29,11 @@ class FavoritesTrackAdapter(private val tracks: MutableList<Track>) :
         }
 
     }
-    fun setOnClickListener (listener: OnClickListener){
+
+    fun setOnClickListener(listener: OnClickListener) {
         onClickListener = listener
     }
+
     interface OnClickListener {
         fun onClick(position: Int, track: Track)
     }

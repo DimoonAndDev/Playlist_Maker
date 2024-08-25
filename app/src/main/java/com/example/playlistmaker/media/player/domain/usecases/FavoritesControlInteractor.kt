@@ -2,7 +2,6 @@ package com.example.playlistmaker.media.player.domain.usecases
 
 import com.example.playlistmaker.media.player.domain.repository.FavoritesControlRepository
 import com.example.playlistmaker.media.player.ui.models.PlayerTrack
-import com.example.playlistmaker.search.domain.models.Track
 import kotlinx.coroutines.flow.Flow
 
 class FavoritesControlInteractor(private val favoritesControlRepository: FavoritesControlRepository) {

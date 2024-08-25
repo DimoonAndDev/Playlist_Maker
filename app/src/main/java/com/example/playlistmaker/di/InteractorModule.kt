@@ -13,7 +13,6 @@ import com.example.playlistmaker.settings.domain.usecases.ThemeChangeInteractorI
 import com.example.playlistmaker.sharing.data.repository.impl.SharingInteractorImpl
 import com.example.playlistmaker.sharing.domain.usecases.SharingInteractor
 import org.koin.dsl.module
-import kotlin.math.sin
 
 val interactorModule = module {
     //SEARCH

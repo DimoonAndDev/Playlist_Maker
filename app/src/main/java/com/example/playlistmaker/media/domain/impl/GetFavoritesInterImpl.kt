@@ -2,7 +2,6 @@ package com.example.playlistmaker.media.domain.impl
 
 import com.example.playlistmaker.media.domain.repository.GetFavoritesRep
 import com.example.playlistmaker.media.domain.usecase.GetFavoritesInteractor
-import com.example.playlistmaker.media.player.ui.models.PlayerTrack
 import com.example.playlistmaker.search.domain.models.Track
 import kotlinx.coroutines.flow.Flow
 

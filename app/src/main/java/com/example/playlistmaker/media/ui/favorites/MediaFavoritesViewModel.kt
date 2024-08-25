@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.media.domain.usecase.GetFavoritesInteractor
 import com.example.playlistmaker.media.ui.favorites.models.FavoritesScreenStates
-import com.example.playlistmaker.search.domain.models.Track
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
