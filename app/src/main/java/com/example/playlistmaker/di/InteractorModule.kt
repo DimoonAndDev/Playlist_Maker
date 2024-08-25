@@ -2,6 +2,7 @@ package com.example.playlistmaker.di
 
 import com.example.playlistmaker.media.domain.impl.GetFavoritesInterImpl
 import com.example.playlistmaker.media.domain.usecase.GetFavoritesInteractor
+import com.example.playlistmaker.media.player.domain.usecases.FavoritesControlInteractor
 import com.example.playlistmaker.media.player.domain.usecases.GetPlayerTrackUseCase
 import com.example.playlistmaker.media.player.domain.usecases.MediaPlayerInteractor
 import com.example.playlistmaker.search.domain.impl.FindTrackIntaractorImpl
@@ -12,6 +13,7 @@ import com.example.playlistmaker.settings.domain.usecases.ThemeChangeInteractorI
 import com.example.playlistmaker.sharing.data.repository.impl.SharingInteractorImpl
 import com.example.playlistmaker.sharing.domain.usecases.SharingInteractor
 import org.koin.dsl.module
+import kotlin.math.sin
 
 val interactorModule = module {
     //SEARCH
@@ -28,4 +30,5 @@ val interactorModule = module {
 
     //DB
     single<GetFavoritesInteractor>{GetFavoritesInterImpl(get())}
+    single<FavoritesControlInteractor>{FavoritesControlInteractor(get())}
 }

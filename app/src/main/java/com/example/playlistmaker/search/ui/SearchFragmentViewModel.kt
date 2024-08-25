@@ -12,7 +12,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class SearchActivityViewModel(
+class SearchFragmentViewModel(
     private val findTrackInteractor: FindTrackInteractor,
     private val getSetTrackHistoryInteractor: GetSetTrackHistoryInteractor
 ) : ViewModel() {

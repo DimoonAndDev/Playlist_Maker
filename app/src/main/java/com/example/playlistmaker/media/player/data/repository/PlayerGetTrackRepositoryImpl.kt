@@ -23,10 +23,13 @@ class PlayerGetTrackRepositoryImpl : PlayerGetTrackRepository {
             trackTimeMillis,
             artworkUrl512,
             track.collectionName,
-            track.releaseDate?:R.string.trackplay_title_year.toString(),
-            track.primaryGenreName?:R.string.trackplay_title_genre.toString(),
-            track.country?:R.string.trackplay_title_country.toString(),
-            track.previewUrl?:"https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/48/8f/a4/488fa4b5-b606-71ee-572e-691f840503c8/mzaf_15586272016916254191.plus.aac.p.m4a"
+            track.releaseDate ?: R.string.trackplay_title_year.toString(),
+            track.primaryGenreName ?: R.string.trackplay_title_genre.toString(),
+            track.country ?: R.string.trackplay_title_country.toString(),
+            track.previewUrl
+                ?: "https://audio-ssl.itunes.apple.com/itunes-assets/AudioPreview126/v4/48/8f/a4/488fa4b5-b606-71ee-572e-691f840503c8/mzaf_15586272016916254191.plus.aac.p.m4a",
+            track.trackId?:0,
+            track.trackTimeMillis
         )
 
     }

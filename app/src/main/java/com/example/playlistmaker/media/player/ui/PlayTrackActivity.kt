@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatButton
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
@@ -20,7 +21,10 @@ import com.example.playlistmaker.media.player.ui.mapper.PlayerStatusMapper
 import com.example.playlistmaker.media.player.ui.models.PlayerStatus.STATE_PAUSED
 import com.example.playlistmaker.media.player.ui.models.PlayerStatus.STATE_PLAYING
 import com.example.playlistmaker.media.player.ui.models.PlayerStatus.STATE_PREPARED
+import com.example.playlistmaker.search.ui.SearchFragment
 import com.example.playlistmaker.search.ui.TRACK_INTENT_EXTRA
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -76,9 +80,28 @@ class PlayTrackActivity : AppCompatActivity() {
         playBackArrowImage.setOnClickListener { this.finish() }
         val trackString = intent.getStringExtra(TRACK_INTENT_EXTRA)
         track = viewModel.getPlayerTrack(trackString)
-
+        viewModel.checkFavorite(track.trackId)
         renderTrack(track)
         unprepared()
+
+        viewModel.getFavoriteLiveData().observe(this) {
+            when (it) {
+                true -> trackPlayButtonLike.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.filled_heart_icon,
+                    0,
+                    0,
+                    0
+                )
+
+                else -> trackPlayButtonLike.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.empty_hearct_icon,
+                    0,
+                    0,
+                    0
+                )
+            }
+        }
+
 
         viewModel.getMediaPlayerLiveData().observe(this) {
             when (PlayerStatusMapper.map(it)) {
@@ -97,7 +120,9 @@ class PlayTrackActivity : AppCompatActivity() {
         }
 
         trackPlayButtonLike.setOnClickListener {
-            trackPlayButtonLike.setCompoundDrawablesWithIntrinsicBounds(R.drawable.filled_heart_icon,0,0,0)
+            if (clickDebounce()){
+                viewModel.favoriteClickControl(track)
+            }
         }
     }
 
@@ -173,6 +198,19 @@ class PlayTrackActivity : AppCompatActivity() {
             dp,
             context.resources.displayMetrics
         ).toInt()
+    }
+
+    private var isClickAllowed = true
+    private fun clickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            lifecycleScope.launch {
+                delay(SearchFragment.CLICK_DEBOUNCE_DELAY)
+                isClickAllowed = true
+            }
+        }
+        return current
     }
 
 }

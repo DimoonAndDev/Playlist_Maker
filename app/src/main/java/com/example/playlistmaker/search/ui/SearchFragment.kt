@@ -32,7 +32,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SearchFragment : Fragment() {
     lateinit var binding: FragmentSearchBinding
     private val tracks = mutableListOf(Track())
-    private val viewModel by viewModel<SearchActivityViewModel>()
+    private val viewModel by viewModel<SearchFragmentViewModel>()
     var textValue: String = EMPTY_TXT
     private lateinit var recyclerTrackAdapter: SearchTrackAdapter
 
