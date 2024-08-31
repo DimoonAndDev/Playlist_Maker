@@ -197,7 +197,10 @@
 
     <style name="TrackPlayButtonLike">
 
-        <item name="srcCompat">@drawable/like_button_light</item>
+
+        <item name="android:background">@drawable/player_button_shape_light</item>
+        <item name="android:outlineSpotShadowColor">@color/white</item>
+
 
     </style>
 

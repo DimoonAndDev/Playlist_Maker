@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".player.ui.PlayTrackActivity">
+    tools:context=".media.player.ui.PlayTrackActivity">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_guideline"
@@ -172,19 +172,26 @@
         app:srcCompat="@drawable/play_button_track"
         android:contentDescription="@string/playboutton_descr" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/TrackPlayButtonLike"
+        style="@style/TrackPlayButtonLike"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
 
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/empty_hearct_icon"
+        android:paddingStart="13dp"
+        android:paddingEnd="13dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+
+        android:layout_marginStart="71dp"
+        android:contentDescription="@string/likebutton_descr"
+
 
         app:layout_constraintBottom_toBottomOf="@id/TrackPlayButtonPlay"
         app:layout_constraintStart_toEndOf="@+id/TrackPlayButtonPlay"
         app:layout_constraintTop_toTopOf="@id/TrackPlayButtonPlay"
-        android:layout_marginStart="71dp"
-
-        style="@style/TrackPlayButtonLike"
-        android:contentDescription="@string/likebutton_descr" />
+         />
     <ImageView
         android:id="@+id/TrackPlayButtonAdd"
 

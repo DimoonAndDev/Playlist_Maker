@@ -1,9 +1,14 @@
 package com.example.playlistmaker.di
 
-import com.example.playlistmaker.player.data.repository.PlayerGetTrackRepositoryImpl
-import com.example.playlistmaker.player.data.repository.mediaplayer.MediaPlayerRepositoryImpl
-import com.example.playlistmaker.player.domain.repository.MediaPlayerRepository
-import com.example.playlistmaker.player.domain.repository.PlayerGetTrackRepository
+import com.example.playlistmaker.media.data.db.converter.TrackDbConverter
+import com.example.playlistmaker.media.data.repository.FavoriteControlRepositoryImpl
+import com.example.playlistmaker.media.data.repository.GetFavoriteTrackRepImpl
+import com.example.playlistmaker.media.domain.repository.GetFavoritesRep
+import com.example.playlistmaker.media.player.data.repository.PlayerGetTrackRepositoryImpl
+import com.example.playlistmaker.media.player.data.repository.mediaplayer.MediaPlayerRepositoryImpl
+import com.example.playlistmaker.media.player.domain.repository.FavoritesControlRepository
+import com.example.playlistmaker.media.player.domain.repository.MediaPlayerRepository
+import com.example.playlistmaker.media.player.domain.repository.PlayerGetTrackRepository
 import com.example.playlistmaker.search.data.repository.FindTrackRepositoryImpl
 import com.example.playlistmaker.search.data.repository.TrackHistoryRepositoryImpl
 import com.example.playlistmaker.search.domain.repository.FindTrackRepository
@@ -24,11 +29,16 @@ val repositoryModule = module {
     }
 
 //PLAYER
-    single<PlayerGetTrackRepository> { PlayerGetTrackRepositoryImpl() }
-    factory<MediaPlayerRepository> {MediaPlayerRepositoryImpl(get())  }
+    single<PlayerGetTrackRepository> { PlayerGetTrackRepositoryImpl(get()) }
+    factory<MediaPlayerRepository> { MediaPlayerRepositoryImpl(get())  }
 
     //SETTINGS
     single<ThemeChangeRepository> { ThemeChangeRepositoryImpl(get()) }
     single<ExternalNavigator> {ExternalNavigatorImpl(get())  }
+
+    //DB
+    factory { TrackDbConverter() }
+    single<GetFavoritesRep> { GetFavoriteTrackRepImpl(get(),get()) }
+    single<FavoritesControlRepository>{FavoriteControlRepositoryImpl(get(),get()) }
 }
 

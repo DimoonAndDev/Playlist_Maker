@@ -1,7 +1,10 @@
 package com.example.playlistmaker.di
 
-import com.example.playlistmaker.player.domain.usecases.GetPlayerTrackUseCase
-import com.example.playlistmaker.player.domain.usecases.MediaPlayerInteractor
+import com.example.playlistmaker.media.domain.impl.GetFavoritesInterImpl
+import com.example.playlistmaker.media.domain.usecase.GetFavoritesInteractor
+import com.example.playlistmaker.media.player.domain.usecases.FavoritesControlInteractor
+import com.example.playlistmaker.media.player.domain.usecases.GetPlayerTrackUseCase
+import com.example.playlistmaker.media.player.domain.usecases.MediaPlayerInteractor
 import com.example.playlistmaker.search.domain.impl.FindTrackIntaractorImpl
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
 import com.example.playlistmaker.search.domain.usecases.GetSetTrackHistoryInteractor
@@ -23,4 +26,8 @@ val interactorModule = module {
     //SETTINGS
     single<ThemeChangeInteractor> { ThemeChangeInteractorImpl(get())  }
     single<SharingInteractor> {SharingInteractorImpl(get())  }
+
+    //DB
+    single<GetFavoritesInteractor>{GetFavoritesInterImpl(get())}
+    single<FavoritesControlInteractor>{FavoritesControlInteractor(get())}
 }

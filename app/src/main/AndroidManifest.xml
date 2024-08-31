@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".player.ui.PlayTrackActivity"
+            android:name=".media.player.ui.PlayTrackActivity"
             android:exported="false"
             android:screenOrientation="portrait"/>
 

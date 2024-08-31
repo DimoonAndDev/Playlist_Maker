@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface FindTrackInteractor {
     fun findTrack(request:String):Flow<Pair<List<Track>?,String?>>
+
 }

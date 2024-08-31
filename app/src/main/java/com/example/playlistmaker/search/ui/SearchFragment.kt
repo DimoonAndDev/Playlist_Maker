@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.playlistmaker.R
 
 import com.example.playlistmaker.databinding.FragmentSearchBinding
-import com.example.playlistmaker.player.ui.PlayTrackActivity
+import com.example.playlistmaker.media.player.ui.PlayTrackActivity
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.ui.models.SearchScreenState
 import com.google.gson.Gson
@@ -32,7 +32,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SearchFragment : Fragment() {
     lateinit var binding: FragmentSearchBinding
     private val tracks = mutableListOf(Track())
-    private val viewModel by viewModel<SearchActivityViewModel>()
+    private val viewModel by viewModel<SearchFragmentViewModel>()
     var textValue: String = EMPTY_TXT
     private lateinit var recyclerTrackAdapter: SearchTrackAdapter
 
@@ -72,7 +72,7 @@ class SearchFragment : Fragment() {
                 if (clickDebounce()) {
                     viewModel.saveTrackInHistory(track)
                     val intent = Intent(requireContext(), PlayTrackActivity::class.java)
-                    val savedTrack = Gson().toJson(track)
+                    val savedTrack = viewModel.getGsonString(track)
                     intent.putExtra(TRACK_INTENT_EXTRA, savedTrack)
                     startActivity(intent)
                 }
