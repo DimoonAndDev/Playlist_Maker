@@ -37,7 +37,7 @@ class PlayTrackActivityViewModel(
         favoriteCheckJob?.cancel()
         favoriteCheckJob = viewModelScope.launch {
             favoritesControlInteractor.checkFavorites(trackId).collect() {
-                if (it.trackId == -1) favoriteLiveData.postValue(false)
+                if (it == null) favoriteLiveData.postValue(false)
                 else favoriteLiveData.postValue(true)
             }
         }

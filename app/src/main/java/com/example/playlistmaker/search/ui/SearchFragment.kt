@@ -72,7 +72,7 @@ class SearchFragment : Fragment() {
                 if (clickDebounce()) {
                     viewModel.saveTrackInHistory(track)
                     val intent = Intent(requireContext(), PlayTrackActivity::class.java)
-                    val savedTrack = Gson().toJson(track)
+                    val savedTrack = viewModel.getGsonString(track)
                     intent.putExtra(TRACK_INTENT_EXTRA, savedTrack)
                     startActivity(intent)
                 }

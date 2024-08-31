@@ -8,13 +8,15 @@ import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
 import com.example.playlistmaker.search.domain.usecases.GetSetTrackHistoryInteractor
 import com.example.playlistmaker.search.ui.models.SearchScreenState
+import com.google.gson.Gson
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class SearchFragmentViewModel(
     private val findTrackInteractor: FindTrackInteractor,
-    private val getSetTrackHistoryInteractor: GetSetTrackHistoryInteractor
+    private val getSetTrackHistoryInteractor: GetSetTrackHistoryInteractor,
+    private val gson:Gson
 ) : ViewModel() {
 
 
@@ -37,6 +39,9 @@ class SearchFragmentViewModel(
 
     fun saveTrackInHistory(track: Track) {
         getSetTrackHistoryInteractor.saveTrack(track)
+    }
+    fun getGsonString(track: Track):String{
+        return gson.toJson(track)
     }
 
     fun clearHistory() {

@@ -17,9 +17,8 @@ data class TrackEntity(
     val country: String? = "",         // страна исполнителя
     val previewUrl: String? = "",    // ссылка на воспроизведение
     val isFavorite: Boolean = true,
-    val trackTimeMillisInt: Int = 0
-
-) {
+    val trackTimeMillisInt: Int = 0,
     @PrimaryKey(autoGenerate = true)
-    var id: Int = 0
-}
+    val id: Int = 0
+
+)

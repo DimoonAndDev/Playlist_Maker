@@ -19,7 +19,7 @@ class FavoriteControlRepositoryImpl(private val appDatabase: AppDatabase,
         appDatabase.trackDao().deleteTrackFromFavorites(trackId)
     }
 
-    override suspend fun checkFavorites(trackId: Int): Flow<PlayerTrack> = flow {
+    override suspend fun checkFavorites(trackId: Int): Flow<PlayerTrack?> = flow {
         val track = appDatabase.trackDao().checkTrackInFavorites(trackId)
         emit(convertToTrack(track))
     }
@@ -27,7 +27,7 @@ class FavoriteControlRepositoryImpl(private val appDatabase: AppDatabase,
     private fun convertToEntity(track: PlayerTrack):TrackEntity{
         return dbConverter.map(track)
     }
-    private fun convertToTrack(track:TrackEntity?):PlayerTrack{
+    private fun convertToTrack(track:TrackEntity?):PlayerTrack?{
         return dbConverter.map(track)
     }
 }

@@ -5,5 +5,5 @@ import com.example.playlistmaker.search.domain.models.Track
 sealed class FavoritesScreenStates{
     object Empty:FavoritesScreenStates()
     object Loading:FavoritesScreenStates()
-    data class HaveFavorites(val listOfFavoriteTracks:List<Track>):FavoritesScreenStates()
+    data class HaveFavorites(val listOfFavoriteTracks:List<Track?>):FavoritesScreenStates()
 }

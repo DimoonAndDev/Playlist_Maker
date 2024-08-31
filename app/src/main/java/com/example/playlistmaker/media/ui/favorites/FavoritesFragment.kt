@@ -62,7 +62,7 @@ class FavoritesFragment : Fragment() {
             override fun onClick(position: Int, track: Track) {
                 if (clickDebounce()) {
                     val intent = Intent(requireContext(), PlayTrackActivity::class.java)
-                    val savedTrack = Gson().toJson(track)
+                    val savedTrack = viewModel.getGsonString(track)
                     intent.putExtra(
                         com.example.playlistmaker.search.ui.TRACK_INTENT_EXTRA,
                         savedTrack
@@ -102,13 +102,14 @@ class FavoritesFragment : Fragment() {
         binding.FavoritesProgressBar.visibility = View.VISIBLE
     }
 
-    private fun showFavorites(favoriteTracksList: List<Track>) {
+    private fun showFavorites(favoriteTracksList: List<Track?>) {
         binding.MediaEmptyFavoritesImage.visibility = View.GONE
         binding.MediaEmptyFavoritesText.visibility = View.GONE
         binding.FavoritesProgressBar.visibility = View.GONE
 
         tracks.clear()
-        tracks.addAll(favoriteTracksList.reversed())
+        val favoritesWithoutNulls:List<Track> = favoriteTracksList.filterNotNull()
+        tracks.addAll(favoritesWithoutNulls.reversed())
         recyclerFavoritesTrackAdapter.notifyDataSetChanged()
         binding.FavoritesRecyclerView.visibility = View.VISIBLE
     }

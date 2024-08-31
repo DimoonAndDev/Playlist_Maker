@@ -11,7 +11,7 @@ class FavoritesControlInteractor(private val favoritesControlRepository: Favorit
     suspend fun deleteTrack(trackId:Int){
         favoritesControlRepository.deleteTrack(trackId)
     }
-    suspend fun checkFavorites(trackId: Int): Flow<PlayerTrack> {
+    suspend fun checkFavorites(trackId: Int): Flow<PlayerTrack?> {
         return favoritesControlRepository.checkFavorites(trackId)
     }
 }

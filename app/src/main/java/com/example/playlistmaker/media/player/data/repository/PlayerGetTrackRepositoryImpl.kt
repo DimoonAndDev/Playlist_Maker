@@ -9,10 +9,10 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 
-class PlayerGetTrackRepositoryImpl : PlayerGetTrackRepository {
+class PlayerGetTrackRepositoryImpl(private val gson: Gson) : PlayerGetTrackRepository {
     override fun getPlayerTrack(trackGson: String?): PlayerTrack {
         if (trackGson.isNullOrEmpty()) return PlayerTrack()
-        val track = Gson().fromJson(trackGson, Track::class.java)
+        val track = gson.fromJson(trackGson, Track::class.java)
         val artworkUrl512 = track.artworkUrl100?.replaceAfterLast("/", "512x512bb.jpg")
         val trackTimeMillis =
             SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)

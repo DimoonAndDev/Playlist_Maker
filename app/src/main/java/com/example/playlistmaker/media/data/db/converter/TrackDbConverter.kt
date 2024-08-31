@@ -5,7 +5,7 @@ import com.example.playlistmaker.media.player.ui.models.PlayerTrack
 import com.example.playlistmaker.search.domain.models.Track
 
 class TrackDbConverter {
-    fun map(track: TrackEntity?): PlayerTrack {
+    fun map(track: TrackEntity?): PlayerTrack? {
         return if (track != null) PlayerTrack(
             track.trackName,
             track.artistName,
@@ -18,9 +18,9 @@ class TrackDbConverter {
             track.previewUrl?:"",
             track.trackId,
         )
-        else return PlayerTrack(trackId = -1)
+        else return null
     }
-    fun map(track: TrackEntity?,mapperFlag:Boolean): Track {
+    fun map(track: TrackEntity?,mapperFlag:Boolean): Track? {
         return if (track != null) Track(
             track.trackName,
             track.artistName,
@@ -34,7 +34,7 @@ class TrackDbConverter {
             track.previewUrl?:"",
 
         )
-        else return Track(trackId = -1)
+        else return null
     }
 
     fun map(track: PlayerTrack): TrackEntity {

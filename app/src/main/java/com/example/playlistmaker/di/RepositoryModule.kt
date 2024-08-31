@@ -29,7 +29,7 @@ val repositoryModule = module {
     }
 
 //PLAYER
-    single<PlayerGetTrackRepository> { PlayerGetTrackRepositoryImpl() }
+    single<PlayerGetTrackRepository> { PlayerGetTrackRepositoryImpl(get()) }
     factory<MediaPlayerRepository> { MediaPlayerRepositoryImpl(get())  }
 
     //SETTINGS

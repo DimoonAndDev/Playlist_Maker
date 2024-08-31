@@ -9,6 +9,7 @@ import com.example.playlistmaker.media.data.db.AppDatabase
 import com.example.playlistmaker.search.data.network.ItunesApi
 import com.example.playlistmaker.search.data.network.RetrofitNetworkClient
 import com.example.playlistmaker.search.data.shpr.SearchTrackHistoryHelper
+import com.google.gson.Gson
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -35,4 +36,5 @@ val dataModule = module {
             .fallbackToDestructiveMigration()
             .build()
     }
+    single{Gson()}
 }

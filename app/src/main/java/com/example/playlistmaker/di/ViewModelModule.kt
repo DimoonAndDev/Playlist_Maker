@@ -14,13 +14,13 @@ val viewModelModule = module {
         PlayTrackActivityViewModel(get(),get(),get())
     }
     viewModel {
-        SearchFragmentViewModel(get(),get())
+        SearchFragmentViewModel(get(),get(),get())
     }
     viewModel {
        SettingViewModel(get(),get())
     }
     viewModel{
-        MediaFavoritesViewModel(get())
+        MediaFavoritesViewModel(get(),get())
     }
     viewModel{
         MediaPlaylistsViewModel()
