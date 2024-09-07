@@ -1,7 +1,6 @@
 package com.example.playlistmaker.search.ui
 
 import android.content.Context.INPUT_METHOD_SERVICE
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
@@ -16,15 +15,15 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.playlistmaker.R
 
 import com.example.playlistmaker.databinding.FragmentSearchBinding
-import com.example.playlistmaker.media.player.ui.PlayTrackActivity
+import com.example.playlistmaker.media.player.ui.PlayerTrackFragment
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.ui.models.SearchScreenState
-import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -71,10 +70,11 @@ class SearchFragment : Fragment() {
             override fun onClick(position: Int, track: Track) {
                 if (clickDebounce()) {
                     viewModel.saveTrackInHistory(track)
-                    val intent = Intent(requireContext(), PlayTrackActivity::class.java)
                     val savedTrack = viewModel.getGsonString(track)
-                    intent.putExtra(TRACK_INTENT_EXTRA, savedTrack)
-                    startActivity(intent)
+                    findNavController().navigate(
+                        R.id.action_searchFragment_to_playerTrackFragment,
+                        PlayerTrackFragment.createArgs(savedTrack)
+                    )
                 }
             }
 
@@ -103,9 +103,10 @@ class SearchFragment : Fragment() {
                     showHistory(viewModel.getHistory())
                 } else {
                     binding.SearchClearTextImage.visibility = View.VISIBLE
-                    if (p0.toString() != textValue){
-                    textValue = p0.toString()
-                    viewModel.searchDebounce(textValue)}
+                    if (p0.toString() != textValue) {
+                        textValue = p0.toString()
+                        viewModel.searchDebounce(textValue)
+                    }
                 }
                 if (savedInstanceState != null) {
                     onSaveInstanceState(savedInstanceState)
@@ -132,7 +133,6 @@ class SearchFragment : Fragment() {
     }
 
 
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(CURRENT_TEXT, textValue)
@@ -151,6 +151,10 @@ class SearchFragment : Fragment() {
         return current
     }
 
+    override fun onStop() {
+        super.onStop()
+        isClickAllowed = true
+    }
     companion object {
         private const val CURRENT_TEXT = "CURRENT_TEXT"
         private const val EMPTY_TXT = ""

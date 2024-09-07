@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".media.player.ui.PlayTrackActivity">
+    tools:context=".media.player.ui.PlayerTrackFragment">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/left_guideline"
@@ -191,7 +191,7 @@
         app:layout_constraintBottom_toBottomOf="@id/TrackPlayButtonPlay"
         app:layout_constraintStart_toEndOf="@+id/TrackPlayButtonPlay"
         app:layout_constraintTop_toTopOf="@id/TrackPlayButtonPlay"
-         />
+        />
     <ImageView
         android:id="@+id/TrackPlayButtonAdd"
 

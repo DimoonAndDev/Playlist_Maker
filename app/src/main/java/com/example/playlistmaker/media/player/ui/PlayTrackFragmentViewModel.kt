@@ -15,7 +15,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class PlayTrackActivityViewModel(
+class PlayTrackFragmentViewModel(
     private val mediaPlayerInteractor: MediaPlayerInteractor,
     private val getPlayerTrackUseCase: GetPlayerTrackUseCase,
     private val favoritesControlInteractor: FavoritesControlInteractor
