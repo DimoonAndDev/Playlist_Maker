@@ -19,7 +19,6 @@ import com.example.playlistmaker.databinding.FragmentPlayerTrackBinding
 import com.example.playlistmaker.media.player.ui.mapper.PlayerStatusMapper
 import com.example.playlistmaker.media.player.ui.models.PlayerStatus
 import com.example.playlistmaker.media.player.ui.models.PlayerTrack
-import com.example.playlistmaker.search.ui.SearchFragment
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel

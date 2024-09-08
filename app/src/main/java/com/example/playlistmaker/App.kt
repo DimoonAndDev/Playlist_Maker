@@ -19,6 +19,7 @@ class App : Application() {
     private var darkTheme = false
     override fun onCreate() {
         super.onCreate()
+
         startKoin {
             androidContext(this@App)
             modules(dataModule, interactorModule, repositoryModule, viewModelModule)

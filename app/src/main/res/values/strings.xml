@@ -44,6 +44,11 @@
     <string name="media_emtyplaylist">Вы не создали\n ни одного плейлиста</string>
     <string name="media_tab_favorites">Избранные треки</string>
     <string name="media_tab_playlists">Плейлисты</string>
+    <string name="crpl_new_playlist">Новый плейлист</string>
+    <string name="crpl_create_button_text">Создать</string>
+    <string name="crpl_playlistname_hint">Название*</string>
+    <string name="crpl_playlistdescr_hint">Описание</string>
+    <string name="playlist_unit_art_descr">Обложка плейлиста</string>
 
 
 </resources>

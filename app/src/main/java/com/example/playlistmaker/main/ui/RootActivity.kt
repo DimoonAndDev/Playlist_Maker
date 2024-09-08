@@ -25,10 +25,11 @@ class RootActivity : AppCompatActivity() {
         bottomBar.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.playerTrackFragment) binding.bottomNavigationView.visibility =
+            if (destination.id == R.id.playerTrackFragment || destination.id == R.id.createPlaylistFragment) binding.bottomNavigationView.visibility =
                 View.GONE
             else binding.bottomNavigationView.visibility = View.VISIBLE
         }
 
     }
+
 }
