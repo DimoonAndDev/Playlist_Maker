@@ -9,6 +9,6 @@
         android:dashGap="26dp"
         android:dashWidth="26dp"
         />
-    <solid android:alpha = "0"/>
+
 
 </shape>

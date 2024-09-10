@@ -21,14 +21,20 @@ class PlaylistViewHolder(parentView: View) : RecyclerView.ViewHolder(parentView)
     ) {
 
         playlistNameTextView.text = playlist.name
-        tracksNumberTextView.text = when (playlist.tracksNumber % 10) {
-            0, 5, 6, 7, 8, 9 -> "${playlist.tracksNumber} треков"
-            1 -> "${playlist.tracksNumber} трек"
-            else -> "${playlist.tracksNumber} трека"
-        }
+        tracksNumberTextView.text =
+            if (playlist.tracksNumber % 100 == 11 || playlist.tracksNumber % 100 == 11) "${playlist.tracksNumber} треков"
+            else {
+                when (playlist.tracksNumber % 10) {
+                    0, 5, 6, 7, 8, 9 -> "${playlist.tracksNumber} треков"
+                    1 -> "${playlist.tracksNumber} трек"
+                    else -> "${playlist.tracksNumber} трека"
+                }
+            }
 
-        if (playlist.artLink.isNotEmpty()) trackArtImageView.setImageURI(Uri.parse(playlist.artLink))
-        else trackArtImageView.setImageResource(R.drawable.placeholder)
+        if (playlist.artLink.isNotEmpty()) {
+            trackArtImageView.setImageURI(Uri.parse(playlist.artLink))
+            trackArtImageView.scaleType = ImageView.ScaleType.CENTER_CROP
+        } else trackArtImageView.setImageResource(R.drawable.placeholder)
 
 
     }

@@ -1,12 +1,14 @@
 package com.example.playlistmaker.media.playlist_control.ui
 
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
@@ -53,16 +55,19 @@ class CreatePlaylistFragment : Fragment() {
             if (it.isNullOrEmpty()) makeEditDescrStart()
             else makeEditDescrFilled()
         }
-//        pickMedia =
-//            requireActivity().registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-//                if (uri != null) {
-//                    binding.CrPLArtImageView.setImageURI(uri)
-//                    viewModel.savePLArt(uri)
-//                    artUriString = uri.toString()
-//                } else {
-//                    Toast.makeText(requireContext(), "Арт не выбран", Toast.LENGTH_SHORT).show()
-//                }
-//            }
+        pickMedia =
+            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+                if (uri != null) {
+                    binding.CrPLArtImageView.setImageURI(uri)
+                    binding.CrPLArtImageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                    viewModel.savePLArt(uri)
+                    artUriString = uri.toString()
+                    val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    requireContext().contentResolver.takePersistableUriPermission(uri,flag)
+                } else {
+                    Toast.makeText(requireContext(), "Арт не выбран", Toast.LENGTH_SHORT).show()
+                }
+            }
 
         binding.CrPLArtImageView.setOnClickListener {
 
@@ -70,10 +75,10 @@ class CreatePlaylistFragment : Fragment() {
         }
 
         binding.CrPlCreateButton.setOnClickListener {
-            val playlist = Playlist(binding.CrPLPlaylistName.toString(),binding.CrPLPlaylistDescr.toString(),artUriString)
+            val playlist = Playlist(binding.CrPLPlaylistName.text.toString(),binding.CrPLPlaylistDescr.text.toString(),artUriString)
             viewModel.savePlaylist(playlist)
             Toast.makeText(requireContext(),"Плейлист создан",Toast.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_createPlaylistFragment_to_mediaFragment)
+            findNavController().popBackStack()
         }
     }
 

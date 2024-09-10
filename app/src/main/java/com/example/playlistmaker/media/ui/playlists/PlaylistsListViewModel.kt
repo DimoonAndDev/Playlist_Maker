@@ -14,6 +14,7 @@ class PlaylistsListViewModel(
     private val playlistControlBDInteractor: PlaylistControlBDInteractor
 ):ViewModel() {
     private var getPlaylistsJob:Job? = null
+    private var deletePlaylistJob:Job? = null
     private val playlistScreenStateLiveData = MutableLiveData<PlaylistListScreenStates>(
         PlaylistListScreenStates.Loading)
     fun getPlaylistScreenStateLiveData():LiveData<PlaylistListScreenStates> = playlistScreenStateLiveData
@@ -25,8 +26,12 @@ class PlaylistsListViewModel(
                 else playlistScreenStateLiveData.postValue(PlaylistListScreenStates.HavePlaylists(it))
 
             }
-
         }
-
+    }
+    fun deletePlaylist(playlistName:String){
+        deletePlaylistJob?.cancel()
+        deletePlaylistJob = viewModelScope.launch {
+            playlistControlBDInteractor.deletePlaylist(playlistName)
+        }
     }
 }

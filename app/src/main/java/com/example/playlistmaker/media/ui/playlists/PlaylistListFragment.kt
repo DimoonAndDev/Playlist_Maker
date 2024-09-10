@@ -30,6 +30,7 @@ class PlaylistListFragment : Fragment() {
     ): View? {
         binding = MediaPlaylistsFragmentBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,6 +54,14 @@ class PlaylistListFragment : Fragment() {
             }
         }
         viewModel.getPlaylistList()
+
+        playlistAdapter.setOnClickListener(object : PlaylistListAdapter.OnClickListener{
+            override fun onClick(position: Int, playlist: Playlist) {
+                viewModel.deletePlaylist(playlist.name)
+                viewModel.getPlaylistList()
+            }
+
+        })
     }
 
     private fun showLoading() {
