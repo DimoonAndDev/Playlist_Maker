@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -19,6 +21,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentCreatePlaylistBinding
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class CreatePlaylistFragment : Fragment() {
@@ -28,6 +31,7 @@ class CreatePlaylistFragment : Fragment() {
 
     private lateinit var binding: FragmentCreatePlaylistBinding
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
+    private lateinit var confirmDialog:MaterialAlertDialogBuilder
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,11 +45,11 @@ class CreatePlaylistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
-        binding.CrPLBackArrowImage.setOnClickListener { findNavController().popBackStack() }
+        binding.CrPLBackArrowImage.setOnClickListener { backHandle(confirmDialog)}
         binding.CrPlCreateButton.isEnabled = false
         binding.CrPlTextViewPlaylistNameHint.setShadowLayer(0f, 0f, 0f, 0)
         binding.CrPlTextViewPlaylistDescrHint.setShadowLayer(0f, 0f, 0f, 0)
-        var artUriString:String = ""
+        var artUriString = ""
 
         binding.CrPLPlaylistName.addTextChangedListener {
             if (it.isNullOrEmpty()) makeEditNameStart()
@@ -58,12 +62,12 @@ class CreatePlaylistFragment : Fragment() {
         pickMedia =
             registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
                 if (uri != null) {
-                    binding.CrPLArtImageView.setImageURI(uri)
-                    binding.CrPLArtImageView.scaleType = ImageView.ScaleType.CENTER_CROP
                     viewModel.savePLArt(uri)
                     artUriString = uri.toString()
                     val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
-                    requireContext().contentResolver.takePersistableUriPermission(uri,flag)
+                    requireContext().contentResolver.takePersistableUriPermission(uri, flag)
+                    binding.CrPLArtImageView.scaleType = ImageView.ScaleType.CENTER_CROP
+                    binding.CrPLArtImageView.setImageURI(uri)
                 } else {
                     Toast.makeText(requireContext(), "Арт не выбран", Toast.LENGTH_SHORT).show()
                 }
@@ -75,11 +79,44 @@ class CreatePlaylistFragment : Fragment() {
         }
 
         binding.CrPlCreateButton.setOnClickListener {
-            val playlist = Playlist(binding.CrPLPlaylistName.text.toString(),binding.CrPLPlaylistDescr.text.toString(),artUriString)
+            val playlist = Playlist(
+                binding.CrPLPlaylistName.text.toString(),
+                binding.CrPLPlaylistDescr.text.toString(),
+                artUriString
+            )
             viewModel.savePlaylist(playlist)
-            Toast.makeText(requireContext(),"Плейлист создан",Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Плейлист создан", Toast.LENGTH_SHORT).show()
             findNavController().popBackStack()
         }
+        confirmDialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.confirmdialoge_title))
+            .setMessage(getString(R.string.confirmdialoge_message))
+            .setNeutralButton(getString(R.string.confirmdialoge_cancel)) { dialog, which ->
+
+            }.setNegativeButton(R.string.confirmdialoge_end) { dialog, which ->
+
+                findNavController().popBackStack()
+            }
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                backHandle(confirmDialog)
+            }
+        })
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        requireActivity().onBackPressedDispatcher.addCallback { findNavController().popBackStack() }
+    }
+
+
+
+    private fun backHandle(dialog:MaterialAlertDialogBuilder) {
+
+        if (viewModel.uriString.isNotEmpty() || binding.CrPLPlaylistName.text.isNotEmpty() || binding.CrPLPlaylistDescr.text.isNotEmpty())
+            dialog.show()
+        else findNavController().popBackStack()
     }
 
     private fun makeEditNameStart() {

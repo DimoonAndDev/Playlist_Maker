@@ -6,4 +6,7 @@ class PlaylistArtInteractor(private val playlistArtRepository: PlaylistArtReposi
     fun savePLArt(uriString:String){
         playlistArtRepository.savePLArt(uriString)
     }
+    fun getPLArt(playlistArtUriString: String):String{
+       return playlistArtRepository.getPLArt(playlistArtUriString)
+    }
 }

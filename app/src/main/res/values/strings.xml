@@ -49,6 +49,11 @@
     <string name="crpl_playlistname_hint">Название*</string>
     <string name="crpl_playlistdescr_hint">Описание</string>
     <string name="playlist_unit_art_descr">Обложка плейлиста</string>
+    <string name="confirmdialoge_title">Завершить создание плейлиста?</string>
+    <string name="confirmdialoge_message">Все несохраненные данные будут потеряны</string>
+    <string name="confirmdialoge_cancel">Отмена</string>
+    <string name="confirmdialoge_end">Завершить</string>
+
 
 
 </resources>

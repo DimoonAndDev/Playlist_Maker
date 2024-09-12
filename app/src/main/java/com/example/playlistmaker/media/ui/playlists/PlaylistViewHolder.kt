@@ -9,7 +9,7 @@ import com.example.playlistmaker.R
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
 
 
-class PlaylistViewHolder(parentView: View) : RecyclerView.ViewHolder(parentView) {
+class PlaylistViewHolder(parentView: View,private val viewModel: PlaylistsListViewModel) : RecyclerView.ViewHolder(parentView) {
 
     private var playlistNameTextView: TextView = parentView.findViewById(R.id.PlaylistUnitNameText)
     private var tracksNumberTextView: TextView =
@@ -32,7 +32,8 @@ class PlaylistViewHolder(parentView: View) : RecyclerView.ViewHolder(parentView)
             }
 
         if (playlist.artLink.isNotEmpty()) {
-            trackArtImageView.setImageURI(Uri.parse(playlist.artLink))
+            val localArt = Uri.parse(viewModel.getPLArt(playlist.artLink))
+            trackArtImageView.setImageURI(localArt)
             trackArtImageView.scaleType = ImageView.ScaleType.CENTER_CROP
         } else trackArtImageView.setImageResource(R.drawable.placeholder)
 

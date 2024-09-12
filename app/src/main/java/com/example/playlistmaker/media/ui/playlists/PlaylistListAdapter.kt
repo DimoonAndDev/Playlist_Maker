@@ -7,14 +7,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
 
-class PlaylistListAdapter(private val playlists: List<Playlist>) :
+class PlaylistListAdapter(private val playlists: List<Playlist>,private val viewModel: PlaylistsListViewModel) :
     RecyclerView.Adapter<PlaylistViewHolder>() {
 
     private var onClickListener: OnClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistViewHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.playlist_list_unit, parent, false)
-        return PlaylistViewHolder(view)
+
+        return PlaylistViewHolder(view,viewModel)
     }
 
     override fun getItemCount(): Int {

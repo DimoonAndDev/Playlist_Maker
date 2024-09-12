@@ -40,7 +40,7 @@ class PlaylistListFragment : Fragment() {
             findNavController().navigate(R.id.action_mediaFragment_to_createPlaylistFragment)
         }
         binding.PlaylistListRecyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
-        playlistAdapter = PlaylistListAdapter(playlists)
+        playlistAdapter = PlaylistListAdapter(playlists,viewModel)
         binding.PlaylistListRecyclerView.adapter = playlistAdapter
 
         viewModel.getPlaylistScreenStateLiveData().observe(viewLifecycleOwner) {

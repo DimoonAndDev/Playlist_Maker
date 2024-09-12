@@ -23,12 +23,13 @@ class CreatePlaylistViewModel(
     private val createPlaylistUseCase: CreatePlaylistUseCase
 ) : ViewModel() {
     private var saveJob: Job? = null
+    var uriString = ""
     fun getTheme(): Boolean {
         return themeChangeInteractor.getTheme()
     }
 
     fun savePLArt(uri: Uri) {
-        val uriString = uri.toString()
+        uriString = uri.toString()
         playlistArtInteractor.savePLArt(uriString)
     }
     fun savePlaylist(playlist: Playlist){
