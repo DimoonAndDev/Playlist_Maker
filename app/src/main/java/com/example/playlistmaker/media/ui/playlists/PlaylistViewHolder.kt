@@ -6,12 +6,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
 
 
-class PlaylistViewHolder(parentView: View, private val viewModel: PlaylistsListViewModel) :
+class PlaylistViewHolder(parentView: View) :
     RecyclerView.ViewHolder(parentView) {
 
     private var playlistNameTextView: TextView = parentView.findViewById(R.id.PlaylistUnitNameText)

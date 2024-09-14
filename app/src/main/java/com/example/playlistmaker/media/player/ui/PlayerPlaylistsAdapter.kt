@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
-import com.example.playlistmaker.media.ui.playlists.PlaylistsListViewModel
-import com.example.playlistmaker.search.domain.models.Track
+
 
 class PlayerPlaylistsAdapter(private val playlists: List<Playlist>) :
     RecyclerView.Adapter<PlayerPlaylistsViewHolder>() {

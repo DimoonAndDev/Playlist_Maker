@@ -65,7 +65,7 @@ class CreatePlaylistFragment : Fragment() {
         binding.CrPlTextViewPlaylistDescrHint.setShadowLayer(0f, 0f, 0f, 0)
         var artStorageUriString = ""
         outcomeID = when (requireArguments().getInt(INCOME_ID)){
-            0,2->2
+            SEARCH_ID, CRPL_SEARCH_ID->2
             else->3
         }
 

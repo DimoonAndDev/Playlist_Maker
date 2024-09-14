@@ -13,7 +13,6 @@ import com.example.playlistmaker.media.player.ui.mapper.PlayerStatusMapper
 import com.example.playlistmaker.media.player.ui.models.PlayerStatus
 import com.example.playlistmaker.media.player.ui.models.PlayerTrack
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
-import com.example.playlistmaker.media.ui.playlists.models.PlaylistListScreenStates
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

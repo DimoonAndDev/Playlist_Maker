@@ -11,8 +11,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
 class PlaylistsListViewModel(
-    private val playlistControlBDInteractor: PlaylistControlBDInteractor,
-    private val playlistArtInteractor: PlaylistArtInteractor
+    private val playlistControlBDInteractor: PlaylistControlBDInteractor
 ):ViewModel() {
     private var getPlaylistsJob:Job? = null
     private var deletePlaylistJob:Job? = null
