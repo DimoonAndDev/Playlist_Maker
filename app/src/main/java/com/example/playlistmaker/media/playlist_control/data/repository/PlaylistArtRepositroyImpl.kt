@@ -11,7 +11,7 @@ import java.io.File
 import java.io.FileOutputStream
 
 class PlaylistArtRepositroyImpl(private val contextApp: Context) : PlaylistArtRepository {
-    override fun savePLArt(uriString: String) {
+    override fun savePLArt(uriString: String):String {
         val uri = Uri.parse(uriString)
         val filePath = File(
             contextApp.getExternalFilesDir(Environment.DIRECTORY_PICTURES),
@@ -23,9 +23,10 @@ class PlaylistArtRepositroyImpl(private val contextApp: Context) : PlaylistArtRe
         val outputStream = FileOutputStream(file)
         BitmapFactory.decodeStream(inputStream)
             .compress(Bitmap.CompressFormat.JPEG, 30, outputStream)
+        return file.toUri().toString()
     }
 
-    override fun getPLArt(playlistArtUriString: String): String {
+    override suspend fun getPLArt(playlistArtUriString: String): String {
         val filePath = File(contextApp.getExternalFilesDir(Environment.DIRECTORY_PICTURES),"Playlist_album")
         val file = File (filePath,"${playlistArtUriString.takeLast(10)}.jpg")
         //return BitmapFactory.decodeFile(file.absolutePath).toString()

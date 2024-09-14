@@ -53,7 +53,7 @@
     <string name="confirmdialoge_message">Все несохраненные данные будут потеряны</string>
     <string name="confirmdialoge_cancel">Отмена</string>
     <string name="confirmdialoge_end">Завершить</string>
-
+    <string name="player_bottomsheet_head">Добавить в плейлист</string>
 
 
 </resources>

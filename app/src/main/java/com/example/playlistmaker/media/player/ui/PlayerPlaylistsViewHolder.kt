@@ -1,6 +1,8 @@
-package com.example.playlistmaker.media.ui.playlists
+package com.example.playlistmaker.media.player.ui
 
+import android.content.Context
 import android.net.Uri
+import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,22 +11,23 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
+import com.example.playlistmaker.search.domain.models.Track
+import java.text.SimpleDateFormat
+import java.util.Locale
 
+class PlayerPlaylistsViewHolder(parentView: View) : RecyclerView.ViewHolder(parentView) {
 
-class PlaylistViewHolder(parentView: View, private val viewModel: PlaylistsListViewModel) :
-    RecyclerView.ViewHolder(parentView) {
+    private var playlistArtImage: ImageView = parentView.findViewById(R.id.PLAddTrackUnitImage)
+    private var playlistNameText: TextView = parentView.findViewById(R.id.PLAddTrackUnitName)
+    private var playlistTrackNumber: TextView = parentView.findViewById(R.id.PLAddTrackUnitNumber)
 
-    private var playlistNameTextView: TextView = parentView.findViewById(R.id.PlaylistUnitNameText)
-    private var tracksNumberTextView: TextView =
-        parentView.findViewById(R.id.PlaylistTrackNumberText)
-    private var trackArtImageView: ImageView = parentView.findViewById(R.id.PlaylistUnitImage)
 
     fun bind(
         playlist: Playlist
     ) {
 
-        playlistNameTextView.text = playlist.name
-        tracksNumberTextView.text =
+        playlistNameText.text = playlist.name
+        playlistTrackNumber.text =
             if (playlist.tracksNumber % 100 == 11 || playlist.tracksNumber % 100 == 11) "${playlist.tracksNumber} треков"
             else {
                 when (playlist.tracksNumber % 10) {
@@ -35,15 +38,16 @@ class PlaylistViewHolder(parentView: View, private val viewModel: PlaylistsListV
             }
 
 
-        trackArtImageView.scaleType = ImageView.ScaleType.CENTER_CROP
+        playlistArtImage.scaleType = ImageView.ScaleType.CENTER_CROP
         Glide.with(itemView)
             .load(Uri.parse(playlist.artLink))
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.placeholder)
             .fitCenter()
-            .into(trackArtImageView)
-
+            .into(playlistArtImage)
     }
+
+
 
 }
 

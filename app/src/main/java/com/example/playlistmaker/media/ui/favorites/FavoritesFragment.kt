@@ -24,8 +24,10 @@ class FavoritesFragment : Fragment() {
     private lateinit var recyclerFavoritesTrackAdapter: FavoritesTrackAdapter
 
     companion object {
+
         fun newInstance() = FavoritesFragment()
         const val CLICK_DEBOUNCE_DELAY = 1000L
+        const val MEDIA_ID = 1
     }
 
     override fun onCreateView(
@@ -62,7 +64,8 @@ class FavoritesFragment : Fragment() {
             override fun onClick(position: Int, track: Track) {
                 if (clickDebounce()) {
                     val savedTrack = viewModel.getGsonString(track)
-                    findNavController().navigate(R.id.action_mediaFragment_to_playerTrackFragment,PlayerTrackFragment.createArgs(savedTrack))
+                    findNavController().navigate(R.id.action_mediaFragment_to_playerTrackFragment,PlayerTrackFragment.createArgs(savedTrack,
+                        MEDIA_ID))
                 }
             }
 

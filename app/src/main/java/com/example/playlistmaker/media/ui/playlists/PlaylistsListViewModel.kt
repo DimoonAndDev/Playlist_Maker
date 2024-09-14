@@ -35,7 +35,7 @@ class PlaylistsListViewModel(
             playlistControlBDInteractor.deletePlaylist(playlistName)
         }
     }
-    fun getPLArt(playlistArtUriString: String):String{
-        return playlistArtInteractor.getPLArt(playlistArtUriString)
-    }
+//    fun getPLArt(playlistArtUriString: String):String{
+//        return playlistArtInteractor.getPLArt(playlistArtUriString)
+//    }
 }

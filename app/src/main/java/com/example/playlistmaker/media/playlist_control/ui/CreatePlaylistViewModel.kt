@@ -13,6 +13,7 @@ import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
 import com.example.playlistmaker.media.playlist_control.domain.usecases.CreatePlaylistUseCase
 import com.example.playlistmaker.media.playlist_control.domain.usecases.PlaylistArtInteractor
 import com.example.playlistmaker.settings.domain.usecases.ThemeChangeInteractor
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.io.File
@@ -28,10 +29,11 @@ class CreatePlaylistViewModel(
         return themeChangeInteractor.getTheme()
     }
 
-    fun savePLArt(uri: Uri) {
+    fun savePLArt(uri: Uri):String {
         uriString = uri.toString()
-        playlistArtInteractor.savePLArt(uriString)
+        return playlistArtInteractor.savePLArt(uriString)
     }
+
     fun savePlaylist(playlist: Playlist){
         saveJob?.cancel()
         saveJob = viewModelScope.launch {

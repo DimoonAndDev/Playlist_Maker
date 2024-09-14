@@ -73,7 +73,7 @@ class SearchFragment : Fragment() {
                     val savedTrack = viewModel.getGsonString(track)
                     findNavController().navigate(
                         R.id.action_searchFragment_to_playerTrackFragment,
-                        PlayerTrackFragment.createArgs(savedTrack)
+                        PlayerTrackFragment.createArgs(savedTrack, SEARCH_ID)
                     )
                 }
             }
@@ -158,6 +158,7 @@ class SearchFragment : Fragment() {
     companion object {
         private const val CURRENT_TEXT = "CURRENT_TEXT"
         private const val EMPTY_TXT = ""
+        private const val SEARCH_ID = 0
 
         const val CLICK_DEBOUNCE_DELAY = 1000L
 

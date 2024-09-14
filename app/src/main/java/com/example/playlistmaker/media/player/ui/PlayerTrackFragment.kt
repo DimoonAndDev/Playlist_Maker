@@ -8,10 +8,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.example.playlistmaker.R
@@ -19,6 +22,9 @@ import com.example.playlistmaker.databinding.FragmentPlayerTrackBinding
 import com.example.playlistmaker.media.player.ui.mapper.PlayerStatusMapper
 import com.example.playlistmaker.media.player.ui.models.PlayerStatus
 import com.example.playlistmaker.media.player.ui.models.PlayerTrack
+import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
+import com.example.playlistmaker.media.playlist_control.ui.CreatePlaylistFragment
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,11 +33,23 @@ class PlayerTrackFragment : Fragment() {
     private lateinit var track: PlayerTrack
     private lateinit var binding: FragmentPlayerTrackBinding
     private val viewModel by viewModel<PlayTrackFragmentViewModel>()
+    private lateinit var recyclerPlayerPlaylistAdapter: PlayerPlaylistsAdapter
+    lateinit var playlists: MutableList<Playlist>
 
     companion object {
         const val TRACK_JSON = "TRACK_JSON"
         const val CLICK_DEBOUNCE_DELAY = 1000L
-        fun createArgs(trackJson: String) = bundleOf(TRACK_JSON to trackJson)
+        const val INCOME_ID = "INCOME_ID"
+        const val SEARCH_ID = 0
+        const val MEDIA_ID = 1
+        const val CRPL_SEARCH_ID = 2
+        const val CRPL_MEDIA_ID = 3
+
+        fun createArgs(trackJson: String?, incomeID: Int) = bundleOf(
+            TRACK_JSON to trackJson,
+            INCOME_ID to incomeID
+        )
+
 
     }
 
@@ -45,8 +63,14 @@ class PlayerTrackFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.TrackBackArrowImage.setOnClickListener { findNavController().popBackStack() }
-
+        binding.TrackBackArrowImage.setOnClickListener {
+            backHandle()
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                backHandle()
+            }
+        })
         val trackJson = requireArguments().getString(TRACK_JSON)
         track = viewModel.getPlayerTrack(trackJson)
         viewModel.checkFavorite(track.trackId)
@@ -55,9 +79,19 @@ class PlayerTrackFragment : Fragment() {
 
         viewModel.getFavoriteLiveData().observe(viewLifecycleOwner) {
             when (it) {
-                true -> binding.TrackPlayButtonLike.setCompoundDrawablesWithIntrinsicBounds(R.drawable.filled_heart_icon,0,0,0)
+                true -> binding.TrackPlayButtonLike.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.filled_heart_icon,
+                    0,
+                    0,
+                    0
+                )
 
-                else -> binding.TrackPlayButtonLike.setCompoundDrawablesWithIntrinsicBounds(R.drawable.empty_hearct_icon,0,0,0)
+                else -> binding.TrackPlayButtonLike.setCompoundDrawablesWithIntrinsicBounds(
+                    R.drawable.empty_hearct_icon,
+                    0,
+                    0,
+                    0
+                )
             }
         }
 
@@ -81,7 +115,68 @@ class PlayerTrackFragment : Fragment() {
                 viewModel.favoriteClickControl(track)
             }
         }
+        viewModel.getPlaylistListBottomsheetLiveData().observe(viewLifecycleOwner) {
+            renderPlaylists(it)
+        }
+        playlists = mutableListOf(Playlist(""))
+        playlists.clear()
+
+        binding.PlayerPlaylistsBottomsheetRecyclerView.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        recyclerPlayerPlaylistAdapter = PlayerPlaylistsAdapter(playlists)
+        binding.PlayerPlaylistsBottomsheetRecyclerView.adapter = recyclerPlayerPlaylistAdapter
+
+        viewModel.getPlaylistList()
+
+        val bottomSheetBehavior = BottomSheetBehavior.from(binding.PlayerBottomsheet)
+        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+        binding.TrackPlayButtonAdd.setOnClickListener {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            binding.PlayerBottomsheetOverlay.visibility = View.VISIBLE
+        }
+        if (requireArguments().getInt(INCOME_ID) == CRPL_SEARCH_ID || requireArguments().getInt(INCOME_ID) == CRPL_MEDIA_ID) {
+            bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+            binding.PlayerBottomsheetOverlay.visibility = View.VISIBLE
+        }
+        bottomSheetBehavior.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) binding.PlayerBottomsheetOverlay.visibility =
+                    View.GONE
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+
+        })
+
+        binding.PlayerBottomsheetNewPlaylistButton.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_playerTrackFragment_to_createPlaylistFragment,
+                CreatePlaylistFragment.createArgs(trackJson, requireArguments().getInt(INCOME_ID))
+            )
+        }
     }
+
+    private fun backHandle() {
+        when (requireArguments().getInt(INCOME_ID)) {
+            SEARCH_ID, CRPL_SEARCH_ID -> findNavController().popBackStack(
+                R.id.searchFragment,
+                false
+            )
+
+            else -> findNavController().popBackStack(R.id.mediaFragment, false)
+
+        }
+
+    }
+
+    private fun renderPlaylists(playlistsFromLD: List<Playlist>) {
+        playlists.clear()
+        playlists.addAll(playlistsFromLD.reversed())
+        recyclerPlayerPlaylistAdapter.notifyDataSetChanged()
+    }
+
     private fun play() {
 
         binding.TrackPlayButtonPlay.setImageDrawable(
@@ -91,6 +186,7 @@ class PlayerTrackFragment : Fragment() {
             )
         )
     }
+
     private fun pause() {
         binding.TrackPlayButtonPlay.setImageDrawable(
             AppCompatResources.getDrawable(
@@ -99,17 +195,20 @@ class PlayerTrackFragment : Fragment() {
             )
         )
     }
+
     private fun prepared() {
         pause()
         binding.TrackCurrTimeTextView.text =
             String.format("%d:%02d", 0, 0)
         binding.TrackPlayButtonPlay.isEnabled = true
     }
+
     private fun unprepared() {
         binding.TrackCurrTimeTextView.text =
             String.format("%d:%02d", 0, 0)
         binding.TrackPlayButtonPlay.isEnabled = false
     }
+
     override fun onPause() {
         super.onPause()
         if (PlayerStatusMapper.map(viewModel.getPlayerStatus()) == PlayerStatus.STATE_PLAYING) viewModel.pauseTrack()
@@ -118,6 +217,7 @@ class PlayerTrackFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.releasePlayer()
+        requireActivity().onBackPressedDispatcher.addCallback { findNavController().popBackStack() }
     }
 
     private fun renderTrack(track: PlayerTrack) {

@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/root_navigation_graph"
-    app:startDestination="@id/mediaFragment">
+    app:startDestination="@id/mediaFragment"
+    app:defaultNavHost="true">
 
     <fragment
         android:id="@+id/searchFragment"
@@ -12,7 +13,8 @@
         tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_playerTrackFragment"
-            app:destination="@id/playerTrackFragment" />
+            app:destination="@id/playerTrackFragment"
+            app:popUpTo="@id/searchFragment"/>
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -26,7 +28,8 @@
         tools:layout="@layout/fragment_media" >
         <action
             android:id="@+id/action_mediaFragment_to_playerTrackFragment"
-            app:destination="@id/playerTrackFragment" />
+            app:destination="@id/playerTrackFragment"
+            app:popUpTo="@id/mediaFragment"/>
         <action
             android:id="@+id/action_mediaFragment_to_createPlaylistFragment"
             app:destination="@id/createPlaylistFragment" />
@@ -38,7 +41,9 @@
         tools:layout="@layout/fragment_player_track" >
         <action
             android:id="@+id/action_playerTrackFragment_to_createPlaylistFragment"
-            app:destination="@id/createPlaylistFragment" />
+            app:destination="@id/createPlaylistFragment"
+
+            />
     </fragment>
     <fragment
         android:id="@+id/createPlaylistFragment"
@@ -48,6 +53,12 @@
         <action
             android:id="@+id/action_createPlaylistFragment_to_mediaFragment"
             app:destination="@id/mediaFragment" />
+        <action
+            android:id="@+id/action_createPlaylistFragment_to_playerTrackFragment"
+            app:destination="@id/playerTrackFragment"
+            app:launchSingleTop="true"
+
+            />
     </fragment>
 
 </navigation>
