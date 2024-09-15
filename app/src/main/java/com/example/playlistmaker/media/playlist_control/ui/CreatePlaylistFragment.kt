@@ -45,7 +45,7 @@ class CreatePlaylistFragment : Fragment() {
     private lateinit var binding: FragmentCreatePlaylistBinding
     private lateinit var pickMedia: ActivityResultLauncher<PickVisualMediaRequest>
     private lateinit var confirmDialog: MaterialAlertDialogBuilder
-    private var outcomeID by Delegates.notNull<Int>()
+    private var outcomePathID by Delegates.notNull<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,7 +64,7 @@ class CreatePlaylistFragment : Fragment() {
         binding.CrPlTextViewPlaylistNameHint.setShadowLayer(0f, 0f, 0f, 0)
         binding.CrPlTextViewPlaylistDescrHint.setShadowLayer(0f, 0f, 0f, 0)
         var artStorageUriString = ""
-        outcomeID = when (requireArguments().getInt(INCOME_ID)){
+        outcomePathID = when (requireArguments().getInt(INCOME_ID)){
             SEARCH_ID, CRPL_SEARCH_ID->2
             else->3
         }
@@ -86,7 +86,7 @@ class CreatePlaylistFragment : Fragment() {
                     binding.CrPLArtImageView.scaleType = ImageView.ScaleType.CENTER_CROP
                     binding.CrPLArtImageView.setImageURI(Uri.parse(artStorageUriString))
                 } else {
-                    Toast.makeText(requireContext(), "Арт не выбран", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.crpl_toast_plart_notselected), Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -102,13 +102,8 @@ class CreatePlaylistFragment : Fragment() {
                 artStorageUriString
             )
             viewModel.savePlaylist(playlist)
-            Toast.makeText(requireContext(), "Плейлист создан", Toast.LENGTH_SHORT).show()
-            if (requireArguments().isEmpty)
-                findNavController().popBackStack()
-            else findNavController().navigate(
-                R.id.action_createPlaylistFragment_to_playerTrackFragment,
-                PlayerTrackFragment.createArgs(requireArguments().getString(TRACK_JSON), outcomeID)
-            )
+            Toast.makeText(requireContext(), getString(R.string.crpl_toast_plcreated), Toast.LENGTH_SHORT).show()
+            chooseBackPath()
         }
         confirmDialog = MaterialAlertDialogBuilder(requireContext())
             .setTitle(getString(R.string.confirmdialoge_title))
@@ -116,8 +111,7 @@ class CreatePlaylistFragment : Fragment() {
             .setNeutralButton(getString(R.string.confirmdialoge_cancel)) { dialog, which ->
 
             }.setNegativeButton(R.string.confirmdialoge_end) { dialog, which ->
-
-                findNavController().popBackStack()
+                chooseBackPath()
             }
         requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -126,7 +120,14 @@ class CreatePlaylistFragment : Fragment() {
         })
 
     }
-
+    private fun chooseBackPath(){
+        if (requireArguments().isEmpty)
+            findNavController().popBackStack()
+        else findNavController().navigate(
+            R.id.action_createPlaylistFragment_to_playerTrackFragment,
+            PlayerTrackFragment.createArgs(requireArguments().getString(TRACK_JSON), outcomePathID)
+        )
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         requireActivity().onBackPressedDispatcher.addCallback { findNavController().popBackStack() }
@@ -137,12 +138,7 @@ class CreatePlaylistFragment : Fragment() {
 
         if (viewModel.uriString.isNotEmpty() || binding.CrPLPlaylistName.text.isNotEmpty() || binding.CrPLPlaylistDescr.text.isNotEmpty())
             dialog.show()
-        else if (requireArguments().isEmpty)
-            findNavController().popBackStack()
-        else findNavController().navigate(
-            R.id.action_createPlaylistFragment_to_playerTrackFragment,
-            PlayerTrackFragment.createArgs(requireArguments().getString(TRACK_JSON),outcomeID )
-        )
+        else chooseBackPath()
 
     }
 

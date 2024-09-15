@@ -28,10 +28,10 @@ class PlaylistsListViewModel(
             }
         }
     }
-    fun deletePlaylist(playlistName:String){
+    fun deletePlaylist(playlistId:Int){
         deletePlaylistJob?.cancel()
         deletePlaylistJob = viewModelScope.launch {
-            playlistControlBDInteractor.deletePlaylist(playlistName)
+            playlistControlBDInteractor.deletePlaylist(playlistId)
         }
     }
 //    fun getPLArt(playlistArtUriString: String):String{

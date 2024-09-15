@@ -57,7 +57,7 @@ class PlaylistListFragment : Fragment() {
 
         playlistAdapter.setOnClickListener(object : PlaylistListAdapter.OnClickListener{
             override fun onClick(position: Int, playlist: Playlist) {
-                viewModel.deletePlaylist(playlist.name)
+                viewModel.deletePlaylist(playlist.innerId)
                 viewModel.getPlaylistList()
             }
 

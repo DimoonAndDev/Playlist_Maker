@@ -4,5 +4,6 @@ data class Playlist(
     val name:String,
     val description:String = "",
     val artLink:String = "",
-    var tracksNumber:Int = 0
+    var tracksRegister:List<Int> = listOf(),
+    val innerId:Int = 0
 )

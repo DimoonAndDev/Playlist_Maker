@@ -23,13 +23,14 @@ class PlaylistViewHolder(parentView: View) :
     ) {
 
         playlistNameTextView.text = playlist.name
+        val trackNumber = playlist.tracksRegister.size
         tracksNumberTextView.text =
-            if (playlist.tracksNumber % 100 == 11 || playlist.tracksNumber % 100 == 11) "${playlist.tracksNumber} треков"
+            if (trackNumber % 100 == 11 || trackNumber % 100 == 12) "$trackNumber треков"
             else {
-                when (playlist.tracksNumber % 10) {
-                    0, 5, 6, 7, 8, 9 -> "${playlist.tracksNumber} треков"
-                    1 -> "${playlist.tracksNumber} трек"
-                    else -> "${playlist.tracksNumber} трека"
+                when (trackNumber % 10) {
+                    0, 5, 6, 7, 8, 9 -> "$trackNumber треков"
+                    1 -> "$trackNumber трек"
+                    else -> "$trackNumber трека"
                 }
             }
 

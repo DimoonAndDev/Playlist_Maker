@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.addCallback
 import androidx.appcompat.content.res.AppCompatResources
@@ -156,6 +157,17 @@ class PlayerTrackFragment : Fragment() {
                 CreatePlaylistFragment.createArgs(trackJson, requireArguments().getInt(INCOME_ID))
             )
         }
+        recyclerPlayerPlaylistAdapter.setOnClickListener(object : PlayerPlaylistsAdapter.OnClickListener{
+            override fun onClick(position: Int, playlist: Playlist) {
+                if (viewModel.addTrackToPlaylist(track,playlist)){
+                    Toast.makeText(requireContext(),getString(R.string.player_toast_already_added)+playlist.name,Toast.LENGTH_SHORT).show()
+                    }
+                else {
+                    Toast.makeText(requireContext(),getString(R.string.player_toast_added)+playlist.name,Toast.LENGTH_SHORT).show()
+                    viewModel.getPlaylistList()
+                }
+            }
+        })
     }
 
     private fun backHandle() {

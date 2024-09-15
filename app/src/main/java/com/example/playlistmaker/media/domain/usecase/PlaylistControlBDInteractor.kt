@@ -8,7 +8,10 @@ class PlaylistControlBDInteractor(private val playlistControlDBRepository: Playl
     suspend fun getPlaylistList():Flow<List<Playlist?>>{
        return playlistControlDBRepository.getPlaylists()
     }
-    suspend fun deletePlaylist(playlistName:String){
-        playlistControlDBRepository.deletePlaylist(playlistName)
+    suspend fun deletePlaylist(playlistId: Int){
+        playlistControlDBRepository.deletePlaylist(playlistId)
+    }
+    suspend fun addTrackToPlaylist(trackRegister:List<Int>,playlistId:Int){
+        playlistControlDBRepository.addTrackToPlaylist(trackRegister,playlistId)
     }
 }

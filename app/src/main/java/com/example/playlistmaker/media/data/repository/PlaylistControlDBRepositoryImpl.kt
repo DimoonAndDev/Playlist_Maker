@@ -15,13 +15,18 @@ class PlaylistControlDBRepositoryImpl(
     override suspend fun addPlaylist(playlist: Playlist) {
         appDatabase.playlistDao().insertPlaylist(convertToEntity(playlist))
     }
-    override suspend fun deletePlaylist(playlistName:String){
-        appDatabase.playlistDao().deletePlaylist(playlistName)
+    override suspend fun deletePlaylist(playlistID: Int){
+        appDatabase.playlistDao().deletePlaylist(playlistID)
     }
 
     override suspend fun getPlaylists(): Flow<List<Playlist?>> = flow {
         val playlists = appDatabase.playlistDao().getPlaylists()
         emit(convertToPlaylist(playlists))
+    }
+
+    override suspend fun addTrackToPlaylist(trackRegister:List<Int>,playlistID:Int) {
+        appDatabase.playlistDao().addTrackToPlaylist(dbConverter.fromListToString(trackRegister),playlistID)
+
     }
 
     private fun convertToEntity(playlist: Playlist):PlaylistEntity{

@@ -34,7 +34,8 @@ class PlayTrackFragmentViewModel(
     fun getMediaPlayerLiveData(): LiveData<Int> = mediaPlayerLiveData
     fun getTimerLiveData(): LiveData<Long> = playerTimerLiveData
     fun getFavoriteLiveData(): LiveData<Boolean> = favoriteLiveData
-    fun getPlaylistListBottomsheetLiveData(): LiveData<List<Playlist>> = playlistListBottomsheetLiveData
+    fun getPlaylistListBottomsheetLiveData(): LiveData<List<Playlist>> =
+        playlistListBottomsheetLiveData
 
     private var favoriteCheckJob: Job? = null
     private var favoriteControlJob: Job? = null
@@ -48,11 +49,11 @@ class PlayTrackFragmentViewModel(
         }
     }
 
-    fun favoriteClickControl(track: PlayerTrack){
+    fun favoriteClickControl(track: PlayerTrack) {
         favoriteCheckJob?.cancel()
         favoriteControlJob?.cancel()
         favoriteControlJob = viewModelScope.launch {
-            if (favoriteLiveData.value == false){
+            if (favoriteLiveData.value == false) {
                 favoritesControlInteractor.addTrack(track)
                 favoriteLiveData.postValue(true)
             } else {
@@ -60,6 +61,16 @@ class PlayTrackFragmentViewModel(
                 favoriteLiveData.postValue(false)
             }
         }
+    }
+
+    fun addTrackToPlaylist(track: PlayerTrack, playlist: Playlist): Boolean {
+        if (playlist.tracksRegister.contains(track.trackId)) return true
+        val newPlaylistTrackRegister = mutableListOf<Int>()
+        newPlaylistTrackRegister.addAll(playlist.tracksRegister)
+        newPlaylistTrackRegister.add(track.trackId)
+        viewModelScope.launch { playlistControlBDInteractor.addTrackToPlaylist(newPlaylistTrackRegister,playlist.innerId)
+        getPlaylistList()}
+        return false
     }
 
     private fun updateMediaPlayerState(state: Int) {
@@ -134,9 +145,9 @@ class PlayTrackFragmentViewModel(
         }
     }
 
-    fun getPlaylistList(){
-        viewModelScope.launch{
-            playlistControlBDInteractor.getPlaylistList().collect{
+    fun getPlaylistList() {
+        viewModelScope.launch {
+            playlistControlBDInteractor.getPlaylistList().collect {
                 val playlistsWithoutNulls = it.filterNotNull()
                 playlistListBottomsheetLiveData.postValue(playlistsWithoutNulls)
 
