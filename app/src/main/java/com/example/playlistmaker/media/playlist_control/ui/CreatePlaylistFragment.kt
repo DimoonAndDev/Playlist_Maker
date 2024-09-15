@@ -26,6 +26,7 @@ import com.example.playlistmaker.media.player.ui.PlayerTrackFragment
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.IllegalStateException
 import kotlin.properties.Delegates
 
 class CreatePlaylistFragment : Fragment() {
@@ -34,12 +35,15 @@ class CreatePlaylistFragment : Fragment() {
     companion object {
         const val TRACK_JSON = "TRACK_JSON"
         const val INCOME_ID = "INCOME_ID"
-        const val SEARCH_ID=0
-        const val MEDIA_ID=1
-        const val CRPL_SEARCH_ID=2
-        const val CRPL_MEDIA_ID=3
-        fun createArgs(trackJson: String?,playerIncomeID:Int) = bundleOf(TRACK_JSON to trackJson,
-            INCOME_ID to playerIncomeID)
+        const val NOT_TRACK_INCOME_ID = 1
+        const val SEARCH_ID = 0
+        const val MEDIA_ID = 1
+        const val CRPL_SEARCH_ID = 2
+        const val CRPL_MEDIA_ID = 3
+        fun createArgs(trackJson: String?, playerIncomeID: Int) = bundleOf(
+            TRACK_JSON to trackJson,
+            INCOME_ID to playerIncomeID
+        )
     }
 
     private lateinit var binding: FragmentCreatePlaylistBinding
@@ -64,10 +68,18 @@ class CreatePlaylistFragment : Fragment() {
         binding.CrPlTextViewPlaylistNameHint.setShadowLayer(0f, 0f, 0f, 0)
         binding.CrPlTextViewPlaylistDescrHint.setShadowLayer(0f, 0f, 0f, 0)
         var artStorageUriString = ""
-        outcomePathID = when (requireArguments().getInt(INCOME_ID)){
-            SEARCH_ID, CRPL_SEARCH_ID->2
-            else->3
+        try {
+            outcomePathID = when (requireArguments().getInt(INCOME_ID)) {
+                SEARCH_ID, CRPL_SEARCH_ID -> 2
+                else -> 3
+            }
+
+
+        } catch (e: IllegalStateException) {
+
         }
+
+
 
         binding.CrPLPlaylistName.addTextChangedListener {
             if (it.isNullOrEmpty()) makeEditNameStart()
@@ -86,7 +98,11 @@ class CreatePlaylistFragment : Fragment() {
                     binding.CrPLArtImageView.scaleType = ImageView.ScaleType.CENTER_CROP
                     binding.CrPLArtImageView.setImageURI(Uri.parse(artStorageUriString))
                 } else {
-                    Toast.makeText(requireContext(), getString(R.string.crpl_toast_plart_notselected), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        getString(R.string.crpl_toast_plart_notselected),
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
 
@@ -102,7 +118,11 @@ class CreatePlaylistFragment : Fragment() {
                 artStorageUriString
             )
             viewModel.savePlaylist(playlist)
-            Toast.makeText(requireContext(), getString(R.string.crpl_toast_plcreated), Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.crpl_toast_plcreated),
+                Toast.LENGTH_SHORT
+            ).show()
             chooseBackPath()
         }
         confirmDialog = MaterialAlertDialogBuilder(requireContext())
@@ -120,14 +140,22 @@ class CreatePlaylistFragment : Fragment() {
         })
 
     }
-    private fun chooseBackPath(){
-        if (requireArguments().isEmpty)
+
+    private fun chooseBackPath() {
+        try {
+            findNavController().navigate(
+                R.id.action_createPlaylistFragment_to_playerTrackFragment,
+                PlayerTrackFragment.createArgs(
+                    requireArguments().getString(TRACK_JSON),
+                    outcomePathID
+                )
+            )
+        } catch (e: IllegalStateException) {
             findNavController().popBackStack()
-        else findNavController().navigate(
-            R.id.action_createPlaylistFragment_to_playerTrackFragment,
-            PlayerTrackFragment.createArgs(requireArguments().getString(TRACK_JSON), outcomePathID)
-        )
+        }
+
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         requireActivity().onBackPressedDispatcher.addCallback { findNavController().popBackStack() }

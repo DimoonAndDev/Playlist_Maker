@@ -54,8 +54,8 @@
     <string name="confirmdialoge_cancel">Отмена</string>
     <string name="confirmdialoge_end">Завершить</string>
     <string name="player_bottomsheet_head">Добавить в плейлист</string>
-    <string name="player_toast_added">Добавлено в плейлист </string>
-    <string name="player_toast_already_added">Трек уже добавлен в плейлист </string>
+    <string name="player_toast_added">"Добавлено в плейлист "</string>
+    <string name="player_toast_already_added">"Трек уже добавлен в плейлист "</string>
     <string name="crpl_toast_plcreated">Плейлист создан</string>
     <string name="crpl_toast_plart_notselected">Арт не выбран</string>
 
