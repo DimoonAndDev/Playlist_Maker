@@ -4,6 +4,7 @@ import com.example.playlistmaker.media.ui.favorites.MediaFavoritesViewModel
 import com.example.playlistmaker.media.ui.playlists.PlaylistsListViewModel
 import com.example.playlistmaker.media.player.ui.PlayTrackFragmentViewModel
 import com.example.playlistmaker.media.playlist_control.ui.CreatePlaylistViewModel
+import com.example.playlistmaker.media.playlist_info.ui.PlaylistInfoFragmentViewModel
 import com.example.playlistmaker.search.ui.SearchFragmentViewModel
 import com.example.playlistmaker.settings.ui.SettingViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -24,9 +25,12 @@ val viewModelModule = module {
         MediaFavoritesViewModel(get(),get())
     }
     viewModel{
-        PlaylistsListViewModel(get())
+        PlaylistsListViewModel(get(),get())
     }
     viewModel{
         CreatePlaylistViewModel(get(),get(),get())
+    }
+    viewModel {
+        PlaylistInfoFragmentViewModel(get(),get())
     }
 }

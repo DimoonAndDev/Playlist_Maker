@@ -58,6 +58,13 @@
     <string name="player_toast_already_added">"Трек уже добавлен в плейлист "</string>
     <string name="crpl_toast_plcreated">Плейлист создан</string>
     <string name="crpl_toast_plart_notselected">Арт не выбран</string>
+    <string name="plinfo_art_descr">Обложка плейлиста</string>
+    <string name="plinfo_name_placeholder">Название плейлиста</string>
+    <string name="plinfo_descr_placeholder">Описание плейлиста</string>
+    <string name="pl_info_empty_tracklist">В плейлист не добавлены треки</string>
+    <string name="plinfo_menu_share">Поделиться</string>
+    <string name="plinfo_menu_changepl">Редактировать информацию</string>
+    <string name="plinfo_menu_deletepl">Удалить плейлист</string>
 
 
 </resources>

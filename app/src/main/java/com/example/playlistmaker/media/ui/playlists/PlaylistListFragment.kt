@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.MediaPlaylistsFragmentBinding
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
+import com.example.playlistmaker.media.playlist_info.ui.PlaylistInfoFragment
 import com.example.playlistmaker.media.ui.playlists.models.PlaylistListScreenStates
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -57,8 +58,8 @@ class PlaylistListFragment : Fragment() {
 
         playlistAdapter.setOnClickListener(object : PlaylistListAdapter.OnClickListener{
             override fun onClick(position: Int, playlist: Playlist) {
-                viewModel.deletePlaylist(playlist.innerId)
-                viewModel.getPlaylistList()
+                val playlistJson = viewModel.convertPLtoJson(playlist)
+                findNavController().navigate(R.id.action_mediaFragment_to_playlistInfoFragment,PlaylistInfoFragment.createArgs(playlistJson))
             }
 
         })
