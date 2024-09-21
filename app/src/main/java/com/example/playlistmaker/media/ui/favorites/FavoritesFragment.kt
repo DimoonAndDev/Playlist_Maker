@@ -1,18 +1,18 @@
 package com.example.playlistmaker.media.ui.favorites
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.MediaFavoritesFragmentBinding
-import com.example.playlistmaker.media.player.ui.PlayTrackActivity
+import com.example.playlistmaker.media.player.ui.PlayerTrackFragment
 import com.example.playlistmaker.media.ui.favorites.models.FavoritesScreenStates
 import com.example.playlistmaker.search.domain.models.Track
-import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -24,14 +24,16 @@ class FavoritesFragment : Fragment() {
     private lateinit var recyclerFavoritesTrackAdapter: FavoritesTrackAdapter
 
     companion object {
+
         fun newInstance() = FavoritesFragment()
         const val CLICK_DEBOUNCE_DELAY = 1000L
+        const val MEDIA_ID = 1
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = MediaFavoritesFragmentBinding.inflate(inflater, container, false)
         return binding.root
@@ -61,13 +63,9 @@ class FavoritesFragment : Fragment() {
             FavoritesTrackAdapter.OnClickListener {
             override fun onClick(position: Int, track: Track) {
                 if (clickDebounce()) {
-                    val intent = Intent(requireContext(), PlayTrackActivity::class.java)
                     val savedTrack = viewModel.getGsonString(track)
-                    intent.putExtra(
-                        com.example.playlistmaker.search.ui.TRACK_INTENT_EXTRA,
-                        savedTrack
-                    )
-                    startActivity(intent)
+                    findNavController().navigate(R.id.action_mediaFragment_to_playerTrackFragment,PlayerTrackFragment.createArgs(savedTrack,
+                        MEDIA_ID))
                 }
             }
 
@@ -85,6 +83,10 @@ class FavoritesFragment : Fragment() {
             }
         }
         return current
+    }
+    override fun onStop() {
+        super.onStop()
+        isClickAllowed = true
     }
 
     private fun showNoResult() {

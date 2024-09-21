@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <ImageView
+        android:id="@+id/PLAddTrackUnitImage"
+        android:layout_width="@dimen/search_square_art_side_size"
+        android:layout_height="@dimen/search_square_art_side_size"
+        android:layout_marginStart="@dimen/search_art_left_margin"
+        android:layout_marginTop="@dimen/search_art_top_bot_margin"
+        android:layout_marginBottom="@dimen/search_art_top_bot_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/track_unit_image" />
+
+    <TextView
+        android:id="@+id/PLAddTrackUnitName"
+        style="@style/SearchTrackUnitNameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="14dp"
+
+        app:layout_constraintStart_toEndOf="@id/PLAddTrackUnitImage"
+        app:layout_constraintTop_toTopOf="parent"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:scrollHorizontally="false"
+        app:layout_constrainedWidth="true"
+         />
+
+    <TextView
+        android:id="@+id/PLAddTrackUnitNumber"
+        style="@style/SearchTrackUnitArtistTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+
+        android:maxLines="1"
+        android:scrollHorizontally="false"
+        android:textAlignment="viewStart"
+        app:layout_constrainedWidth="true"
+
+        app:layout_constraintStart_toEndOf="@id/PLAddTrackUnitImage"
+        app:layout_constraintTop_toBottomOf="@id/PLAddTrackUnitName" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

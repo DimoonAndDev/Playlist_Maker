@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".media.playlist_control.ui.CreatePlaylistFragment">
+
+    <ImageView
+        android:id="@+id/CrPLBackArrowImage"
+        style="@style/BackArrowStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+
+        android:contentDescription="@string/settActiv_backButton_descr"
+        android:foreground="?attr/selectableItemBackground"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+
+        app:srcCompat="@drawable/backarrow" />
+
+    <TextView
+        android:id="@+id/CrPLHeadTextBar"
+        style="@style/HeadText"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="16dp"
+
+        android:text="@string/crpl_new_playlist"
+        app:layout_constraintStart_toEndOf="@id/CrPLBackArrowImage"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CrPlArtImageCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CrPLBackArrowImage"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        android:backgroundTint="@android:color/transparent">
+
+        <ImageView
+            android:id="@+id/CrPLArtImageView"
+            android:layout_width="312dp"
+            android:layout_height="312dp"
+            android:background="@drawable/crpl_art_background"
+            android:scaleType="center"
+            app:srcCompat="@drawable/add_image_icon" />
+
+    </androidx.cardview.widget.CardView>
+
+    <EditText
+        android:id="@+id/CrPLPlaylistName"
+        style="@style/CrPlEditTextViewStyle"
+        android:layout_width="328dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="32dp"
+        android:hint="@string/crpl_playlistname_hint"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="18dp"
+        android:maxLines="1"
+        android:inputType="text"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CrPlArtImageCard" />
+
+    <TextView
+        android:id="@+id/CrPlTextViewPlaylistNameHint"
+        style="@style/CrPlHintTextViewStyle"
+        android:layout_width="62dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:paddingHorizontal="3dp"
+
+
+        android:text="@string/crpl_playlistname_hint"
+        android:visibility="gone"
+
+
+        app:layout_constraintBottom_toTopOf="@id/CrPLPlaylistName"
+        app:layout_constraintStart_toStartOf="@id/CrPLPlaylistName"
+        app:layout_constraintTop_toTopOf="@id/CrPLPlaylistName" />
+
+
+    <EditText
+        android:id="@+id/CrPLPlaylistDescr"
+        style="@style/CrPlEditTextViewStyle"
+        android:layout_width="328dp"
+        android:layout_height="56dp"
+
+        android:layout_marginTop="16dp"
+        android:hint="@string/crpl_playlistdescr_hint"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="18dp"
+        android:maxLines="1"
+        android:inputType="text"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CrPLPlaylistName" />
+
+    <TextView
+        android:id="@+id/CrPlTextViewPlaylistDescrHint"
+        style="@style/CrPlHintTextViewStyle"
+        android:layout_width="65dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+
+        android:paddingHorizontal="3dp"
+        android:text="@string/crpl_playlistdescr_hint"
+        android:visibility="gone"
+
+        app:layout_constraintBottom_toTopOf="@id/CrPLPlaylistDescr"
+        app:layout_constraintStart_toStartOf="@id/CrPLPlaylistDescr"
+        app:layout_constraintTop_toTopOf="@id/CrPLPlaylistDescr" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/CrPlCreateButton"
+        style="@style/CrPlButtonStyle"
+        android:layout_width="326dp"
+        android:layout_height="44dp"
+
+        android:layout_marginBottom="32dp"
+        android:background="@drawable/crpl_button_selector"
+        android:text="@string/crpl_create_button_text"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/CrPLPlaylistDescr"
+        app:layout_constraintVertical_bias="1.0" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

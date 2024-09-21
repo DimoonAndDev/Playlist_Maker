@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.playlistmaker.media.domain.usecase.PlaylistControlBDInteractor
 import com.example.playlistmaker.media.player.data.dto.MediaPlayerStatus
 import com.example.playlistmaker.media.player.domain.usecases.FavoritesControlInteractor
 import com.example.playlistmaker.media.player.domain.usecases.GetPlayerTrackUseCase
@@ -11,14 +12,16 @@ import com.example.playlistmaker.media.player.domain.usecases.MediaPlayerInterac
 import com.example.playlistmaker.media.player.ui.mapper.PlayerStatusMapper
 import com.example.playlistmaker.media.player.ui.models.PlayerStatus
 import com.example.playlistmaker.media.player.ui.models.PlayerTrack
+import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-class PlayTrackActivityViewModel(
+class PlayTrackFragmentViewModel(
     private val mediaPlayerInteractor: MediaPlayerInteractor,
     private val getPlayerTrackUseCase: GetPlayerTrackUseCase,
-    private val favoritesControlInteractor: FavoritesControlInteractor
+    private val favoritesControlInteractor: FavoritesControlInteractor,
+    private val playlistControlBDInteractor: PlaylistControlBDInteractor
 ) : ViewModel() {
     private val DELAY = 300L
     private var timerJob: Job? = null
@@ -26,10 +29,13 @@ class PlayTrackActivityViewModel(
     private var mediaPlayerLiveData = MutableLiveData(MediaPlayerStatus.STATE_DEFAULT.status)
     private val playerTimerLiveData = MutableLiveData(0L)
     private val favoriteLiveData = MutableLiveData(false)
+    private val playlistListBottomsheetLiveData = MutableLiveData<List<Playlist>>()
 
     fun getMediaPlayerLiveData(): LiveData<Int> = mediaPlayerLiveData
     fun getTimerLiveData(): LiveData<Long> = playerTimerLiveData
     fun getFavoriteLiveData(): LiveData<Boolean> = favoriteLiveData
+    fun getPlaylistListBottomsheetLiveData(): LiveData<List<Playlist>> =
+        playlistListBottomsheetLiveData
 
     private var favoriteCheckJob: Job? = null
     private var favoriteControlJob: Job? = null
@@ -43,11 +49,11 @@ class PlayTrackActivityViewModel(
         }
     }
 
-    fun favoriteClickControl(track: PlayerTrack){
+    fun favoriteClickControl(track: PlayerTrack) {
         favoriteCheckJob?.cancel()
         favoriteControlJob?.cancel()
         favoriteControlJob = viewModelScope.launch {
-            if (favoriteLiveData.value == false){
+            if (favoriteLiveData.value == false) {
                 favoritesControlInteractor.addTrack(track)
                 favoriteLiveData.postValue(true)
             } else {
@@ -55,6 +61,16 @@ class PlayTrackActivityViewModel(
                 favoriteLiveData.postValue(false)
             }
         }
+    }
+
+    fun addTrackToPlaylist(track: PlayerTrack, playlist: Playlist): Boolean {
+        if (playlist.tracksRegister.contains(track.trackId)) return true
+        val newPlaylistTrackRegister = mutableListOf<Int>()
+        newPlaylistTrackRegister.addAll(playlist.tracksRegister)
+        newPlaylistTrackRegister.add(track.trackId)
+        viewModelScope.launch { playlistControlBDInteractor.addTrackToPlaylist(newPlaylistTrackRegister,playlist.innerId)
+        getPlaylistList()}
+        return false
     }
 
     private fun updateMediaPlayerState(state: Int) {
@@ -126,6 +142,16 @@ class PlayTrackActivityViewModel(
 
             }
 
+        }
+    }
+
+    fun getPlaylistList() {
+        viewModelScope.launch {
+            playlistControlBDInteractor.getPlaylistList().collect {
+                val playlistsWithoutNulls = it.filterNotNull()
+                playlistListBottomsheetLiveData.postValue(playlistsWithoutNulls)
+
+            }
         }
     }
 }
