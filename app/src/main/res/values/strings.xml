@@ -65,6 +65,9 @@
     <string name="plinfo_menu_share">Поделиться</string>
     <string name="plinfo_menu_changepl">Редактировать информацию</string>
     <string name="plinfo_menu_deletepl">Удалить плейлист</string>
+    <string name="delete_track_confrimdialog_title">Хотите удалить трек?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 
 
 </resources>

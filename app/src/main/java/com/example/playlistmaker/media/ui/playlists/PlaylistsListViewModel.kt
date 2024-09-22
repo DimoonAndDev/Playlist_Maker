@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.playlistmaker.media.domain.usecase.PlaylistControlBDInteractor
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
-import com.example.playlistmaker.media.playlist_control.domain.usecases.PlaylistArtInteractor
 import com.example.playlistmaker.media.ui.playlists.models.PlaylistListScreenStates
 import com.google.gson.Gson
 import kotlinx.coroutines.Job

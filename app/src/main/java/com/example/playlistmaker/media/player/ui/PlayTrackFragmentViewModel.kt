@@ -10,9 +10,11 @@ import com.example.playlistmaker.media.player.domain.usecases.FavoritesControlIn
 import com.example.playlistmaker.media.player.domain.usecases.GetPlayerTrackUseCase
 import com.example.playlistmaker.media.player.domain.usecases.MediaPlayerInteractor
 import com.example.playlistmaker.media.player.ui.mapper.PlayerStatusMapper
+import com.example.playlistmaker.media.player.ui.mapper.TrackPlayerTrackMapper
 import com.example.playlistmaker.media.player.ui.models.PlayerStatus
 import com.example.playlistmaker.media.player.ui.models.PlayerTrack
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
+import com.example.playlistmaker.search.domain.models.Track
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -21,7 +23,8 @@ class PlayTrackFragmentViewModel(
     private val mediaPlayerInteractor: MediaPlayerInteractor,
     private val getPlayerTrackUseCase: GetPlayerTrackUseCase,
     private val favoritesControlInteractor: FavoritesControlInteractor,
-    private val playlistControlBDInteractor: PlaylistControlBDInteractor
+    private val playlistControlBDInteractor: PlaylistControlBDInteractor,
+    private val trackPlayerTrackMapper: TrackPlayerTrackMapper
 ) : ViewModel() {
     private val DELAY = 300L
     private var timerJob: Job? = null
@@ -68,7 +71,7 @@ class PlayTrackFragmentViewModel(
         val newPlaylistTrackRegister = mutableListOf<Int>()
         newPlaylistTrackRegister.addAll(playlist.tracksRegister)
         newPlaylistTrackRegister.add(track.trackId)
-        viewModelScope.launch { playlistControlBDInteractor.addTrackToPlaylist(newPlaylistTrackRegister,playlist.innerId)
+        viewModelScope.launch { playlistControlBDInteractor.addTrackToPlaylist(newPlaylistTrackRegister,playlist.innerId,trackPlayerTrackMapper.map(track))
         getPlaylistList()}
         return false
     }

@@ -13,7 +13,7 @@ import org.koin.dsl.module
 val viewModelModule = module {
 
     viewModel {
-        PlayTrackFragmentViewModel(get(),get(),get(),get())
+        PlayTrackFragmentViewModel(get(),get(),get(),get(),get())
     }
     viewModel {
         SearchFragmentViewModel(get(),get(),get())

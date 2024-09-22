@@ -5,18 +5,22 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.OnLongClickListener
 import android.view.ViewGroup
-import android.view.ViewTreeObserver
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.FragmentPlaylistInfoBinding
+import com.example.playlistmaker.media.player.ui.PlayerTrackFragment
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
 import com.example.playlistmaker.search.domain.models.Track
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,7 +32,9 @@ class PlaylistInfoFragment : Fragment() {
     private val viewModel by viewModel<PlaylistInfoFragmentViewModel>()
     private lateinit var recyclerPlaylistTrackListAdapter: PlaylistsInfoAdapter
     lateinit var tracksInPlaylist: MutableList<Track>
-    var maxY: Int = 0
+    private lateinit var confirmDeleteTrackDialog: MaterialAlertDialogBuilder
+    private lateinit var choosenTrack: Track
+
 
     companion object {
         const val PLAYLIST_JSON = "PLAYLIST_JSON"
@@ -63,24 +69,39 @@ class PlaylistInfoFragment : Fragment() {
         val playlistJson = requireArguments().getString(PLAYLIST_JSON)
         playlist = viewModel.getPlaylist(playlistJson)
         tracksInPlaylist = mutableListOf(Track(), Track())
-        // tracksInPlaylist.clear()
-        renderPlaylist(playlist)
+        tracksInPlaylist.clear()
 
+
+        viewModel.getScreenStateLiveData().observe(viewLifecycleOwner){
+            playlist = it.playlist
+            renderPlaylist(it.playlist,it.trackList)
+
+        }
+        confirmDeleteTrackDialog = MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.delete_track_confrimdialog_title))
+            .setPositiveButton(getString(R.string.yes)) { dialog, which ->
+                viewModel.deleteTrackFromPlaylist(choosenTrack, playlist)
+                binding.PLInfoBottomsheetOverlay.visibility = View.GONE
+
+            }.setNegativeButton(R.string.no) { dialog, which ->
+                binding.PLInfoBottomsheetOverlay.visibility = View.GONE
+            }
 
 
         binding.PLInfoBottomsheetTrackListRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        recyclerPlaylistTrackListAdapter = PlaylistsInfoAdapter(tracksInPlaylist)
+        recyclerPlaylistTrackListAdapter = PlaylistsInfoAdapter(tracksInPlaylist.asReversed())
         binding.PLInfoBottomsheetTrackListRecyclerView.adapter = recyclerPlaylistTrackListAdapter
 
-        //viewModel.getTracksInPlaylist(playlist.tracksRegister)
+
+        viewModel.getTracksInPlaylist(playlist)
 
         val bottomSheetTrackListBehavior =
             BottomSheetBehavior.from(binding.PlInfoTrackListBottomsheet)
         val bottomSheetMenuBehavior = BottomSheetBehavior.from(binding.PLInfoMenuBottomsheet)
 
 
-        bottomSheetTrackListBehavior.peekHeight =
+        bottomSheetTrackListBehavior.peekHeight = 600
         bottomSheetTrackListBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
 
         bottomSheetMenuBehavior.state = BottomSheetBehavior.STATE_HIDDEN
@@ -99,17 +120,38 @@ class PlaylistInfoFragment : Fragment() {
             }
 
         })
+        recyclerPlaylistTrackListAdapter.setOnLongListener(object :
+            PlaylistsInfoAdapter.OnLongClickListener {
 
+            override fun onLongClick(position: Int, track: Track) {
+                choosenTrack = track
+                binding.PLInfoBottomsheetOverlay.visibility = View.VISIBLE
+                confirmDeleteTrackDialog.show()
 
+            }
+
+        })
+        recyclerPlaylistTrackListAdapter.setOnClickListener(object :
+            PlaylistsInfoAdapter.OnClickListener {
+            override fun onClick(position: Int, track: Track) {
+                findNavController().navigate(
+                    R.id.action_playlistInfoFragment_to_playerTrackFragment,
+                    PlayerTrackFragment.createArgs(viewModel.getTrackJson(track), 4)
+                )
+            }
+        })
     }
 
     private fun backHandle() {
-
+        findNavController().popBackStack()
     }
 
 
-    private fun renderPlaylist(playlist: Playlist) {
-        if (!playlist.artLink.isNullOrEmpty()) {
+    private fun renderPlaylist(playlist: Playlist,tracks:List<Track>) {
+        tracksInPlaylist.clear()
+        tracksInPlaylist.addAll(tracks)
+        recyclerPlaylistTrackListAdapter.notifyDataSetChanged()
+        if (playlist.artLink.isNotEmpty()) {
             binding.PLInfoArtImageView.setPadding(0)
             binding.PLInfoArtImageView.setImageURI(Uri.parse(playlist.artLink))
         }
@@ -146,6 +188,8 @@ class PlaylistInfoFragment : Fragment() {
             binding.PLInfoBottomsheetTrackListRecyclerView.visibility = View.VISIBLE
             binding.PLInfoEmptyTrackListText.visibility = View.GONE
         }
+
+
     }
 
 

@@ -4,7 +4,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
 import com.example.playlistmaker.media.data.db.entity.PlaylistEntity
 
 @Dao
@@ -20,5 +19,5 @@ interface PlaylistDao {
     suspend fun getPlaylists():List<PlaylistEntity>
 
     @Query("UPDATE playlists SET playlistTracksRegister =:newRegister WHERE playlist_id = :playlistID")
-    suspend fun addTrackToPlaylist(newRegister:String,playlistID:Int)
+    suspend fun updateTrackToPlaylist(newRegister:String, playlistID:Int)
 }

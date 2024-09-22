@@ -2,11 +2,9 @@ package com.example.playlistmaker.media.playlist_info.ui
 
 
 import android.view.LayoutInflater
-import android.view.View.OnLongClickListener
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.playlistmaker.R
-import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
 import com.example.playlistmaker.search.domain.models.Track
 
 

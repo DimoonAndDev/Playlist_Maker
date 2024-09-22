@@ -8,6 +8,7 @@ import com.example.playlistmaker.media.player.domain.usecases.GetPlayerTrackUseC
 import com.example.playlistmaker.media.player.domain.usecases.MediaPlayerInteractor
 import com.example.playlistmaker.media.playlist_control.domain.usecases.CreatePlaylistUseCase
 import com.example.playlistmaker.media.playlist_control.domain.usecases.PlaylistArtInteractor
+import com.example.playlistmaker.media.playlist_info.domain.usecases.TrackInPlaylistInteractror
 import com.example.playlistmaker.search.domain.impl.FindTrackIntaractorImpl
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
 import com.example.playlistmaker.search.domain.usecases.GetSetTrackHistoryInteractor
@@ -38,4 +39,5 @@ val interactorModule = module {
     single<PlaylistArtInteractor> {PlaylistArtInteractor(get())}
     single<PlaylistControlBDInteractor> { PlaylistControlBDInteractor(get())  }
     single<CreatePlaylistUseCase> { CreatePlaylistUseCase(get())  }
+    single<TrackInPlaylistInteractror>{TrackInPlaylistInteractror(get()) }
 }

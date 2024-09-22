@@ -40,6 +40,7 @@ class CreatePlaylistFragment : Fragment() {
         const val MEDIA_ID = 1
         const val CRPL_SEARCH_ID = 2
         const val CRPL_MEDIA_ID = 3
+        const val PL_INFO_ID = 4
         fun createArgs(trackJson: String?, playerIncomeID: Int) = bundleOf(
             TRACK_JSON to trackJson,
             INCOME_ID to playerIncomeID
@@ -71,7 +72,8 @@ class CreatePlaylistFragment : Fragment() {
         try {
             outcomePathID = when (requireArguments().getInt(INCOME_ID)) {
                 SEARCH_ID, CRPL_SEARCH_ID -> 2
-                else -> 3
+                MEDIA_ID, CRPL_MEDIA_ID -> 3
+                else ->5
             }
 
 

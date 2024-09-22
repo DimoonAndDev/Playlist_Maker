@@ -2,6 +2,7 @@ package com.example.playlistmaker.di
 
 import com.example.playlistmaker.media.data.db.converter.PlaylistDBConverter
 import com.example.playlistmaker.media.data.db.converter.TrackDbConverter
+import com.example.playlistmaker.media.data.db.converter.TrackInPlaylistDBConverter
 import com.example.playlistmaker.media.data.repository.FavoriteControlRepositoryImpl
 import com.example.playlistmaker.media.data.repository.GetFavoriteTrackRepImpl
 import com.example.playlistmaker.media.data.repository.PlaylistControlDBRepositoryImpl
@@ -12,8 +13,11 @@ import com.example.playlistmaker.media.player.data.repository.mediaplayer.MediaP
 import com.example.playlistmaker.media.player.domain.repository.FavoritesControlRepository
 import com.example.playlistmaker.media.player.domain.repository.MediaPlayerRepository
 import com.example.playlistmaker.media.player.domain.repository.PlayerGetTrackRepository
+import com.example.playlistmaker.media.player.ui.mapper.TrackPlayerTrackMapper
 import com.example.playlistmaker.media.playlist_control.data.repository.PlaylistArtRepositroyImpl
 import com.example.playlistmaker.media.playlist_control.domain.repository.PlaylistArtRepository
+import com.example.playlistmaker.media.playlist_info.data.repository.TrackInPlaylistRepositoryImpl
+import com.example.playlistmaker.media.playlist_info.domain.repository.TrackInPlaylistRepository
 import com.example.playlistmaker.search.data.repository.FindTrackRepositoryImpl
 import com.example.playlistmaker.search.data.repository.TrackHistoryRepositoryImpl
 import com.example.playlistmaker.search.domain.repository.FindTrackRepository
@@ -34,7 +38,8 @@ val repositoryModule = module {
     }
 
 //PLAYER
-    single<PlayerGetTrackRepository> { PlayerGetTrackRepositoryImpl(get()) }
+    factory<TrackPlayerTrackMapper> { TrackPlayerTrackMapper() }
+    single<PlayerGetTrackRepository> { PlayerGetTrackRepositoryImpl(get(),get()) }
     factory<MediaPlayerRepository> { MediaPlayerRepositoryImpl(get())  }
 
     //SETTINGS
@@ -48,7 +53,9 @@ val repositoryModule = module {
 
     //Playlist
     factory { PlaylistDBConverter(get())}
+    factory { TrackInPlaylistDBConverter(get()) }
     single<PlaylistArtRepository> { PlaylistArtRepositroyImpl(get()) }
-    single<PlaylistControlDBRepository> {PlaylistControlDBRepositoryImpl(get(),get())  }
+    single<PlaylistControlDBRepository> {PlaylistControlDBRepositoryImpl(get(),get(),get())  }
+    single<TrackInPlaylistRepository> {TrackInPlaylistRepositoryImpl(get(),get(),get())  }
 }
 
