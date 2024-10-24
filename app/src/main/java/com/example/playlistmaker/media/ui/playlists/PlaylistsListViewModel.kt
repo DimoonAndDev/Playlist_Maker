@@ -30,16 +30,9 @@ class PlaylistsListViewModel(
             }
         }
     }
-    fun deletePlaylist(playlistId:Int){
-        deletePlaylistJob?.cancel()
-        deletePlaylistJob = viewModelScope.launch {
-            playlistControlBDInteractor.deletePlaylist(playlistId)
-        }
-    }
+
     fun convertPLtoJson(playlist: Playlist):String{
         return gson.toJson(playlist)
     }
-//    fun getPLArt(playlistArtUriString: String):String{
-//        return playlistArtInteractor.getPLArt(playlistArtUriString)
-//    }
+
 }

@@ -65,9 +65,14 @@
     <string name="plinfo_menu_share">Поделиться</string>
     <string name="plinfo_menu_changepl">Редактировать информацию</string>
     <string name="plinfo_menu_deletepl">Удалить плейлист</string>
-    <string name="delete_track_confrimdialog_title">Хотите удалить трек?</string>
+    <string name="plinfo_delete_track_confrimdialog_title">Хотите удалить трек?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="plinfo_delete_pl_confrimdialog_title">Хотите удалить плейлист «%1$s»?</string>
+    <string name="exit_dialog">Хотите выйти из приложения?</string>
+    <string name="edpl_edit">Редактировать</string>
+    <string name="edpl_save_button_text">Сохранить</string>
+    <string name="edpl_toast_pledited">Плейлист изменен</string>
 
 
 </resources>

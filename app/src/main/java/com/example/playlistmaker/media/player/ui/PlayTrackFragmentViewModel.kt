@@ -14,7 +14,6 @@ import com.example.playlistmaker.media.player.ui.mapper.TrackPlayerTrackMapper
 import com.example.playlistmaker.media.player.ui.models.PlayerStatus
 import com.example.playlistmaker.media.player.ui.models.PlayerTrack
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
-import com.example.playlistmaker.search.domain.models.Track
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -45,7 +44,7 @@ class PlayTrackFragmentViewModel(
     fun checkFavorite(trackId: Int) {
         favoriteCheckJob?.cancel()
         favoriteCheckJob = viewModelScope.launch {
-            favoritesControlInteractor.checkFavorites(trackId).collect() {
+            favoritesControlInteractor.checkFavorites(trackId).collect {
                 if (it == null) favoriteLiveData.postValue(false)
                 else favoriteLiveData.postValue(true)
             }

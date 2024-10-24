@@ -20,4 +20,6 @@ interface PlaylistDao {
 
     @Query("UPDATE playlists SET playlistTracksRegister =:newRegister WHERE playlist_id = :playlistID")
     suspend fun updateTrackToPlaylist(newRegister:String, playlistID:Int)
+
+
 }

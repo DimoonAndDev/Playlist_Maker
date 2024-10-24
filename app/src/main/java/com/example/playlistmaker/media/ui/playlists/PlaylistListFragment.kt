@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,6 +13,7 @@ import com.example.playlistmaker.databinding.MediaPlaylistsFragmentBinding
 import com.example.playlistmaker.media.playlist_control.domain.models.Playlist
 import com.example.playlistmaker.media.playlist_info.ui.PlaylistInfoFragment
 import com.example.playlistmaker.media.ui.playlists.models.PlaylistListScreenStates
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PlaylistListFragment : Fragment() {
@@ -19,6 +21,7 @@ class PlaylistListFragment : Fragment() {
     private val viewModel by viewModel<PlaylistsListViewModel>()
     private val playlists = mutableListOf(Playlist(""))
     private lateinit var playlistAdapter: PlaylistListAdapter
+    private lateinit var exitDialog:MaterialAlertDialogBuilder
 
     companion object {
 
@@ -28,7 +31,7 @@ class PlaylistListFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = MediaPlaylistsFragmentBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -36,7 +39,16 @@ class PlaylistListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback { exitDialog.show() }
+        exitDialog =
+            MaterialAlertDialogBuilder(requireContext(), R.style.Theme_PlDelTr_Dialog_Alert)
+                .setTitle(getString(R.string.exit_dialog))
+                .setPositiveButton(getString(R.string.yes)) { dialog, which ->
+                    requireActivity().finish()
 
+                }.setNegativeButton(R.string.no) { dialog, which ->
+
+                }
         binding.MediaNewPlaylistButton.setOnClickListener {
             findNavController().navigate(R.id.action_mediaFragment_to_createPlaylistFragment)
         }

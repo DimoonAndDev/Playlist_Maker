@@ -6,7 +6,6 @@ import android.media.MediaPlayer
 import androidx.room.Room
 import com.example.playlistmaker.PLAYLIST_SHARED_PREFS
 import com.example.playlistmaker.media.data.db.AppDatabase
-import com.example.playlistmaker.media.data.db.converter.PlaylistDBConverter
 import com.example.playlistmaker.search.data.network.ItunesApi
 import com.example.playlistmaker.search.data.network.RetrofitNetworkClient
 import com.example.playlistmaker.search.data.shpr.SearchTrackHistoryHelper

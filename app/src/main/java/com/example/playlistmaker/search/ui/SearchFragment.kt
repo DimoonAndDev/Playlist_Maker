@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.addCallback
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 
@@ -24,6 +25,7 @@ import com.example.playlistmaker.databinding.FragmentSearchBinding
 import com.example.playlistmaker.media.player.ui.PlayerTrackFragment
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.ui.models.SearchScreenState
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -34,6 +36,7 @@ class SearchFragment : Fragment() {
     private val viewModel by viewModel<SearchFragmentViewModel>()
     var textValue: String = EMPTY_TXT
     private lateinit var recyclerTrackAdapter: SearchTrackAdapter
+    private lateinit var exitDialog:MaterialAlertDialogBuilder
 
 
     override fun onCreateView(
@@ -46,6 +49,16 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback { exitDialog.show() }
+        exitDialog =
+            MaterialAlertDialogBuilder(requireContext(), R.style.Theme_PlDelTr_Dialog_Alert)
+                .setTitle(getString(R.string.exit_dialog))
+                .setPositiveButton(getString(R.string.yes)) { dialog, which ->
+                    requireActivity().finish()
+
+                }.setNegativeButton(R.string.no) { dialog, which ->
+
+                }
         binding.SearchEditText.requestFocus()
         binding.SearchEditText.setText(textValue)
         tracks.clear()
@@ -101,12 +114,14 @@ class SearchFragment : Fragment() {
                 if (p0.toString() == "") {
                     binding.SearchClearTextImage.visibility = View.INVISIBLE
                     showHistory(viewModel.getHistory())
+                    viewModel.clearSearch()
                 } else {
                     binding.SearchClearTextImage.visibility = View.VISIBLE
-                    if (p0.toString() != textValue) {
+                    if (p0.toString() != textValue && !p0.isNullOrEmpty()) {
                         textValue = p0.toString()
                         viewModel.searchDebounce(textValue)
                     }
+
                 }
                 if (savedInstanceState != null) {
                     onSaveInstanceState(savedInstanceState)

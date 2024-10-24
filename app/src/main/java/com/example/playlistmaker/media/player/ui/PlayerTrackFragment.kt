@@ -173,6 +173,7 @@ class PlayerTrackFragment : Fragment() {
     }
 
     private fun backHandle() {
+        requireActivity().onBackPressedDispatcher.addCallback { findNavController().popBackStack() }
         when (requireArguments().getInt(INCOME_ID)) {
             SEARCH_ID, CRPL_SEARCH_ID -> findNavController().popBackStack(
                 R.id.searchFragment,
@@ -231,7 +232,6 @@ class PlayerTrackFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.releasePlayer()
-        requireActivity().onBackPressedDispatcher.addCallback { findNavController().popBackStack() }
     }
 
     private fun renderTrack(track: PlayerTrack) {

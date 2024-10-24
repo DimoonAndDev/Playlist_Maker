@@ -37,7 +37,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         android:ellipsize="end"
-        android:text="sdcsdc"
         android:maxLines="1"
         android:scrollHorizontally="false"
         app:layout_constrainedWidth="true"
@@ -54,7 +53,6 @@
         android:scrollHorizontally="false"
         android:textAlignment="viewStart"
         app:layout_constrainedWidth="true"
-        android:text="1- nhrejs"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
