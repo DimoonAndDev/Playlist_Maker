@@ -45,6 +45,8 @@ class PlayerTrackFragment : Fragment() {
         const val MEDIA_ID = 1
         const val CRPL_SEARCH_ID = 2
         const val CRPL_MEDIA_ID = 3
+        const val PL_INFO_ID=4
+        const val CRPL_PLINFO_ID=5
 
         fun createArgs(trackJson: String?, incomeID: Int) = bundleOf(
             TRACK_JSON to trackJson,
@@ -171,12 +173,13 @@ class PlayerTrackFragment : Fragment() {
     }
 
     private fun backHandle() {
+        requireActivity().onBackPressedDispatcher.addCallback { findNavController().popBackStack() }
         when (requireArguments().getInt(INCOME_ID)) {
             SEARCH_ID, CRPL_SEARCH_ID -> findNavController().popBackStack(
                 R.id.searchFragment,
                 false
             )
-
+            PL_INFO_ID, CRPL_PLINFO_ID->findNavController().popBackStack(R.id.playlistInfoFragment,false)
             else -> findNavController().popBackStack(R.id.mediaFragment, false)
 
         }
@@ -229,7 +232,6 @@ class PlayerTrackFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.releasePlayer()
-        requireActivity().onBackPressedDispatcher.addCallback { findNavController().popBackStack() }
     }
 
     private fun renderTrack(track: PlayerTrack) {

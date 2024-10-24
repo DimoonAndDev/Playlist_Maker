@@ -289,7 +289,7 @@
         <item name="android:textColor">@color/YP_black</item>
         <item name="android:textSize">@dimen/settActive_options_textSize</item>
         <item name="hintTextColor">@color/YP_black</item>
-            </style>
+    </style>
 
     <style name="CrPlHintTextViewStyle">
         <item name="android:fontFamily">@font/ys_disp</item>
@@ -301,6 +301,7 @@
         <item name="android:backgroundTint">@color/white</item>
         <item name="android:background">@color/white</item>
     </style>
+
     <style name="CrPlButtonStyle">
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:fontWeight">500</item>
@@ -309,6 +310,7 @@
         <item name="android:textColor">@color/white</item>
 
     </style>
+
     <style name="PlaylistUnitNameText">
         <item name="android:fontFamily">@font/ys_disp</item>
         <item name="android:fontWeight">400</item>
@@ -317,6 +319,7 @@
         <item name="android:textColor">@color/YP_black</item>
         <item name="android:textSize">12sp</item>
     </style>
+
     <style name="PlaylistUnitTrackNumberText">
         <item name="android:fontFamily">@font/ys_disp</item>
         <item name="android:fontWeight">400</item>
@@ -325,12 +328,15 @@
         <item name="android:textColor">@color/YP_black</item>
         <item name="android:textSize">12sp</item>
     </style>
+
     <style name="PlayerBottomsheetStyle">
         <item name="android:background">@drawable/player_bottomsheet_back_light</item>
     </style>
+
     <style name="PlayerBottomsheetTopviewStyle">
         <item name="android:background">@drawable/player_bottomsheet_topview_light</item>
     </style>
+
     <style name="PlayerBottomsheetHeadStyle">
         <item name="android:fontFamily">@font/ys_display_medium</item>
         <item name="android:fontWeight">500</item>
@@ -339,6 +345,7 @@
         <item name="android:textColor">@color/YP_black</item>
         <item name="android:textSize">19sp</item>
     </style>
+
     <style name="PlayerNewPlaylistButton">
 
         <item name="cornerRadius">54dp</item>
@@ -350,4 +357,71 @@
         <item name="android:fontWeight">500</item>
         <item name="backgroundTint">@color/black</item>
     </style>
+
+    <style name="Theme.PlDelTr.Dialog.Alert" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <!-- Body -->
+        <item name="colorSurface">@color/white</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/BodyTextAppearance</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/TitleTextAppearance</item>
+    </style>
+
+    <style name="TitleTextAppearance" parent="@style/MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/black</item>
+
+    </style>
+
+    <style name="BodyTextAppearance" parent="@style/MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/theme_blue</item>
+
+    </style>
+
+    <style name="PlInfoPlName">
+
+        <item name="android:fontFamily">@font/ys_disp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:fontWeight">700</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+    <style name="PlInfoPlDescr">
+
+        <item name="android:fontFamily">@font/ys_disp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontWeight">400</item>
+
+    </style>
+    <style name="PlInfoPlTrackTimeNumber">
+
+        <item name="android:fontFamily">@font/ys_disp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontWeight">400</item>
+
+    </style>
+    <style name="PlInfoMenuPlName">
+
+        <item name="android:fontFamily">@font/ys_disp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:fontWeight">400</item>
+
+    </style>
+    <style name="PlInfoMenuPlTracks">
+
+        <item name="android:fontFamily">@font/ys_disp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textColor">@color/YP_gray</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontWeight">400</item>
+
+    </style>
+
 </resources>

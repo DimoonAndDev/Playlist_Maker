@@ -87,6 +87,9 @@ class SearchFragmentViewModel(
             findTrack(textValue)
         }
     }
+    fun clearSearch(){
+        searchJob?.cancel()
+    }
     companion object{
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }

@@ -22,7 +22,7 @@ class MediaFavoritesViewModel(private val getFavoritesInteractor: GetFavoritesIn
     fun getFavoriteTracks() {
         getFavoritesJob?.cancel()
         getFavoritesJob = viewModelScope.launch {
-            getFavoritesInteractor.getFavoriteTracks().collect(){
+            getFavoritesInteractor.getFavoriteTracks().collect {
                 if (it.isEmpty()) favoritesScreenStateLiveData.postValue(FavoritesScreenStates.Empty)
                 else favoritesScreenStateLiveData.postValue(FavoritesScreenStates.HaveFavorites(it))
             }

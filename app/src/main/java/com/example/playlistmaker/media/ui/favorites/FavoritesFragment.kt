@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -13,6 +14,7 @@ import com.example.playlistmaker.databinding.MediaFavoritesFragmentBinding
 import com.example.playlistmaker.media.player.ui.PlayerTrackFragment
 import com.example.playlistmaker.media.ui.favorites.models.FavoritesScreenStates
 import com.example.playlistmaker.search.domain.models.Track
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,6 +24,7 @@ class FavoritesFragment : Fragment() {
     private val viewModel by viewModel<MediaFavoritesViewModel>()
     private val tracks = mutableListOf(Track())
     private lateinit var recyclerFavoritesTrackAdapter: FavoritesTrackAdapter
+    private lateinit var exitDialog: MaterialAlertDialogBuilder
 
     companion object {
 
@@ -46,7 +49,16 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback { exitDialog.show() }
+        exitDialog =
+            MaterialAlertDialogBuilder(requireContext(), R.style.Theme_PlDelTr_Dialog_Alert)
+                .setTitle(getString(R.string.exit_dialog))
+                .setPositiveButton(getString(R.string.yes)) { dialog, which ->
+                    requireActivity().finish()
 
+                }.setNegativeButton(R.string.no) { dialog, which ->
+
+                }
         binding.FavoritesRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         recyclerFavoritesTrackAdapter = FavoritesTrackAdapter(tracks)

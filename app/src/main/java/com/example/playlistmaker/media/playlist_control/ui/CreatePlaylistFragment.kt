@@ -12,7 +12,6 @@ import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
@@ -29,7 +28,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.lang.IllegalStateException
 import kotlin.properties.Delegates
 
-class CreatePlaylistFragment : Fragment() {
+open class CreatePlaylistFragment : Fragment() {
     private val viewModel by viewModel<CreatePlaylistViewModel>()
 
     companion object {
@@ -40,6 +39,7 @@ class CreatePlaylistFragment : Fragment() {
         const val MEDIA_ID = 1
         const val CRPL_SEARCH_ID = 2
         const val CRPL_MEDIA_ID = 3
+        const val PL_INFO_ID = 4
         fun createArgs(trackJson: String?, playerIncomeID: Int) = bundleOf(
             TRACK_JSON to trackJson,
             INCOME_ID to playerIncomeID
@@ -71,7 +71,8 @@ class CreatePlaylistFragment : Fragment() {
         try {
             outcomePathID = when (requireArguments().getInt(INCOME_ID)) {
                 SEARCH_ID, CRPL_SEARCH_ID -> 2
-                else -> 3
+                MEDIA_ID, CRPL_MEDIA_ID -> 3
+                else ->5
             }
 
 
@@ -155,12 +156,6 @@ class CreatePlaylistFragment : Fragment() {
         }
 
     }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        requireActivity().onBackPressedDispatcher.addCallback { findNavController().popBackStack() }
-    }
-
 
     private fun backHandle(dialog: MaterialAlertDialogBuilder) {
 
