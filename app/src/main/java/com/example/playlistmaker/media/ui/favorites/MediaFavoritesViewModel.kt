@@ -11,11 +11,15 @@ import com.google.gson.Gson
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class MediaFavoritesViewModel(private val getFavoritesInteractor: GetFavoritesInteractor,
-    private val gson: Gson) :
+class MediaFavoritesViewModel(
+    private val getFavoritesInteractor: GetFavoritesInteractor,
+    private val gson: Gson
+) :
     ViewModel() {
     private var getFavoritesJob: Job? = null
-    private val favoritesScreenStateLiveData = MutableLiveData<FavoritesScreenStates>(FavoritesScreenStates.Loading)
+    private val favoritesScreenStateLiveData =
+        MutableLiveData<FavoritesScreenStates>(FavoritesScreenStates.Loading)
+
     fun getFavoritesScreenStateLiveData(): LiveData<FavoritesScreenStates> =
         favoritesScreenStateLiveData
 
@@ -28,7 +32,8 @@ class MediaFavoritesViewModel(private val getFavoritesInteractor: GetFavoritesIn
             }
         }
     }
-    fun getGsonString(track: Track):String{
+
+    fun getGsonString(track: Track): String {
         return gson.toJson(track)
     }
 }

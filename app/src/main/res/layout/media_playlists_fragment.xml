@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/MediaNewPlaylistButton"
@@ -25,54 +25,54 @@
 
     <ImageView
         android:id="@+id/MediaEmptyPlaylistsImage"
+        style="@style/MediaEmptyResultImage"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginTop="46dp"
+        android:contentDescription="@string/smth_wrong_image_descr"
         android:visibility="visible"
-        style="@style/MediaEmptyResultImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/MediaNewPlaylistButton"
-        android:contentDescription="@string/smth_wrong_image_descr"/>
+        app:layout_constraintTop_toBottomOf="@id/MediaNewPlaylistButton" />
+
     <TextView
         android:id="@+id/MediaEmptyPlaylistsText"
+        style="@style/MediaEmptyResultText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/MediaEmptyResultText"
-        android:text="@string/media_emtyplaylist"
         android:layout_marginTop="16dp"
+        android:text="@string/media_emtyplaylist"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/MediaEmptyPlaylistsImage"
-        />
+        app:layout_constraintTop_toBottomOf="@id/MediaEmptyPlaylistsImage" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/PlaylistListRecyclerView"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal|center_vertical"
         android:layout_marginTop="8dp"
-        app:layout_constrainedHeight="true"
+        android:gravity="center"
         android:paddingHorizontal="8dp"
-        android:layout_gravity = "center_horizontal|center_vertical"
-        android:gravity = "center"
+        app:layout_constrainedHeight="true"
 
 
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/MediaNewPlaylistButton"
-        />
+        app:layout_constraintTop_toBottomOf="@id/MediaNewPlaylistButton" />
+
     <ProgressBar
         android:id="@+id/PlaylistsProgressBar"
         android:layout_width="44dp"
         android:layout_height="44dp"
+        android:indeterminateTint="@color/theme_blue"
+
         android:visibility="gone"
-
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
 
-        android:indeterminateTint="@color/theme_blue"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

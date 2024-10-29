@@ -9,7 +9,8 @@ import com.example.playlistmaker.search.domain.repository.FindTrackRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
-class FindTrackRepositoryImpl(private val retrofitNetworkClient:RetrofitNetworkClient) : FindTrackRepository {
+class FindTrackRepositoryImpl(private val retrofitNetworkClient: RetrofitNetworkClient) :
+    FindTrackRepository {
 
     override fun findTrack(
         request: String

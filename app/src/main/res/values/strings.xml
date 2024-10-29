@@ -73,6 +73,11 @@
     <string name="edpl_edit">Редактировать</string>
     <string name="edpl_save_button_text">Сохранить</string>
     <string name="edpl_toast_pledited">Плейлист изменен</string>
-
+    <string name="n_track">%1$d трек</string>
+    <string name="n_trackov">%1$d треков</string>
+    <string name="n_tracka">%1$d трека</string>
+    <string name="n_minut">%1$d минут</string>
+    <string name="n_minuta">%1$d минута</string>
+    <string name="n_minuti">%1$d минуты</string>
 
 </resources>

@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 class TrackInPlaylistEntity(
     val trackID: Int = 0,
     val trackJson: String = "",
-    val numberOfPlaylists:Int = 0,
+    val numberOfPlaylists: Int = 0,
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0
 )

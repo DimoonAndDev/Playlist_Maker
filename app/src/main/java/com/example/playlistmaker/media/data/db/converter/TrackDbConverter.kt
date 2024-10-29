@@ -1,7 +1,7 @@
 package com.example.playlistmaker.media.data.db.converter
 
 import com.example.playlistmaker.media.data.db.entity.TrackEntity
-import com.example.playlistmaker.media.player.ui.models.PlayerTrack
+import com.example.playlistmaker.media.ui.player.models.PlayerTrack
 import com.example.playlistmaker.search.domain.models.Track
 
 class TrackDbConverter {
@@ -15,12 +15,13 @@ class TrackDbConverter {
             track.releaseDate,
             track.primaryGenreName,
             track.country,
-            track.previewUrl?:"",
+            track.previewUrl ?: "",
             track.trackId,
         )
         else return null
     }
-    fun map(track: TrackEntity?,mapperFlag:Boolean): Track? {
+
+    fun map(track: TrackEntity?, mapperFlag: Boolean): Track? {
         return if (track != null) Track(
             track.trackName,
             track.artistName,
@@ -31,9 +32,9 @@ class TrackDbConverter {
             track.releaseDate,
             track.primaryGenreName,
             track.country,
-            track.previewUrl?:"",
+            track.previewUrl ?: "",
 
-        )
+            )
         else return null
     }
 

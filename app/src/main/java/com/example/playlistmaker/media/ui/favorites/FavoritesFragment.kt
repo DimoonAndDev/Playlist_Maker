@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.playlistmaker.R
 import com.example.playlistmaker.databinding.MediaFavoritesFragmentBinding
-import com.example.playlistmaker.media.player.ui.PlayerTrackFragment
 import com.example.playlistmaker.media.ui.favorites.models.FavoritesScreenStates
+import com.example.playlistmaker.media.ui.player.PlayerTrackFragment
 import com.example.playlistmaker.search.domain.models.Track
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.delay
@@ -51,7 +51,7 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback { exitDialog.show() }
         exitDialog =
-            MaterialAlertDialogBuilder(requireContext(), R.style.Theme_PlDelTr_Dialog_Alert)
+            MaterialAlertDialogBuilder(requireContext(), R.style.Theme_PlDeleteTrack_Dialog_Alert)
                 .setTitle(getString(R.string.exit_dialog))
                 .setPositiveButton(getString(R.string.yes)) { dialog, which ->
                     requireActivity().finish()
@@ -76,8 +76,13 @@ class FavoritesFragment : Fragment() {
             override fun onClick(position: Int, track: Track) {
                 if (clickDebounce()) {
                     val savedTrack = viewModel.getGsonString(track)
-                    findNavController().navigate(R.id.action_mediaFragment_to_playerTrackFragment,PlayerTrackFragment.createArgs(savedTrack,
-                        MEDIA_ID))
+                    findNavController().navigate(
+                        R.id.action_mediaFragment_to_playerTrackFragment,
+                        PlayerTrackFragment.createArgs(
+                            savedTrack,
+                            MEDIA_ID
+                        )
+                    )
                 }
             }
 
@@ -96,6 +101,7 @@ class FavoritesFragment : Fragment() {
         }
         return current
     }
+
     override fun onStop() {
         super.onStop()
         isClickAllowed = true
@@ -108,7 +114,8 @@ class FavoritesFragment : Fragment() {
         binding.MediaEmptyFavoritesImage.visibility = View.VISIBLE
         binding.MediaEmptyFavoritesText.visibility = View.VISIBLE
     }
-    private fun showLoading(){
+
+    private fun showLoading() {
         binding.FavoritesRecyclerView.visibility = View.GONE
         binding.MediaEmptyFavoritesImage.visibility = View.GONE
         binding.MediaEmptyFavoritesText.visibility = View.GONE
@@ -122,7 +129,7 @@ class FavoritesFragment : Fragment() {
         binding.FavoritesProgressBar.visibility = View.GONE
 
         tracks.clear()
-        val favoritesWithoutNulls:List<Track> = favoriteTracksList.filterNotNull()
+        val favoritesWithoutNulls: List<Track> = favoriteTracksList.filterNotNull()
         tracks.addAll(favoritesWithoutNulls.reversed())
         recyclerFavoritesTrackAdapter.notifyDataSetChanged()
         binding.FavoritesRecyclerView.visibility = View.VISIBLE

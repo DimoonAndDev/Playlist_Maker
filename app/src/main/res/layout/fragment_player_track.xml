@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".media.player.ui.PlayerTrackFragment">
+    tools:context=".media.ui.player.PlayerTrackFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -301,17 +301,16 @@
             android:layout_width="50dp"
             android:layout_height="4dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            />
+            android:layout_marginTop="8dp" />
 
         <TextView
             style="@style/PlayerBottomsheetHeadStyle"
             android:layout_width="match_parent"
             android:layout_height="52dp"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="12dp"
-            android:text="@string/player_bottomsheet_head"
             android:gravity="center"
-            android:layout_gravity="center_horizontal"/>
+            android:text="@string/player_bottomsheet_head" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/PlayerBottomsheetNewPlaylistButton"
@@ -319,11 +318,11 @@
             style="@style/PlayerNewPlaylistButton"
             android:layout_width="wrap_content"
             android:layout_height="36dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/searchrefreshbutton_shape"
-
-            android:gravity="center"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+
+            android:background="@drawable/searchrefreshbutton_shape"
+            android:gravity="center"
             android:paddingStart="@dimen/search_refresh_button_startend_padd"
             android:paddingTop="@dimen/search_refresh_button_topbot_padd"
             android:paddingEnd="@dimen/search_refresh_button_startend_padd"

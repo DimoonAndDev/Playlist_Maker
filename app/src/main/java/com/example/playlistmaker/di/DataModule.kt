@@ -36,6 +36,6 @@ val dataModule = module {
             .fallbackToDestructiveMigration()
             .build()
     }
-    single{Gson()}
+    single { Gson() }
 
 }

@@ -17,5 +17,4 @@ class SharingInteractorImpl(private val externalNavigator: ExternalNavigator) : 
     }
 
 
-
 }

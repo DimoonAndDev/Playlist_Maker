@@ -16,10 +16,24 @@ interface PlaylistDao {
 
 
     @Query("SELECT * from playlists")
-    suspend fun getPlaylists():List<PlaylistEntity>
+    suspend fun getPlaylists(): List<PlaylistEntity>
 
     @Query("UPDATE playlists SET playlistTracksRegister =:newRegister WHERE playlist_id = :playlistID")
-    suspend fun updateTrackToPlaylist(newRegister:String, playlistID:Int)
+    suspend fun updateTrackToPlaylist(newRegister: String, playlistID: Int)
+
+    @Query(
+        "UPDATE playlists SET playlistName = :playlistName,playlistDescr = :playlistDescr,playlistArtUriString = :playlistArt" +
+                " WHERE playlist_id = :playlistID"
+    )
+    suspend fun updatePlaylist(
+        playlistName: String,
+        playlistDescr: String,
+        playlistArt: String,
+        playlistID: Int
+    )
+
+    @Query("SELECT * FROM playlists WHERE playlist_id LIKE :playlistID")
+    suspend fun getUpdatedPlaylist(playlistID: Int): PlaylistEntity
 
 
 }

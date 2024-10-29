@@ -18,14 +18,14 @@ class MediaFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentMediaBinding.inflate(inflater,container,false)
+        binding = FragmentMediaBinding.inflate(inflater, container, false)
         return binding.root
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       binding.MediaViewPager.adapter = MediaViewPagerAdapter(childFragmentManager,lifecycle)
+        binding.MediaViewPager.adapter = MediaViewPagerAdapter(childFragmentManager, lifecycle)
 
         tabMediator =
             TabLayoutMediator(binding.MediaTabLayout, binding.MediaViewPager) { tab, position ->
@@ -42,4 +42,4 @@ class MediaFragment : Fragment() {
         tabMediator.detach()
     }
 
-    }
+}

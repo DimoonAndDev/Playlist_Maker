@@ -22,7 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.playlistmaker.R
 
 import com.example.playlistmaker.databinding.FragmentSearchBinding
-import com.example.playlistmaker.media.player.ui.PlayerTrackFragment
+import com.example.playlistmaker.media.ui.player.PlayerTrackFragment
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.ui.models.SearchScreenState
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -36,7 +36,7 @@ class SearchFragment : Fragment() {
     private val viewModel by viewModel<SearchFragmentViewModel>()
     var textValue: String = EMPTY_TXT
     private lateinit var recyclerTrackAdapter: SearchTrackAdapter
-    private lateinit var exitDialog:MaterialAlertDialogBuilder
+    private lateinit var exitDialog: MaterialAlertDialogBuilder
 
 
     override fun onCreateView(
@@ -51,7 +51,7 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback { exitDialog.show() }
         exitDialog =
-            MaterialAlertDialogBuilder(requireContext(), R.style.Theme_PlDelTr_Dialog_Alert)
+            MaterialAlertDialogBuilder(requireContext(), R.style.Theme_PlDeleteTrack_Dialog_Alert)
                 .setTitle(getString(R.string.exit_dialog))
                 .setPositiveButton(getString(R.string.yes)) { dialog, which ->
                     requireActivity().finish()
@@ -170,6 +170,7 @@ class SearchFragment : Fragment() {
         super.onStop()
         isClickAllowed = true
     }
+
     companion object {
         private const val CURRENT_TEXT = "CURRENT_TEXT"
         private const val EMPTY_TXT = ""

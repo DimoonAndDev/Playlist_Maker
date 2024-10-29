@@ -5,6 +5,6 @@ import com.example.playlistmaker.search.domain.models.Track
 import kotlinx.coroutines.flow.Flow
 
 interface FindTrackRepository {
-    fun findTrack(request:String): Flow<Resource<List<Track>>>
+    fun findTrack(request: String): Flow<Resource<List<Track>>>
 
 }

@@ -15,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class SettingsFragment : Fragment() {
     private val viewModel by viewModel<SettingViewModel>()
     private lateinit var binding: FragmentSettingsBinding
-    private lateinit var exitDialog:MaterialAlertDialogBuilder
+    private lateinit var exitDialog: MaterialAlertDialogBuilder
 
 
     override fun onCreateView(
@@ -23,7 +23,7 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-        binding = FragmentSettingsBinding.inflate(inflater,container,false)
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -31,7 +31,7 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback { exitDialog.show() }
         exitDialog =
-            MaterialAlertDialogBuilder(requireContext(), R.style.Theme_PlDelTr_Dialog_Alert)
+            MaterialAlertDialogBuilder(requireContext(), R.style.Theme_PlDeleteTrack_Dialog_Alert)
                 .setTitle(getString(R.string.exit_dialog))
                 .setPositiveButton(getString(R.string.yes)) { dialog, which ->
                     requireActivity().finish()

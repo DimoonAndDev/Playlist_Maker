@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/playerTrackFragment"
-        android:name="com.example.playlistmaker.media.player.ui.PlayerTrackFragment"
+        android:name="com.example.playlistmaker.media.ui.player.PlayerTrackFragment"
         android:label="fragment_player_track"
         tools:layout="@layout/fragment_player_track" >
         <action
@@ -50,7 +50,7 @@
     </fragment>
     <fragment
         android:id="@+id/createPlaylistFragment"
-        android:name="com.example.playlistmaker.media.playlist_control.ui.CreatePlaylistFragment"
+        android:name="com.example.playlistmaker.media.ui.playlists.pl_create.CreatePlaylistFragment"
         android:label="fragment_create_playlist"
         tools:layout="@layout/fragment_create_playlist" >
         <action
@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/playlistInfoFragment"
-        android:name="com.example.playlistmaker.media.playlist_info.ui.PlaylistInfoFragment"
+        android:name="com.example.playlistmaker.media.ui.playlists.pl_info.PlaylistInfoFragment"
         android:label="fragment_playlist_info"
         tools:layout="@layout/fragment_playlist_info" >
         <action
@@ -77,7 +77,7 @@
     </fragment>
     <fragment
         android:id="@+id/editPlaylistFragment"
-        android:name="com.example.playlistmaker.media.playlist_control.ui.EditPlaylistFragment"
+        android:name="com.example.playlistmaker.media.ui.playlists.pl_create.EditPlaylistFragment"
         android:label="fragment_edit_playlist"
         tools:layout="@layout/fragment_create_playlist" >
         <action
