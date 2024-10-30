@@ -31,7 +31,6 @@ class PlaylistInfoFragmentViewModel(
     fun getScreenStateLiveData(): LiveData<PlaylistInfoScreenState> = screenStateLiveData
 
 
-    private var deleteJob: Job? = null
     private var getCheckTracksJob: Job? = null
 
 
@@ -79,8 +78,7 @@ class PlaylistInfoFragmentViewModel(
 
     fun deleteTrackFromPlaylist(trackId: Int, playlist: Playlist) {
         val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
-        deleteJob?.cancel()
-        deleteJob = viewModelScope.launch(dispatcherIO) {
+        viewModelScope.launch(dispatcherIO) {
             lastPlaylist =
                 trackInPlaylistInteractror.deleteTrackFromPlaylist(trackId, playlist)
             getTracksInPlaylist(lastPlaylist)
@@ -109,9 +107,10 @@ class PlaylistInfoFragmentViewModel(
     }
 
     fun deletePlaylist(playlist: Playlist) {
-        viewModelScope.launch {
-            for (track in playlist.tracksRegister) {
-                deleteTrackFromPlaylist(track, playlist)
+        val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
+        viewModelScope.launch(dispatcherIO) {
+            for (trackId in playlist.tracksRegister) {
+                trackInPlaylistInteractror.deleteTrackFromPlaylist(trackId, playlist)
             }
             playlistControlDBInteractor.deletePlaylist(playlist.innerId)
         }
