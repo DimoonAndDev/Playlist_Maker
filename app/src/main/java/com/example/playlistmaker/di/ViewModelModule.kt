@@ -32,7 +32,7 @@ val viewModelModule = module {
         CreatePlaylistViewModel(get(), get(), get())
     }
     viewModel {
-        PlaylistInfoFragmentViewModel(get(), get(), get())
+        PlaylistInfoFragmentViewModel(get(), get(), get(),get())
     }
     viewModel {
         EditPlaylistViewModel(get(), get(), get(), get(), get())

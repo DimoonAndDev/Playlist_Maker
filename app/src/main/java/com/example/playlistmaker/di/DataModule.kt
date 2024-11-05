@@ -10,6 +10,8 @@ import com.example.playlistmaker.search.data.network.ItunesApi
 import com.example.playlistmaker.search.data.network.RetrofitNetworkClient
 import com.example.playlistmaker.search.data.shpr.SearchTrackHistoryHelper
 import com.google.gson.Gson
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -37,5 +39,6 @@ val dataModule = module {
             .build()
     }
     single { Gson() }
+    factory<CoroutineDispatcher> { Dispatchers.IO }
 
 }

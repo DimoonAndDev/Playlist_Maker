@@ -13,7 +13,6 @@ import com.example.playlistmaker.media.ui.playlists.models.PlaylistInfoScreenSta
 import com.example.playlistmaker.search.domain.models.Track
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
@@ -22,7 +21,8 @@ import java.util.Locale
 class PlaylistInfoFragmentViewModel(
     private val gson: Gson,
     private val trackInPlaylistInteractror: TrackInPlaylistInteractror,
-    private val playlistControlDBInteractor: PlaylistControlDBInteractor
+    private val playlistControlDBInteractor: PlaylistControlDBInteractor,
+    private val dispatcherIO: CoroutineDispatcher
 ) : ViewModel() {
     private var lastTracksInPlaylist: List<Track> = listOf()
     private var lastPlaylist: Playlist = Playlist("testt")
@@ -35,7 +35,6 @@ class PlaylistInfoFragmentViewModel(
 
 
     fun getPlaylistFromJsonWithCheck(playlistGson: String?): Playlist {
-        val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
         val playlistFromJson = gson.fromJson(playlistGson, Playlist::class.java)
         getCheckTracksJob?.cancel()
         getCheckTracksJob = viewModelScope.launch(dispatcherIO) {
@@ -56,8 +55,7 @@ class PlaylistInfoFragmentViewModel(
         return playlistFromJson
     }
 
-    fun getTracksInPlaylist(playlist: Playlist) {
-        val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
+    private fun getTracksInPlaylist(playlist: Playlist) {
         getCheckTracksJob?.cancel()
         getCheckTracksJob = viewModelScope.launch(dispatcherIO) {
             trackInPlaylistInteractror.getTracksInPlaylist(playlist).collect {
@@ -77,7 +75,6 @@ class PlaylistInfoFragmentViewModel(
     }
 
     fun deleteTrackFromPlaylist(trackId: Int, playlist: Playlist) {
-        val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
         viewModelScope.launch(dispatcherIO) {
             lastPlaylist =
                 trackInPlaylistInteractror.deleteTrackFromPlaylist(trackId, playlist)
@@ -107,7 +104,6 @@ class PlaylistInfoFragmentViewModel(
     }
 
     fun deletePlaylist(playlist: Playlist) {
-        val dispatcherIO: CoroutineDispatcher = Dispatchers.IO
         viewModelScope.launch(dispatcherIO) {
             for (trackId in playlist.tracksRegister) {
                 trackInPlaylistInteractror.deleteTrackFromPlaylist(trackId, playlist)
