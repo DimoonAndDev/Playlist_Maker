@@ -11,12 +11,13 @@ import kotlinx.coroutines.flow.flow
 class GetFavoriteTrackRepImpl(
     private val appDatabase: AppDatabase,
     private val dbConverter: TrackDbConverter
-):GetFavoritesRep {
+) : GetFavoritesRep {
     override suspend fun getFavoriteTracks(): Flow<List<Track?>> = flow {
         val tracks = appDatabase.trackDao().getFavoriteTracks()
         emit(convertFromEntities(tracks))
     }
-    private fun convertFromEntities(tracks:List<TrackEntity>):List<Track?>{
-        return tracks.map { track -> dbConverter.map(track,true) }
+
+    private fun convertFromEntities(tracks: List<TrackEntity>): List<Track?> {
+        return tracks.map { track -> dbConverter.map(track, true) }
     }
 }

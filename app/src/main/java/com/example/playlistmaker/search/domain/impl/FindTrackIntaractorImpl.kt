@@ -6,7 +6,6 @@ import com.example.playlistmaker.search.domain.repository.FindTrackRepository
 import com.example.playlistmaker.search.domain.usecases.FindTrackInteractor
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import java.util.concurrent.Executors
 
 class FindTrackIntaractorImpl(val repository: FindTrackRepository) : FindTrackInteractor {
 
@@ -14,11 +13,11 @@ class FindTrackIntaractorImpl(val repository: FindTrackRepository) : FindTrackIn
         return repository.findTrack(request).map {
             when (it) {
                 is Resource.Success -> {
-                    Pair(it.data,null)
+                    Pair(it.data, null)
                 }
 
                 is Resource.Error -> {
-                    Pair(null,it.message)
+                    Pair(null, it.message)
                 }
             }
         }

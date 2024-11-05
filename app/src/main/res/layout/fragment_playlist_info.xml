@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/YP_lightGray"
+    tools:context=".media.ui.playlists.pl_info.PlaylistInfoFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/PLInfo_left_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="16dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/PLInfo_right_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="16dp" />
+
+        <ImageView
+            android:id="@+id/PLInfoArtImageView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:contentDescription="@string/plinfo_art_descr"
+
+            android:elevation="0dp"
+            android:padding="24dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintDimensionRatio="1:1"
+
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            app:srcCompat="@drawable/placeholder" />
+
+        <ImageView
+            android:id="@+id/PLInfoArrowImage"
+            style="@style/BackArrowStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:contentDescription="@string/settActiv_backButton_descr"
+
+
+            android:elevation="2dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/backarrow" />
+
+        <TextView
+            android:id="@+id/PLInfoNameTextView"
+            style="@style/PlInfoPlName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="24dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:scrollHorizontally="false"
+            android:text="@string/plinfo_name_placeholder"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@+id/PLInfo_right_guideline"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/PLInfo_left_guideline"
+            app:layout_constraintTop_toBottomOf="@id/PLInfoArtImageView" />
+
+        <TextView
+            android:id="@+id/PLInfoDescrTextView"
+            style="@style/PlInfoPlDescr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+
+            android:scrollHorizontally="false"
+
+            android:text="@string/plinfo_descr_placeholder"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@+id/PLInfo_right_guideline"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/PLInfo_left_guideline"
+            app:layout_constraintTop_toBottomOf="@id/PLInfoNameTextView" />
+
+        <TextView
+            android:id="@+id/PLInfoTimeSum"
+            style="@style/PlInfoPlTrackTimeNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+
+            android:maxLines="1"
+            android:scrollHorizontally="false"
+            android:textAlignment="viewStart"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toStartOf="@id/PLInfo_right_guideline"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/PLInfo_left_guideline"
+            app:layout_constraintTop_toBottomOf="@id/PLInfoDescrTextView" />
+
+        <TextView
+            android:id="@+id/PLInfoUnitDot"
+            style="@style/PlInfoPlTrackTimeNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/artist_dot_time"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/PLInfoTimeSum"
+            app:layout_constraintTop_toTopOf="@id/PLInfoTimeSum" />
+
+        <TextView
+            android:id="@+id/PLInfoTrackNumber"
+            style="@style/PlInfoPlTrackTimeNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@id/PLInfo_right_guideline"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@id/PLInfoUnitDot"
+            app:layout_constraintTop_toTopOf="@id/PLInfoTimeSum" />
+
+        <ImageView
+            android:id="@+id/PLInfoShareButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+
+            app:layout_constraintStart_toEndOf="@id/PLInfo_left_guideline"
+            app:layout_constraintTop_toBottomOf="@id/PLInfoTimeSum"
+            app:srcCompat="@drawable/share"
+            app:tint="@color/black" />
+
+        <ImageView
+            android:id="@+id/PLInfoMenuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@id/PLInfoShareButton"
+            app:layout_constraintTop_toTopOf="@id/PLInfoShareButton"
+            app:srcCompat="@drawable/triple_dot_menu"
+            app:tint="@color/black" />
+
+        <View
+            android:id="@+id/PLInfoBottomsheetMaxHeight"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="24dp"
+            android:alpha="1.00"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/PLInfoShareButton" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/PLInfoBottomsheetOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99000000"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/PlInfoTrackListBottomsheet"
+        style="@style/PlayerBottomsheetStyle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="150dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:layout_constrainedHeight="true"
+
+        >
+
+        <ImageView
+            style="@style/PlayerBottomsheetTopviewStyle"
+            android:layout_width="50dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/PLInfoEmptyTrackListText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="12dp"
+            android:text="@string/pl_info_empty_tracklist" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/PLInfoBottomsheetTrackListRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constrainedHeight="true"
+            app:layout_goneMarginTop="12dp" />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/PLInfoMenuBottomsheet"
+        style="@style/PlayerBottomsheetStyle"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:elevation="7dp"
+        android:orientation="vertical"
+        app:behavior_hideable="true"
+        app:behavior_peekHeight="400dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <ImageView
+            style="@style/PlayerBottomsheetTopviewStyle"
+            android:layout_width="50dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:layout_marginTop="12dp">
+
+            <ImageView
+                android:id="@+id/PLInfoMenuImage"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+
+                android:layout_marginStart="13dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/placeholder" />
+
+            <TextView
+                android:id="@+id/PLInfoMenuName"
+                style="@style/PlInfoMenuPlName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="14dp"
+                android:text="@string/plinfo_name_placeholder"
+                app:layout_constraintStart_toEndOf="@id/PLInfoMenuImage"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/PLInfoMenuTrackNumber"
+                style="@style/PlInfoMenuPlTracks"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:text="@string/track_time_placeholder"
+                app:layout_constraintStart_toStartOf="@id/PLInfoMenuName"
+                app:layout_constraintTop_toBottomOf="@id/PLInfoMenuName" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/PLInfoMenuShareButton"
+            style="@style/PlInfoMenuPlName"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical|start"
+            android:padding="16dp"
+            android:text="@string/plinfo_menu_share" />
+
+        <TextView
+            android:id="@+id/PLInfoMenuChangePlButton"
+
+            style="@style/PlInfoMenuPlName"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:gravity="center_vertical|start"
+            android:padding="16dp"
+            android:text="@string/plinfo_menu_changepl" />
+
+        <TextView
+            android:id="@+id/PLInfoMenuDeletePlButton"
+            style="@style/PlInfoMenuPlName"
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:gravity="center_vertical|start"
+            android:padding="16dp"
+            android:text="@string/plinfo_menu_deletepl" />
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

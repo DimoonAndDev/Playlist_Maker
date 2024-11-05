@@ -1,12 +1,12 @@
 package com.example.playlistmaker.search.data.repository
 
 
-
 import com.example.playlistmaker.search.data.shpr.SearchTrackHistoryHelper
 import com.example.playlistmaker.search.domain.models.Track
 import com.example.playlistmaker.search.domain.repository.TrackHistoryRepository
 
-class TrackHistoryRepositoryImpl(private val searchTrackHistoryHelper:SearchTrackHistoryHelper):TrackHistoryRepository {
+class TrackHistoryRepositoryImpl(private val searchTrackHistoryHelper: SearchTrackHistoryHelper) :
+    TrackHistoryRepository {
 
     override fun saveTrackHistory(track: Track) {
         searchTrackHistoryHelper.saveTrack(track)

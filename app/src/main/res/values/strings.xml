@@ -58,6 +58,26 @@
     <string name="player_toast_already_added">"Трек уже добавлен в плейлист "</string>
     <string name="crpl_toast_plcreated">Плейлист создан</string>
     <string name="crpl_toast_plart_notselected">Арт не выбран</string>
-
+    <string name="plinfo_art_descr">Обложка плейлиста</string>
+    <string name="plinfo_name_placeholder">Название плейлиста</string>
+    <string name="plinfo_descr_placeholder">Описание плейлиста</string>
+    <string name="pl_info_empty_tracklist">В плейлист не добавлены треки</string>
+    <string name="plinfo_menu_share">Поделиться</string>
+    <string name="plinfo_menu_changepl">Редактировать информацию</string>
+    <string name="plinfo_menu_deletepl">Удалить плейлист</string>
+    <string name="plinfo_delete_track_confrimdialog_title">Хотите удалить трек?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="plinfo_delete_pl_confrimdialog_title">Хотите удалить плейлист «%1$s»?</string>
+    <string name="exit_dialog">Хотите выйти из приложения?</string>
+    <string name="edpl_edit">Редактировать</string>
+    <string name="edpl_save_button_text">Сохранить</string>
+    <string name="edpl_toast_pledited">Плейлист изменен</string>
+    <string name="n_track">%1$d трек</string>
+    <string name="n_trackov">%1$d треков</string>
+    <string name="n_tracka">%1$d трека</string>
+    <string name="n_minut">%1$d минут</string>
+    <string name="n_minuta">%1$d минута</string>
+    <string name="n_minuti">%1$d минуты</string>
 
 </resources>

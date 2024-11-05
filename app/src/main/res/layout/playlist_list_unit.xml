@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="4dp"
     android:paddingVertical="8dp">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/PlaylistUnitImageCard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@android:color/transparent"
         app:cardCornerRadius="8dp"
         app:cardElevation="0dp"
-        android:backgroundTint="@android:color/transparent">
-    <ImageView
-        android:id="@+id/PlaylistUnitImage"
-        android:layout_width="@dimen/playlist_list_square_art_side_size"
-        android:layout_height="@dimen/playlist_list_square_art_side_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        android:contentDescription="@string/playlist_unit_art_descr"
-        android:background="@drawable/playlist_list_art_back"
-        />
+        <ImageView
+            android:id="@+id/PlaylistUnitImage"
+            android:layout_width="@dimen/playlist_list_square_art_side_size"
+            android:layout_height="@dimen/playlist_list_square_art_side_size"
+
+            android:background="@drawable/playlist_list_art_back"
+            android:contentDescription="@string/playlist_unit_art_descr" />
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -32,16 +33,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
 
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/PlaylistUnitImageCard"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         android:ellipsize="end"
-        android:text="sdcsdc"
         android:maxLines="1"
         android:scrollHorizontally="false"
         app:layout_constrainedWidth="true"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/PlaylistUnitImageCard" />
 
     <TextView
         android:id="@+id/PlaylistTrackNumberText"
@@ -54,7 +53,6 @@
         android:scrollHorizontally="false"
         android:textAlignment="viewStart"
         app:layout_constrainedWidth="true"
-        android:text="1- nhrejs"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

@@ -7,33 +7,34 @@ import com.example.playlistmaker.settings.domain.usecases.ThemeChangeInteractor
 import com.example.playlistmaker.sharing.domain.usecases.SharingInteractor
 
 
-
 class SettingViewModel(
     private val themeChangeInteractor: ThemeChangeInteractor,
     private val sharingInteractor: SharingInteractor,
-    ): ViewModel() {
+) : ViewModel() {
     private val themeLiveData = MutableLiveData(themeChangeInteractor.getTheme())
 
     init {
-        themeChangeInteractor.changeTheme(themeLiveData.value?:false)
+        themeChangeInteractor.changeTheme(themeLiveData.value ?: false)
     }
-    fun getThemeLiveData():LiveData<Boolean> = themeLiveData
 
-    fun changeThemeLD(darkTheme:Boolean){
+    fun getThemeLiveData(): LiveData<Boolean> = themeLiveData
+
+    fun changeThemeLD(darkTheme: Boolean) {
         themeLiveData.postValue(darkTheme)
         themeChangeInteractor.changeTheme(darkTheme)
     }
 
-    fun getThemeLD():Boolean = themeChangeInteractor.getTheme()
+    fun getThemeLD(): Boolean = themeChangeInteractor.getTheme()
 
-    fun openTerms(){
-       sharingInteractor.openTerms()
+    fun openTerms() {
+        sharingInteractor.openTerms()
     }
 
-    fun shareApp(){
+    fun shareApp() {
         sharingInteractor.shareApp()
     }
-    fun writeSupport(){
+
+    fun writeSupport() {
         sharingInteractor.writeSupport()
     }
 

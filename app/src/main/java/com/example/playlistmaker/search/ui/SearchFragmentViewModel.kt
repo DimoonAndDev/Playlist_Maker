@@ -16,7 +16,7 @@ import kotlinx.coroutines.launch
 class SearchFragmentViewModel(
     private val findTrackInteractor: FindTrackInteractor,
     private val getSetTrackHistoryInteractor: GetSetTrackHistoryInteractor,
-    private val gson:Gson
+    private val gson: Gson
 ) : ViewModel() {
 
 
@@ -40,7 +40,8 @@ class SearchFragmentViewModel(
     fun saveTrackInHistory(track: Track) {
         getSetTrackHistoryInteractor.saveTrack(track)
     }
-    fun getGsonString(track: Track):String{
+
+    fun getGsonString(track: Track): String {
         return gson.toJson(track)
     }
 
@@ -57,37 +58,42 @@ class SearchFragmentViewModel(
         if (request.isNotEmpty()) {
             searchActivityStateLiveData.postValue(SearchScreenState.Loading)
             findTrackInteractor.findTrack(request).collect {
-                    if (it.first == null) {
-                        searchActivityStateLiveData.postValue(
-                            SearchScreenState.NoConnection(
-                                it.second
-                            )
+                if (it.first == null) {
+                    searchActivityStateLiveData.postValue(
+                        SearchScreenState.NoConnection(
+                            it.second
                         )
-                    } else if (it.first!!.isEmpty()) {
-                        searchActivityStateLiveData.postValue(SearchScreenState.NoResult)
-                    } else {
-                        searchActivityStateLiveData.postValue(
-                            SearchScreenState.FoundContent(
-                                it.first!!
-                            )
+                    )
+                } else if (it.first!!.isEmpty()) {
+                    searchActivityStateLiveData.postValue(SearchScreenState.NoResult)
+                } else {
+                    searchActivityStateLiveData.postValue(
+                        SearchScreenState.FoundContent(
+                            it.first!!
                         )
-                    }
+                    )
                 }
+            }
 
 
         }
     }
 
-    private var searchJob: Job?=null
+    private var searchJob: Job? = null
 
-    fun searchDebounce(textValue:String) {
+    fun searchDebounce(textValue: String) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(SEARCH_DEBOUNCE_DELAY)
             findTrack(textValue)
         }
     }
-    companion object{
+
+    fun clearSearch() {
+        searchJob?.cancel()
+    }
+
+    companion object {
         private const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }

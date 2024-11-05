@@ -24,9 +24,12 @@ class FavoritesViewHolder(parentView: View) : RecyclerView.ViewHolder(parentView
         track: Track
     ) {
 
-        trackNameTextView.text = track.trackName.ifEmpty { itemView.context.getString(R.string.track_name_placeholder) }
-        artistTextView.text = track.artistName.ifEmpty { itemView.context.getString(R.string.track_artist_placeholder) }
-        timeTextView.text = SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)
+        trackNameTextView.text =
+            track.trackName.ifEmpty { itemView.context.getString(R.string.track_name_placeholder) }
+        artistTextView.text =
+            track.artistName.ifEmpty { itemView.context.getString(R.string.track_artist_placeholder) }
+        timeTextView.text =
+            SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis)
                 .ifEmpty { itemView.context.getString(R.string.track_time_placeholder) }
 
         Glide.with(itemView)

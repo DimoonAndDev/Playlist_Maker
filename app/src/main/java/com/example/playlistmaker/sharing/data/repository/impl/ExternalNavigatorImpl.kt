@@ -8,8 +8,7 @@ import com.example.playlistmaker.R
 import com.example.playlistmaker.sharing.data.repository.ExternalNavigator
 
 
-
-class ExternalNavigatorImpl(private val contextApp:Context) : ExternalNavigator {
+class ExternalNavigatorImpl(private val contextApp: Context) : ExternalNavigator {
 
     override fun openTerms() {
 

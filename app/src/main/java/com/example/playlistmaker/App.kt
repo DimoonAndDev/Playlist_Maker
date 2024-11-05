@@ -26,7 +26,10 @@ class App : Application() {
         }
 
         val sharedPrefs = getKoin().get<SharedPreferences>()
-        darkTheme = sharedPrefs.getBoolean(SP_THEME_KEY,resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES)
+        darkTheme = sharedPrefs.getBoolean(
+            SP_THEME_KEY,
+            resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+        )
         switchTheme(darkTheme)
     }
 
